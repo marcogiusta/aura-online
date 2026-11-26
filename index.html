@@ -696,6 +696,93 @@ body.mode-phone{background:var(--crema);overscroll-behavior-y:contain}
 @media(min-width:1061px) and (max-width:1280px){.mode-host .aura-veil{right:354px}}
 .mode-host .aura-veil .ar-line{display:none}
 
+/* ============ regole in diapositive (proiettore) ============ */
+.rules-deck{position:fixed;inset:0;z-index:95;background:radial-gradient(circle at 85% 10%,#fff3cc 0,transparent 32%),radial-gradient(circle at 5% 95%,#d9f4ea 0,transparent 30%),var(--crema);display:grid;grid-template-rows:auto 1fr auto auto;padding:18px clamp(24px,4vw,64px) 10px;overflow:hidden;animation:veilIn .35s}
+.rs-top{display:flex;align-items:center;gap:14px;font-family:var(--head);font-weight:600;color:var(--muted);font-size:16px}.rs-top img{width:58px}.rs-count{margin-left:auto;font-size:15px;background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 14px}
+.rs-slide{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(24px,4vw,70px);align-items:center;min-height:0}
+.rs-slide.in-r{animation:rsInR .5s cubic-bezier(.2,.9,.3,1)}.rs-slide.in-l{animation:rsInL .5s cubic-bezier(.2,.9,.3,1)}
+@keyframes rsInR{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:none}}@keyframes rsInL{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:none}}
+.rs-kicker{font-family:var(--head);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blu);font-size:clamp(14px,1.3vw,20px)}
+.rs-copy h1{font-size:clamp(42px,5.2vw,88px);line-height:1.02;margin:8px 0 16px;color:var(--notte)}
+.rs-hello .rs-copy h1,.rs-end .rs-copy h1{color:var(--corallo)}
+.rs-lead{font-size:clamp(19px,1.75vw,28px);line-height:1.45;color:var(--muted);font-weight:700;margin-bottom:18px}
+.rs-points{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.rs-points li{position:relative;padding:12px 16px 12px 54px;background:#fff;border:2px solid var(--line);border-radius:18px;font-size:clamp(17px,1.5vw,24px);line-height:1.38;font-weight:700;animation:popIn .45s var(--d,0ms) both;counter-increment:rs}
+.rs-points{counter-reset:rs}.rs-points li:before{content:counter(rs);position:absolute;left:12px;top:11px;width:30px;height:30px;border-radius:50%;background:var(--giallo);color:var(--notte);font-family:var(--head);display:grid;place-items:center;font-size:17px}
+.rs-visual{display:grid;place-items:center;min-height:0}
+.rs-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px}
+.rs-nav .primary,.rs-nav .ghost{font-size:18px}
+.rs-dots{display:flex;gap:8px}.rs-dots button{width:14px;height:14px;border-radius:50%;border:0;background:#e0d9c6;padding:0;transition:.2s}.rs-dots button.past{background:var(--azzurro)}.rs-dots button.on{background:var(--blu);width:38px;border-radius:8px}
+.rs-hint{text-align:center;font-size:12px;color:var(--muted);padding-top:4px}
+/* visual */
+.rv-hello{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;max-width:640px;width:100%}
+.rv-hello figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:4px;animation:popIn .5s var(--d) both}
+.rv-hello img{width:100%;aspect-ratio:1;border-radius:50%;object-fit:cover;object-position:50% 12%;border:5px solid var(--pc);background:#fff;box-shadow:0 6px 0 #082f511a}
+.rv-hello figcaption{font-family:var(--head);font-size:clamp(13px,1.1vw,18px)}
+.rv-slogan{grid-column:1/-1;text-align:center;font-family:var(--head);font-size:clamp(24px,2.4vw,40px);margin-top:10px}.rv-slogan .r{color:var(--corallo)}.rv-slogan .b{color:var(--blu)}
+.rv-char{width:min(100%,520px);background:#fff;border-radius:28px;border:4px solid var(--pc);box-shadow:10px 10px 0 color-mix(in srgb,var(--pc) 35%,#fff);padding:20px 22px;animation:popIn .5s .2s both}
+.rv-char-top{display:flex;gap:16px;align-items:center;margin-bottom:12px}.rv-char-top img{width:110px;height:110px;border-radius:50%;object-fit:cover;object-position:50% 12%;border:5px solid var(--pc)}
+.rv-char-top small{display:block;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.rv-char-top b{display:block;font-family:var(--head);font-size:40px;line-height:1.05}.rv-char-top span{color:var(--muted);font-weight:700}
+.rv-char .attrs{display:flex;flex-wrap:wrap;gap:6px}.rv-char .attr-chip{font-size:15px;padding:5px 12px}.rv-char .stats{padding:14px 0 8px}.rv-char .stat{font-size:16px;grid-template-columns:28px 110px 1fr 26px}.rv-char .pips i{height:14px}.rv-char .stat b{font-size:24px}
+.rv-char .ability-note{font-size:15px}
+.rv-turn{display:flex;align-items:center;gap:28px}
+.rv-phone{width:270px;height:500px;border-radius:40px;border:10px solid var(--notte);background:#fff;display:flex;flex-direction:column;align-items:center;padding:34px 18px 18px;gap:6px;box-shadow:0 20px 50px #082f5130;position:relative;animation:popIn .5s .15s both}
+.rv-notch{position:absolute;top:8px;width:90px;height:16px;border-radius:10px;background:var(--notte)}
+.rv-phone small{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--blu)}.rv-phone b{font-family:var(--head);font-size:28px}
+.rv-phone .die3d{transform:scale(1.1);margin:34px 0 30px}.rv-phone .die3d .cube{animation:tumble 3s 1s ease-in-out infinite}
+.rv-btn{background:var(--blu);color:#fff;font-weight:800;border-radius:999px;padding:12px 26px;box-shadow:0 4px 0 #055a9b;font-size:17px}.rv-phone em{font-style:normal;font-size:12px;color:var(--muted);margin-top:6px}
+.rv-steps{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}.rv-steps li{background:#fff;border-radius:18px;border:2px solid var(--line);padding:12px 16px;animation:popIn .45s both}.rv-steps li:nth-child(2){animation-delay:.25s}.rv-steps li:nth-child(3){animation-delay:.4s}
+.rv-steps b{display:block;font-family:var(--head);font-size:24px}.rv-steps span{color:var(--muted);font-weight:700;font-size:15px}
+.rv-cells{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(100%,640px)}
+.rv-tile{position:relative;background:#fff;border-radius:20px;border:2px solid var(--line);border-top:10px solid var(--k);padding:30px 14px 14px;display:flex;flex-direction:column;gap:4px;animation:popIn .45s var(--d) both;min-height:160px}
+.rv-ring{position:absolute;top:-24px;left:12px;width:44px;height:44px;border-radius:50%;background:#fff;border:7px solid var(--k);display:grid;place-items:center;font-family:var(--head);font-size:16px}
+.rv-tile small{font-family:var(--head);font-weight:600;color:var(--k);letter-spacing:.08em;text-transform:uppercase;font-size:14px}.rv-tile b{font-size:17px;line-height:1.3}.rv-tile i{font-style:normal;margin-top:auto;align-self:flex-start;background:var(--crema2);border-radius:999px;padding:3px 10px;font-weight:800;font-size:14px}
+.rv-attr{grid-column:2/-1;background:#fff;border-radius:18px;border:2px dashed var(--line);padding:12px 14px;font-size:15px;font-weight:700;line-height:1.9;color:var(--muted)}.rv-attr .tok{font-size:15px}
+.rv-limits{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:min(100%,600px)}
+.rv-big,.rv-drops,.rv-lock{background:#fff;border-radius:24px;border:2px solid var(--line);padding:18px;display:flex;flex-direction:column;align-items:center;gap:4px;animation:popIn .45s both}
+.rv-big span{font-size:54px}.rv-big b{font-family:var(--head);font-size:64px;line-height:1;color:var(--corallo)}.rv-big small,.rv-drops small,.rv-lock small{font-weight:800;color:var(--muted);font-size:15px;text-align:center}
+.rv-drops{flex-direction:row;flex-wrap:wrap;justify-content:center;animation-delay:.2s}.rv-drops span{font-size:46px;animation:bob 1.6s ease-in-out infinite}.rv-drops span:nth-child(2){animation-delay:.2s}.rv-drops span.last{animation-delay:.4s;filter:drop-shadow(0 0 8px #0878cf88)}.rv-drops small{width:100%}
+.rv-lock{animation-delay:.35s;background:var(--notte);color:#fff}.rv-lock .tok{font-size:34px;padding:8px 14px;background:#fff;color:var(--notte)}.rv-lock b{font-family:var(--head);font-size:26px}.rv-lock small{color:#cfe3f5}
+.rv-aura{position:relative;width:100%;height:min(56vh,480px);display:grid;place-items:center}
+.rv-acard{position:absolute;width:min(25vw,270px);transform:translateX(var(--x)) rotate(var(--r));animation:rvCard .6s var(--d) both cubic-bezier(.2,1.3,.4,1)}
+@keyframes rvCard{from{opacity:0;transform:translateY(80px) rotate(0)}to{opacity:1;transform:translateX(var(--x)) rotate(var(--r))}}
+.rv-world{position:relative;width:min(100%,560px);height:min(56vh,460px)}
+.rv-evback{position:absolute;left:0;top:30px;width:52%;aspect-ratio:3/4;border-radius:24px;background:linear-gradient(135deg,var(--viola),var(--blu));border:5px solid #fff;box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transform:rotate(-8deg);animation:popIn .5s both}
+.rv-evback img{width:60%;background:#fff;border-radius:18px;padding:8px}.rv-evback span{color:#fff;font-family:var(--head);letter-spacing:.14em}
+.rv-evfront{position:absolute;right:0;top:0;width:60%;transform:rotate(5deg);animation:popIn .5s .3s both}
+.rv-when{position:absolute;left:0;right:0;bottom:0;display:flex;gap:10px;justify-content:center}.rv-when span{background:var(--notte);color:var(--giallo);font-family:var(--head);border-radius:999px;padding:6px 14px;font-size:17px}
+.rv-council{display:flex;flex-direction:column;align-items:center;gap:22px;width:min(100%,600px)}
+.rv-coins{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}.rv-coins .coin{width:58px;height:58px;font-size:26px;animation:popIn .4s var(--d) both}.rv-coins small{width:100%;text-align:center;font-weight:800;color:var(--muted);font-size:16px}
+.rv-pols{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}.rv-pol{background:#fff;border-radius:18px;border:2px solid var(--line);border-top:8px solid var(--pc);padding:14px;display:flex;flex-direction:column;gap:4px;animation:popIn .45s var(--d) both}.rv-pol b{font-family:var(--head);font-size:20px}.rv-pol span{font-weight:700;font-size:15px;line-height:1.35}
+.rv-hearts{font-size:42px;color:var(--corallo);display:flex;align-items:center;gap:12px}.rv-hearts small{font-size:16px;color:var(--muted);font-weight:800}
+.rv-end{display:flex;flex-direction:column;align-items:center;gap:10px;width:min(100%,600px)}.rv-end svg{width:100%;background:#fff;border-radius:24px;border:2px solid var(--line)}
+.rv-line{fill:none;stroke-width:9;stroke-linecap:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 1.6s var(--d) ease-out forwards}.rv-end text{font-family:var(--head);fill:var(--muted);font-size:16px}
+.rv-end p{font-family:var(--head);font-size:clamp(26px,2.6vw,42px);text-align:center;line-height:1.15}
+@media(max-height:760px){.rs-points li{padding:8px 12px 8px 50px}.rs-copy h1{margin:4px 0 10px}.rv-phone{height:430px;width:240px}.rv-hello{max-width:520px}}
+@media(prefers-reduced-motion:reduce){.rv-line{stroke-dashoffset:0}}
+
+/* ============ telefono: introduzione e riassunto delle regole ============ */
+.ph-intro{min-height:100vh;display:flex;flex-direction:column;padding:28px 20px calc(24px + env(safe-area-inset-bottom));background:radial-gradient(circle at 80% 0,#fff3cc,transparent 45%),var(--crema)}
+.ph-intro-top{display:flex;align-items:center;justify-content:space-between}.ph-intro-top img{width:84px}.ph-intro-top button{font-size:13px}
+.ph-intro-card{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px;animation:rsInR .45s cubic-bezier(.2,.9,.3,1)}
+.ph-intro-ic{font-size:76px;line-height:1}.ph-intro-card h1{font-size:36px;line-height:1.08;color:var(--notte)}.ph-intro-card p{font-size:19px;line-height:1.55;color:var(--ink)}
+.ph-intro-dots{display:flex;gap:8px;justify-content:center;margin:18px 0}.ph-intro-dots i{width:10px;height:10px;border-radius:50%;background:#e0d9c6}.ph-intro-dots i.on{background:var(--blu);width:28px;border-radius:6px}
+.ph-intro-nav{display:flex;gap:10px}.ph-intro-nav .primary{flex:1}
+.ph-intro-net{font-size:12px;color:var(--muted);text-align:center;margin-top:10px;font-weight:700}
+.ph-rules{border:3px solid var(--blu);background:#f3f9ff}.ph-rules .eyebrow{color:var(--blu)}.ph-rules h3{font-size:22px;margin:4px 0 8px}
+.ph-rules ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:15.5px;line-height:1.45;font-weight:700}
+.ph-diag{margin-top:10px;text-align:left;background:#fff;border-radius:14px;padding:10px 12px;font-size:13px;line-height:1.5;color:var(--ink);border:2px solid var(--line)}
+.ph-diag b{display:block;margin-bottom:2px}.ph-diag summary{cursor:pointer;color:var(--muted);font-weight:800;font-size:12px;margin-top:6px}.ph-diag code{font-size:11px;word-break:break-all;color:var(--muted)}
+.ph-offline .retry{margin-left:6px;border:0;background:var(--notte);color:#fff;border-radius:999px;padding:3px 12px;font-weight:800;font-size:12px}
+.ph-hint{font-weight:700;font-size:12.5px;margin-top:4px;line-height:1.45}
+.ph-wait-alt{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:14px}
+.ph-diag p{margin:6px 0 8px;font-size:14px}.ph-diag .primary{margin-top:2px}
+.rv-acard{width:min(19vw,240px)}.rv-acard:nth-child(2){z-index:2}
+.rv-cells{width:min(100%,720px);gap:20px}.rv-tile{min-height:180px;padding:34px 16px 16px}.rv-tile small{font-size:15px}.rv-tile b{font-size:19px}.rv-tile i{font-size:15px}
+.rv-attr{font-size:16px}
+.rv-pols{gap:16px}.rv-pol b{font-size:22px}.rv-pol span{font-size:17px}.rv-coins .coin{width:66px;height:66px;font-size:30px}
+.rv-evfront h3{font-size:30px}.rv-evfront .voice-s{font-size:16px}
+
 
 </style>
 </head>
@@ -3022,10 +3109,10 @@ const __ASSET = {"assets/personaggio-1.webp": "data:image/webp;base64,UklGRkxOAA
 const __data = (() => {
 // AURA · contenuti di gioco v0.2
 // Regole: tabellone v0.5, personaggi v0.1, politiche v0.2, guida v0.3, carte AURA A1–A8.
-// Novità v0.2: politiche dopo il giro 6, mazzo AURA integrato, voce slang e glossario.
+// Politiche dopo il giro 8 (POLICY_ROUND), Eventi Mondo dopo i giri 4, 7, 9 (v0.6). Mazzo AURA integrato, slang e glossario.
 
-const POLICY_ROUND = 6;
-const EVENT_ROUNDS = [3, 6, 9];
+const POLICY_ROUND = 8;
+const EVENT_ROUNDS = [4, 7, 9];
 const ROUND_OPTIONS = [10, 12, 14];
 // Dadi di movimento. Il predefinito include l’1 (v0.3.2); gli altri restano selezionabili.
 const DICE = {
@@ -4260,25 +4347,56 @@ const __net = (() => {
 // AURA · collegamento proiettore ↔ telefoni con PeerJS (WebRTC).
 // Il proiettore apre una "stanza" con un id noto (prefisso + codice); i telefoni si collegano a quell’id.
 // Il server di segnalazione è quello pubblico di PeerJS, salvo parametri ?peerhost=…&peerport=…&peerpath=…&peersecure=0 (per i test).
+//
+// Collegamento difficile (reti con isolamento dei client, dati mobili con NAT stretti): serve un relay TURN.
+// Di default usiamo più server STUN e il TURN pubblico di PeerJS (UDP e TCP). Per una rete più robusta si può
+// aggiungere un TURN gratuito di Metered (Open Relay): basta compilare METERED qui sotto, oppure passare
+// ?turn=NOMEAPP:APIKEY nell’indirizzo (il QR lo inoltra ai telefoni).
 const ROOM_PREFIX = 'aura-icei-v05-';
+const METERED = {app: '', key: ''};
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
 const newRoomCode = () => Array.from({length: 4}, () => ALPHABET[Math.floor(Math.random() * ALPHABET.length)]).join('');
 const cleanCode = c => String(c || '').toUpperCase().replace(/[^A-Z]/g, '').slice(0, 4);
+const q = () => new URLSearchParams(location.search);
 
-function peerOptions() {
-  const q = new URLSearchParams(location.search); const o = {debug: 0};
-  if (q.get('peerhost')) {o.host = q.get('peerhost'); o.port = +(q.get('peerport') || 9000); o.path = q.get('peerpath') || '/'; o.secure = q.get('peersecure') === '1';}
+const BASE_ICE = [
+  {urls: ['stun:stun.l.google.com:19302', 'stun:stun1.l.google.com:19302', 'stun:stun.cloudflare.com:3478']},
+  {urls: ['turn:eu-0.turn.peerjs.com:3478', 'turn:us-0.turn.peerjs.com:3478', 'turn:eu-0.turn.peerjs.com:3478?transport=tcp'], username: 'peerjs', credential: 'peerjsp'}
+];
+const turnParam = () => {const t = q().get('turn'); if (t && /^[\w.-]+:[\w-]+$/.test(t)) {const [app, key] = t.split(':'); return {app, key};} return METERED.app && METERED.key ? METERED : null;};
+let iceCache = null;
+/** Server ICE: STUN + TURN di PeerJS, più il TURN di Metered se configurato (con 4 s di pazienza, poi si va avanti senza). */
+async function iceServers() {
+  if (iceCache) return iceCache;
+  const m = turnParam(); let extra = [];
+  if (m) {
+    try {
+      const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 4000);
+      const r = await fetch(`https://${m.app}.metered.live/api/v1/turn/credentials?apiKey=${encodeURIComponent(m.key)}`, {signal: ctl.signal}); clearTimeout(t);
+      if (r.ok) {const j = await r.json(); if (Array.isArray(j)) extra = j;}
+    } catch {}
+  }
+  iceCache = {list: [...extra, ...BASE_ICE], turn: extra.length > 0};
+  return iceCache;
+}
+async function peerOptions() {
+  const o = {debug: 0, config: {iceServers: (await iceServers()).list}};
+  if (q().get('peerhost')) {o.host = q().get('peerhost'); o.port = +(q().get('peerport') || 9000); o.path = q().get('peerpath') || '/'; o.secure = q().get('peersecure') === '1';}
   return o;
 }
-const testParams = () => {const q = new URLSearchParams(location.search); return ['peerhost', 'peerport', 'peerpath', 'peersecure'].filter(k => q.get(k)).map(k => k + '=' + encodeURIComponent(q.get(k))).join('&');};
+/** Parametri da inoltrare ai telefoni (prove locali e TURN). */
+const testParams = () => ['peerhost', 'peerport', 'peerpath', 'peersecure', 'turn'].filter(k => q().get(k)).map(k => k + '=' + encodeURIComponent(q().get(k))).join('&');
+const hasWebRTC = () => typeof window.RTCPeerConnection === 'function';
 
 /** Proiettore. handlers: onOpen(), onJoin(conn), onMessage(conn, msg), onLeave(conn), onError(kind, err) */
 function hostRoom(code, handlers) {
   if (!window.Peer) {handlers.onError?.('nolib'); return null;}
+  if (!hasWebRTC()) {handlers.onError?.('nortc'); return null;}
   let peer, closed = false, retry = 0;
   const conns = new Map();
-  const start = () => {
-    peer = new window.Peer(ROOM_PREFIX + code, peerOptions());
+  const start = async () => {
+    if (closed) return;
+    peer = new window.Peer(ROOM_PREFIX + code, await peerOptions());
     peer.on('open', () => {retry = 0; handlers.onOpen?.();});
     peer.on('connection', conn => {
       conn.on('open', () => {conns.set(conn.connectionId, conn); handlers.onJoin?.(conn);});
@@ -4288,8 +4406,9 @@ function hostRoom(code, handlers) {
     });
     peer.on('disconnected', () => {if (!closed) setTimeout(() => {try {peer.reconnect();} catch {}}, 1500);});
     peer.on('error', err => {
-      if (err.type === 'unavailable-id') {handlers.onError?.('taken', err); if (!closed && retry++ < 8) {try {peer.destroy();} catch {} setTimeout(start, 2500);} return;}
+      if (err.type === 'unavailable-id') {handlers.onError?.('taken', err); if (!closed && retry++ < 12) {try {peer.destroy();} catch {} setTimeout(start, 2500);} return;}
       if (['network', 'server-error', 'socket-error', 'socket-closed'].includes(err.type)) {handlers.onError?.('network', err); if (!closed) setTimeout(() => {try {peer.destroyed ? start() : peer.reconnect();} catch {start();}}, 3000); return;}
+      if (err.type === 'peer-unavailable') return; // un telefono che si è disconnesso: niente di grave
       handlers.onError?.(err.type || 'error', err);
     });
   };
@@ -4298,43 +4417,114 @@ function hostRoom(code, handlers) {
     send(conn, msg) {try {if (conn.open) conn.send(JSON.stringify(msg));} catch {}},
     each(fn) {for (const c of conns.values()) fn(c);},
     get size() {return conns.size;},
-    close() {closed = true; try {peer.destroy();} catch {}}
+    close() {closed = true; try {peer?.destroy();} catch {}}
   };
 }
 
-/** Telefono. handlers: onStatus(status), onMessage(msg). Ritorna {send(msg)} e si ricollega da solo. */
+/** Telefono. handlers: onStatus(status, info), onOpen(), onMessage(msg). Si ricollega da solo.
+ *  status: connecting | reconnecting | online | offline | noroom | nosignal | ice | nortc | nolib
+ *  info: {attempts, stage, last} per la diagnosi sul telefono. */
 function joinRoom(code, handlers) {
-  if (!window.Peer) {handlers.onStatus?.('nolib'); return null;}
-  let peer = null, conn = null, closed = false, attempt = 0, timer = null;
-  const status = s => handlers.onStatus?.(s);
-  const schedule = (ms = Math.min(8000, 1200 + attempt * 900)) => {clearTimeout(timer); if (!closed) timer = setTimeout(connect, ms);};
-  function connect() {
-    attempt++; status(attempt === 1 ? 'connecting' : 'reconnecting');
+  if (!window.Peer) {handlers.onStatus?.('nolib', {}); return null;}
+  if (!hasWebRTC()) {handlers.onStatus?.('nortc', {}); return null;}
+  let peer = null, conn = null, closed = false, timer = null;
+  const info = {attempts: 0, stage: 'start', last: '', iceFails: 0, signalFails: 0, turn: false};
+  const status = s => handlers.onStatus?.(s, {...info});
+  const schedule = (ms = Math.min(8000, 1500 + info.attempts * 1000)) => {clearTimeout(timer); if (!closed) timer = setTimeout(connect, ms);};
+  async function connect() {
+    if (closed) return;
+    info.attempts++; status(info.attempts === 1 ? 'connecting' : 'reconnecting');
     const open = () => {
-      conn = peer.connect(ROOM_PREFIX + code, {reliable: true, serialization: 'json'});
-      const t = setTimeout(() => {if (!conn.open) {try {conn.close();} catch {} schedule();}}, 9000);
-      conn.on('open', () => {clearTimeout(t); attempt = 0; status('online'); handlers.onOpen?.();});
-      conn.on('data', d => {let m = d; if (typeof d === 'string') {try {m = JSON.parse(d);} catch {return;}} handlers.onMessage?.(m);});
-      conn.on('close', () => {status('offline'); schedule();});
-      conn.on('error', () => {status('offline'); schedule();});
+      info.stage = 'room';
+      try {conn?.close();} catch {}
+      const c = conn = peer.connect(ROOM_PREFIX + code, {reliable: true, serialization: 'json'});
+      // La negoziazione passa da STUN e, se serve, dal relay TURN: può richiedere anche 15–20 secondi.
+      const t = setTimeout(() => {if (c === conn && !c.open) {info.iceFails++; info.last = 'timeout'; status('ice'); try {c.close();} catch {} schedule(1000);}}, 25000);
+      c.on('open', () => {clearTimeout(t); info.attempts = 0; info.iceFails = 0; info.signalFails = 0; info.stage = 'online'; status('online'); handlers.onOpen?.();});
+      c.on('data', d => {let m = d; if (typeof d === 'string') {try {m = JSON.parse(d);} catch {return;}} handlers.onMessage?.(m);});
+      c.on('close', () => {clearTimeout(t); if (c !== conn) return; if (info.stage === 'online') {info.stage = 'room'; status('offline');} schedule();});
+      c.on('error', e => {clearTimeout(t); if (c !== conn) return; info.iceFails++; info.last = e?.message || 'errore'; status('ice'); schedule();});
     };
-    if (peer && !peer.destroyed && !peer.disconnected) return open();
+    if (peer && !peer.destroyed && !peer.disconnected && peer.open) return open();
     try {peer?.destroy();} catch {}
-    peer = new window.Peer(undefined, peerOptions());
+    info.stage = 'signal';
+    const opts = await peerOptions(); info.turn = iceCache?.turn || false;
+    if (closed) return;
+    peer = new window.Peer(undefined, opts);
     peer.on('open', open);
-    peer.on('error', err => {if (err.type === 'peer-unavailable') status('noroom'); else status('offline'); schedule(err.type === 'peer-unavailable' ? 4000 : undefined);});
-    peer.on('disconnected', () => {status('offline'); schedule();});
+    peer.on('error', err => {
+      info.last = err.type || 'errore';
+      if (err.type === 'peer-unavailable') {status('noroom'); schedule(4000); return;}
+      if (err.type === 'browser-incompatible') {status('nortc'); return;}
+      if (['network', 'server-error', 'socket-error', 'socket-closed', 'unavailable-id'].includes(err.type)) {info.signalFails++; status('nosignal'); try {peer.destroy();} catch {} schedule(); return;}
+      if (err.type === 'webrtc' || err.type === 'negotiation-failed') {info.iceFails++; status('ice'); schedule(); return;}
+      status('offline'); schedule();
+    });
+    peer.on('disconnected', () => {if (conn?.open) return; status('offline'); schedule();});
   }
   connect();
-  document.addEventListener('visibilitychange', () => {if (document.visibilityState === 'visible' && !(conn && conn.open)) {attempt = 0; connect();}});
+  document.addEventListener('visibilitychange', () => {if (document.visibilityState === 'visible' && !(conn && conn.open)) {clearTimeout(timer); connect();}});
   return {
     send(msg) {try {if (conn && conn.open) {conn.send(JSON.stringify(msg)); return true;}} catch {} return false;},
     get online() {return !!(conn && conn.open);},
+    retry() {clearTimeout(timer); info.attempts = 0; connect();},
     close() {closed = true; clearTimeout(timer); try {peer?.destroy();} catch {}}
   };
 }
 
-return {ROOM_PREFIX, newRoomCode, cleanCode, peerOptions, testParams, hostRoom, joinRoom};
+return {ROOM_PREFIX, METERED, newRoomCode, cleanCode, iceServers, peerOptions, testParams, hasWebRTC, hostRoom, joinRoom};
+})();
+const __rules = (() => {
+// AURA · le regole in diapositive (proiettore) e in breve (telefono). Un'unica fonte per entrambi.
+const {POLICY_ROUND, EVENT_ROUNDS, AURA_CELLS, MICRO_LIMIT} = __data;
+const RULES = [
+  {id: 'hello', kicker: 'Prima di iniziare', title: 'Stesse regole. Vite diverse.',
+    lead: 'AURA è un gioco di ruolo formativo. Per un’ora siete ragazze e ragazzi tra i 16 e i 19 anni, ognuno con la sua vita.',
+    points: ['Tutti tirano lo stesso dado e seguono le stesse regole.', 'Ma non partite tutti dallo stesso punto.', 'Guardate che cosa succede, a voi e agli altri.'],
+    phone: ['Un gioco di ruolo: per un’ora sei un/una giovane di 16–19 anni.', 'Stesso dado e stesse regole per tutti, ma punti di partenza diversi.']},
+  {id: 'character', kicker: '1 · Il personaggio', title: 'Sul telefono c’è chi sei.',
+    lead: 'Ognuno riceve un personaggio. Se siete in coppia, lo giocate insieme: decidete a voce, conferma uno solo.',
+    points: ['5 risorse, da 0 a 4: 💶 Denaro · ⏱ Tempo · 🤝 Rete · 💚 Benessere · 📣 Voce.', 'Gli attriti (per esempio 🚌 Mobilità, 📄 Lingua e burocrazia) rendono alcune caselle più pesanti.', 'Ogni personaggio ha una capacità speciale, da usare una sola volta.'],
+    phone: ['5 risorse da 0 a 4: Denaro, Tempo, Rete, Benessere, Voce.', 'Gli attriti rendono alcune caselle più pesanti.', 'In coppia: decidete insieme, conferma uno solo.']},
+  {id: 'turn', kicker: '2 · Il giro', title: 'Un giro, tutti insieme.',
+    lead: 'Non si aspetta il proprio turno: si gioca tutti nello stesso momento, ognuno dal proprio telefono.',
+    points: ['Tira il dado (facce {dice}).', 'Leggi la casella: la frase, l’effetto, per chi pesa di più.', 'Scegli e conferma. Il proiettore mostra chi ha finito.'],
+    phone: ['Tira il dado dal telefono.', 'Leggi la casella e scegli.', 'Conferma: quando tutti hanno finito si passa al giro dopo.']},
+  {id: 'cells', kicker: '3 · Le caselle', title: '40 caselle, una città.',
+    lead: 'Scuola, lavoro, trasporti, sportelli, spazi, partecipazione. Ogni casella ha un colore.',
+    points: ['Le caselle rosse sono ostacoli, le verdi opportunità, le gialle scelte.', 'Le caselle OCA fanno rilanciare il dado. Quelle viola fanno pescare una carta AURA.', 'Un’etichetta rossa con un attrito vuol dire: per qualcuno costa di più.'],
+    phone: ['Rosso ostacolo, verde opportunità, giallo scelta.', 'OCA: rilanci. Viola: carta AURA.', 'Etichetta rossa: per qualcuno costa di più.']},
+  {id: 'limits', kicker: '4 · Quando le risorse finiscono', title: 'Batteria scarica.',
+    lead: 'Le risorse a zero non sono un game over: cambiano il modo in cui giocate.',
+    points: ['💚 Benessere a 0: prima di tirare scegli se fermarti, chiedere supporto o stringere i denti.', '📣 Voce a 0: se ne perdi ancora, arretri di una casella (al massimo una volta per giro).', `💧 Microaggressioni: alla ${MICRO_LIMIT}ª perdi 1 Benessere, goccia dopo goccia.`, '🔒 Alcune cose le vede solo chi gioca quel personaggio, sul proprio telefono.'],
+    phone: ['Benessere a 0: scegli come proseguire prima di tirare.', `Microaggressioni: alla ${MICRO_LIMIT}ª perdi 1 Benessere.`, '🔒 «Solo per te»: alcune cose le vedi solo tu.']},
+  {id: 'aura', kicker: '5 · Carte AURA', title: 'Aura check ✨',
+    lead: `In ${AURA_CELLS.length} caselle si pesca una carta AURA: punti di «figaggine» sociale, a volte una figuraccia.`,
+    points: ['AURA si guadagna e si perde: fa scena.', 'Ma quasi mai cambia la strada che hai davanti.', 'Le carte pescate restano nel telefono, nella sezione Carte.'],
+    phone: ['Le carte AURA danno o tolgono punti di «figaggine».', 'Contano, ma quasi mai cambiano la struttura.']},
+  {id: 'world', kicker: '6 · Eventi Mondo', title: 'Succede a tutti.',
+    lead: `Dopo i giri ${EVENT_ROUNDS.slice(0, -1).join(', ')} e ${EVENT_ROUNDS[EVENT_ROUNDS.length - 1]} arriva un Evento Mondo: una crisi, un cambiamento, una notizia.`,
+    points: ['La carta compare sul proiettore, si risponde dal telefono.', 'Stessa crisi, vite diverse: guardate come pesa su ciascuno.'],
+    phone: [`Dopo i giri ${EVENT_ROUNDS.join(', ')}: un Evento Mondo per tutti.`, 'Si risponde dal telefono.']},
+  {id: 'council', kicker: '7 · La svolta', title: 'Diventate il Comune.',
+    lead: `Dopo il giro ${POLICY_ROUND} il gioco si ferma. Guardate dove siete.`,
+    points: ['Ogni personaggio scrive dal telefono un bisogno emerso nella partita.', 'Ognuno ha 3 cuori ❤ per votare le politiche.', 'Il Comune ha 5 gettoni e al massimo 3 politiche: si discute e si decide insieme.', 'Le nuove regole valgono fino alla fine.'],
+    phone: [`Dopo il giro ${POLICY_ROUND}: scrivi un bisogno e vota con 3 cuori.`, 'Il Comune sceglie al massimo 3 politiche.']},
+  {id: 'end', kicker: 'Ultima regola', title: 'Non vince nessuno.',
+    lead: 'Alla fine guardiamo insieme le traiettorie e i costi delle barriere. Poi ne parliamo.',
+    points: ['Leggete ad alta voce le frasi che vi colpiscono.', 'Non conoscete una parola? Sul telefono c’è il dizionario 📖.', 'Giocate il personaggio, non voi stessi.'],
+    phone: ['Non è una gara: alla fine guardiamo le traiettorie e ne parliamo.', 'Slang sconosciuto? C’è il dizionario 📖.']}
+];
+
+// Schermata introduttiva del telefono: che tipo di gioco è.
+const PHONE_INTRO = [
+  {icon: '🎭', title: 'Che gioco è?', text: 'AURA è un gioco di ruolo formativo. Per un’ora sei una ragazza o un ragazzo tra i 16 e i 19 anni, con i suoi soldi, il suo tempo, le sue relazioni.'},
+  {icon: '🎲', title: 'Stesse regole. Vite diverse.', text: 'Tutti tirano lo stesso dado e seguono le stesse regole. Ma non tutti partono dallo stesso punto: scuola, casa, soldi, corpo, documenti contano.'},
+  {icon: '🫶', title: 'Non è una gara', text: 'Non vince chi arriva primo. Alla fine guardiamo insieme le traiettorie e ne parliamo. Conta quello che noti, non il punteggio.'},
+  {icon: '📱', title: 'Si gioca da qui', text: 'Sul telefono hai la scheda del personaggio, il dado, le scelte e le carte. Sul proiettore c’è il tabellone di tutti. Se giochi in coppia, decidete insieme.'}
+];
+
+return {RULES, PHONE_INTRO};
 })();
 const __ui = (() => {
 // AURA · componenti grafici condivisi tra proiettore e telefono (estratti dalla v0.4).
@@ -4685,7 +4875,8 @@ const {NOTES} = __notes;
 const {newGame, eventImpact, specificRows} = __engine;
 const {toParallel, act: pAct, playerView, pending, allDone, endRound, approvePolicies, adjust: pAdjust, finish: pFinish, autoAction, rollFace, pickCharacters, suggestSeats, doneFor} = __parallel;
 const {hostRoom, newRoomCode, testParams} = __net;
-const {ctx, $, $$, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
+const {RULES} = __rules;
+const {ctx, $, $$, dieHTML, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
 const KEY = 'aura-online-host-v1', FKEY = 'aura-facilitatore';
 const TIMER_OPTIONS = [0, 60, 90, 120, 180];
 let root, modalRoot, zoomRoot, fxRoot;
@@ -4722,7 +4913,7 @@ const DBG = /[?&]debug=1/.test(location.search) ? (...a) => console.log('NETDBG'
 const send = (conn, msg) => room?.send(conn, msg);
 function phoneMessage(token) {
   const person = H.people[token]; const g = G();
-  const out = {t: 'state', room: H.code, you: person ? {token, name: person.name, seat: person.seat, mates: person.seat ? seatPeople(person.seat).filter(p => p.token !== token).map(p => p.name) : []} : null, count: Object.keys(H.people).length};
+  const out = {t: 'state', room: H.code, you: person ? {token, name: person.name, seat: person.seat, mates: person.seat ? seatPeople(person.seat).filter(p => p.token !== token).map(p => p.name) : []} : null, count: Object.keys(H.people).length, rules: overlay === 'rules' ? rulesI : -1, dice: (DICE[H.settings.dice] || DICE[DEFAULT_DICE]).label};
   if (g) {
     const {history, log, beforePolicies, auraDeck, auraDiscard, players, ...rest} = g;
     out.game = {...rest, log: [], auraDeck: [], auraDiscard: [], players: players.map(p => slimPlayer(p, person?.seat))};
@@ -4843,7 +5034,7 @@ function topbar() {
   const n = Object.keys(H?.people || {}).length, on = new Set(connTok.values()).size;
   return `<header class="topbar"><button class="brand" data-action="splash" title="Rivedi l’intro"><img src="${__ASSET.logo}" alt="Logo AURA"><span><strong>AURA</strong><small>Stesse regole. Vite diverse.</small></span></button>
   <nav class="top-actions">${H ? `<span class="room-pill net-${netStatus}" title="Stato del collegamento">${netStatus === 'online' ? '●' : '○'} Stanza <b>${H.code}</b> · 📱 ${on}/${n}</span>` : ''}
-  <button class="ghost small" data-action="auradeck">🃏 Carte AURA</button><button class="ghost small" data-action="glossary">📖 Dizionario</button>
+  ${H ? `<button class="ghost small" data-action="rules">📽 Regole</button>` : ''}<button class="ghost small" data-action="auradeck">🃏 Carte AURA</button><button class="ghost small" data-action="glossary">📖 Dizionario</button>
   ${H ? `<button class="ghost small" data-action="show-qr">▦ QR</button><button class="secondary small" data-action="tools">⚙︎ Strumenti${ctx.facilitator ? ' · facilitatore' : ''}</button>` : ''}<button class="ghost small icon" data-action="fullscreen" aria-label="Schermo intero">⛶</button></nav></header>`;
 }
 function home() {
@@ -4879,7 +5070,7 @@ function lobby() {
        <label class="check-field"><input type="checkbox" data-set="events" ${H.settings.events ? 'checked' : ''}> Eventi Mondo dopo i giri ${EVENT_ROUNDS.join(', ')}</label>
      </div>
      ${plan ? `<div class="plan"><h3>Chi gioca chi</h3><p class="muted">Personaggi scelti per avere il massimo divario, dal più avvantaggiato al meno. Le persone sono sorteggiate.</p><div class="plan-grid">${plan.chars.map((id, i) => {const c = charOf(id); const names = Object.values(H.people).filter(p => p.seat === id).map(p => esc(p.name)); return `<div class="plan-card" style="--pc:${c.color};--d:${i * 90}ms">${avatar(id, 'md')}<b>${c.name}</b><span>${names.join(' · ') || '<em>senza telefono: lo gioca chi facilita</em>'}</span></div>`;}).join('')}</div>
-       <div class="plan-actions"><button class="ghost" data-action="reshuffle-chars">🔀 Altri personaggi</button><button class="ghost" data-action="reshuffle-people">🔀 Rimescola le persone</button><button class="primary big" data-action="start-game">Inizia la partita →</button></div></div>`
+       <div class="plan-actions"><button class="ghost" data-action="reshuffle-chars">🔀 Altri personaggi</button><button class="ghost" data-action="reshuffle-people">🔀 Rimescola le persone</button><button class="secondary" data-action="rules">📽 Spiega le regole</button><button class="primary big" data-action="start-game">${H.rulesSeen ? 'Inizia la partita →' : 'Regole e via! →'}</button></div></div>`
      : `<div class="plan-actions"><button class="primary big" data-action="make-plan" ${n ? '' : 'disabled'}>Distribuisci i personaggi 🎭</button></div>`}
    </section></main>`;
 }
@@ -5043,6 +5234,50 @@ function renderZoom(animate) {
   if (animate && tile && !reduced()) {const a = tile.getBoundingClientRect(), b = card.getBoundingClientRect(); card.animate([{transform: `translate(${a.left - b.left}px,${a.top - b.top}px) scale(${a.width / b.width},${a.height / b.height})`, opacity: .4}, {transform: 'none', opacity: 1}], {duration: 480, easing: 'cubic-bezier(.2,.95,.25,1.08)'});}
 }
 
+// ───────────────────────── regole in diapositive ─────────────────────────
+let rulesI = 0, rulesThenStart = false;
+let rulesPaused = false;
+function openRules(thenStart) {
+  if (overlay && overlay !== 'splash') return toast('Chiudi prima la carta sullo schermo.');
+  rulesI = 0; rulesThenStart = thenStart; overlay = 'rules';
+  const g = G(); if (g && ['round', 'event'].includes(g.phase) && !H.paused) {H.paused = true; rulesPaused = true;}
+  renderRules(true); broadcast();
+}
+function rulesGo(i) {if (overlay !== 'rules') return; const n = Math.max(0, Math.min(RULES.length - 1, i)); if (n === rulesI) return; const dir = n > rulesI ? 1 : -1; rulesI = n; renderRules(false, dir); broadcast();}
+function closeRules(start) {
+  H.rulesSeen = true; overlay = null; fxRoot.innerHTML = '';
+  if (rulesPaused) {rulesPaused = false; H.paused = false; if (H.deadline) H.deadline = Math.max(H.deadline, Date.now() + 30000);}
+  persist(); broadcast();
+  if (start && H.plan && !G()) startGame(); else {render(); maybeOverlays();}
+}
+function sampleChar() {const ids = H?.plan?.chars || []; return ids.find(id => charOf(id).attrs.length >= 2) || ids[ids.length - 1] || 'leo';}
+function ruleVisual(id) {
+  const dice = (DICE[H.settings.dice] || DICE[DEFAULT_DICE]).label;
+  if (id === 'hello') {const ids = H?.plan?.chars?.length ? H.plan.chars : CHARACTERS.map(c => c.id); return `<div class="rv-hello">${ids.map((cid, i) => {const c = charOf(cid); return `<figure style="--pc:${c.color};--d:${200 + i * 90}ms"><img src="${c.image}" alt=""><figcaption>${c.name}</figcaption></figure>`;}).join('')}<p class="rv-slogan"><b class="r">Stesse regole.</b> <b class="b">Vite diverse.</b></p></div>`;}
+  if (id === 'character') {const c = charOf(sampleChar()); const p = {id: c.id, res: c.initial, aura: 0, specialUsed: false}; const ppl = H ? seatPeople(c.id).map(x => esc(x.name)) : [];
+    return `<div class="rv-char" style="--pc:${c.color}"><div class="rv-char-top"><img src="${c.image}" alt=""><div><small>Esempio</small><b>${c.name}</b><span>${c.age} anni${ppl.length ? ' · gioca: ' + ppl.join(', ') : ''}</span></div></div><div class="attrs">${c.attrs.map(a => attrChip(a)).join('') || '<span class="attr-chip none">Nessun attrito</span>'}</div>${statBars(p)}<div class="ability-note"><b>✦ ${esc(c.special)}</b><span>${esc(c.ability)}</span></div></div>`;}
+  if (id === 'turn') return `<div class="rv-turn"><div class="rv-phone"><div class="rv-notch"></div><small>SI PARTE!</small><b>Tira il dado</b>${dieHTML(H.settings.dice, 0)}<span class="rv-btn">Tira il dado 🎲</span><em>Facce: ${esc(dice)}</em></div>
+    <ol class="rv-steps"><li><b>🎲 Tira</b><span>dal telefono, tutti insieme</span></li><li><b>📍 Leggi</b><span>la casella si apre sul telefono</span></li><li><b>✓ Scegli e conferma</b><span>il proiettore segna chi ha finito</span></li></ol></div>`;
+  if (id === 'cells') {const K = [['Ostacolo', '#FF3E56', '“Il bus ti ghosta”', '−1 ⏱'], ['Opportunità', '#009D84', '“Una palla, una chitarra…”', '+1 🤝 +2 ⏩'], ['Scelta', '#FFB700', '“Stare senza dover fare”', 'scegli tu'], ['OCA', '#59CFA5', 'Rilanci il dado', '🎲 +1 tiro'], ['AURA', '#7433B9', 'Aura check', '🃏 carta']];
+    return `<div class="rv-cells">${K.map(([l, c, t, e], i) => `<div class="rv-tile" style="--k:${c};--d:${150 + i * 110}ms"><span class="rv-ring">${[3, 7, 15, 9, 2][i]}</span><small>${l}</small><b>${esc(t)}</b><i>${esc(e)}</i></div>`).join('')}<div class="rv-attr"><span class="tok neg attr">👁 −1 📣</span> = per chi ha quell’attrito costa di più <span class="tok neg cond">−1 💶</span> = dipende dalle risorse</div></div>`;}
+  if (id === 'limits') return `<div class="rv-limits"><div class="rv-big"><span>💚</span><b>0</b><small>Benessere</small></div><div class="rv-big"><span>📣</span><b>0</b><small>Voce</small></div><div class="rv-drops"><span>💧</span><span>💧</span><span class="last">💧</span><small>alla ${MICRO_LIMIT}ª: −1 💚</small></div><div class="rv-lock"><span class="tok lock">🔒</span><b>Solo per te</b><small>lo vede solo chi gioca quel personaggio</small></div></div>`;
+  if (id === 'aura') {const cards = [AURA_CARDS.find(c => c.id === 1), AURA_CARDS.find(c => c.id === 3), AURA_CARDS.find(c => c.id === 5)].filter(Boolean); return `<div class="rv-aura">${cards.map((c, i) => `<div class="rv-acard" style="--r:${(i - 1) * 8}deg;--x:${(i - 1) * 205}px;--d:${200 + i * 160}ms">${auraFace(c)}</div>`).join('')}</div>`;}
+  if (id === 'world') {const e = EVENTS[0]; return `<div class="rv-world"><div class="rv-evback"><img src="${__ASSET.logo}" alt=""><span>EVENTO MONDO</span></div><div class="event-card rv-evfront" style="--ec:${e.color}"><div class="ev-top"><span class="ev-ic">${e.icon}</span><span>EVENTO MONDO</span></div><h3>${esc(e.title)}</h3><p class="voice-s">“${esc(e.voice)}”</p></div><div class="rv-when">${EVENT_ROUNDS.map(r => `<span>⚡ dopo il giro ${r}</span>`).join('')}</div></div>`;}
+  if (id === 'council') {const ps = [1, 3, 5].map(n => POLICIES.find(x => x.id === n)); return `<div class="rv-council"><div class="rv-coins">${[0, 1, 2, 3, 4].map(i => `<span class="coin" style="--d:${200 + i * 90}ms">€</span>`).join('')}<small>5 gettoni · max 3 politiche</small></div><div class="rv-pols">${ps.map((x, i) => `<div class="rv-pol" style="--pc:${x.color};--d:${500 + i * 120}ms"><b>${x.icon} P${x.id}</b><span>${esc(x.name)}</span></div>`).join('')}</div><div class="rv-hearts">❤ ❤ ❤ <small>3 cuori a testa, dal telefono</small></div></div>`;}
+  if (id === 'end') {const lines = [[40, '#0878CF'], [31, '#7433B9'], [24, '#009D84'], [17, '#FF3E56'], [11, '#FFB700']]; return `<div class="rv-end"><svg viewBox="0 0 520 300" aria-hidden="true">${lines.map(([y, c], i) => `<path d="M20 280 C 160 ${270 - i * 4}, 300 ${300 - y * 6}, 500 ${290 - y * 6.6}" stroke="${c}" class="rv-line" style="--d:${200 + i * 160}ms"/>`).join('')}<text x="20" y="298">1</text><text x="470" y="20">40</text></svg><p>Nessuna classifica.<br>Solo traiettorie.</p></div>`;}
+  return '';
+}
+function renderRules(first, dir = 1) {
+  const r = RULES[rulesI], last = rulesI === RULES.length - 1, dice = (DICE[H.settings.dice] || DICE[DEFAULT_DICE]).label;
+  const fill = t => esc(t.replace('{dice}', dice));
+  const slide = `<section class="rs-slide rs-${r.id} ${first ? '' : dir > 0 ? 'in-r' : 'in-l'}" aria-live="polite"><div class="rs-copy"><div class="rs-kicker">${esc(r.kicker)}</div><h1>${esc(r.title)}</h1><p class="rs-lead">${fill(r.lead)}</p><ul class="rs-points">${r.points.map((x, i) => `<li style="--d:${300 + i * 140}ms">${fill(x)}</li>`).join('')}</ul></div><div class="rs-visual">${ruleVisual(r.id)}</div></section>`;
+  fxRoot.innerHTML = `<div class="rules-deck"><header class="rs-top"><img src="${__ASSET.logo}" alt=""><span>Le regole di AURA</span><span class="rs-count">${rulesI + 1} / ${RULES.length}</span><button class="ghost small" data-action="rules-skip">${rulesThenStart ? 'Salta e inizia ⏭' : 'Chiudi ✕'}</button></header>
+   ${slide}
+   <footer class="rs-nav"><button class="ghost" data-action="rules-prev" ${rulesI ? '' : 'disabled'}>← Indietro</button><div class="rs-dots">${RULES.map((x, i) => `<button class="${i === rulesI ? 'on' : i < rulesI ? 'past' : ''}" data-action="rules-go" data-id="${i}" aria-label="Diapositiva ${i + 1}"></button>`).join('')}</div>
+   ${last ? (rulesThenStart ? `<button class="primary big" data-action="rules-start">Si gioca! 🎲</button>` : `<button class="primary" data-action="rules-skip">Fine ✓</button>`) : `<button class="primary" data-action="rules-next">Avanti →</button>`}</footer>
+   <p class="rs-hint">Frecce ← → o telecomando per scorrere · sui telefoni compare il riassunto</p></div>`;
+}
+
 // ───────────────────────── modali ─────────────────────────
 function showModal(type, id) {modal = {type, id}; renderModal();}
 function closeModal() {modal = null; modalRoot.innerHTML = '';}
@@ -5105,7 +5340,13 @@ function bind() {
       case 'seats': {const n = Object.keys(H.people).length; H.settings.seats = Math.max(1, Math.min(10, (H.settings.seats || suggestSeats(Math.max(1, n))) + +id)); if (H.plan) makePlan(true); else {persist(); render();} break;}
       case 'make-plan': case 'reshuffle-chars': makePlan(true); break;
       case 'reshuffle-people': makePlan(false); break;
-      case 'start-game': startGame(); break;
+      case 'start-game': if (H.rulesSeen) startGame(); else openRules(true); break;
+      case 'rules': closeModal(); openRules(false); break;
+      case 'rules-next': rulesGo(rulesI + 1); break;
+      case 'rules-prev': rulesGo(rulesI - 1); break;
+      case 'rules-go': rulesGo(+id); break;
+      case 'rules-skip': closeRules(rulesThenStart); break;
+      case 'rules-start': closeRules(true); break;
       case 'play-for': playFor(id); break;
       case 'close-round': closeRound(); break;
       case 'force-close': if (confirm('Chiudere il giro? Chi non ha ancora giocato resta fermo.')) closeRound(); break;
@@ -5144,7 +5385,13 @@ function bind() {
     const num = (k, d) => f.get(k) === '' ? d : +f.get(k);
     try {H.G = pAdjust(g, {id: p.id, resources: Object.fromEntries(RES.map(k => [k, num(k, p.res[k])])), position: num('position', p.position), aura: p.aura, specialUsed: p.specialUsed, reason: f.get('reason')}); persist(); closeModal(); render(true); broadcast(); toast('Correzione registrata.');} catch (err) {toast(err.message);}
   });
-  document.addEventListener('keydown', e => {if (e.key === 'Escape') {if (modal) closeModal(); else if (zoom) {zoom = null; zoomRoot.innerHTML = '';} else if (overlay === 'aura' || overlay === 'splash') closeOverlay();}});
+  document.addEventListener('keydown', e => {
+    if (overlay === 'rules' && !modal) {
+      if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) {e.preventDefault(); if (rulesI < RULES.length - 1) rulesGo(rulesI + 1); else closeRules(rulesThenStart); return;}
+      if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) {e.preventDefault(); rulesGo(rulesI - 1); return;}
+      if (e.key === 'Escape') {closeRules(false); return;}
+    }
+    if (e.key === 'Escape') {if (modal) closeModal(); else if (zoom) {zoom = null; zoomRoot.innerHTML = '';} else if (overlay === 'aura' || overlay === 'splash') closeOverlay();}});
   let rt; addEventListener('resize', () => {clearTimeout(rt); rt = setTimeout(() => {drawRoad(); placePawns();}, 80);});
 }
 
@@ -5165,9 +5412,10 @@ const {CELLS, RES, LABEL, ICON, ATTR, POLICIES, EVENTS, AURA_CARDS, AURA_FORMULA
 const {playerView, doneFor} = __parallel;
 const {choices, needsVerification, needsAuraDraw, specialOptions, effectPlan, specificRows, isAuraCell, cellImpact} = __engine;
 const {joinRoom, cleanCode} = __net;
+const {RULES, PHONE_INTRO} = __rules;
 const {ctx, $, $$, esc, fmt, sgn, pad, wait, reduced, pickOne, charOf, avatar, attrChip, tokens, dieHTML, diceFaces, FACE_ROT, spinDie, statBars, morph, microDots, auraFace, auraBack, countUp, KIND, ROW_COLORS, coords} = __ui;
 const SKEY = 'aura-online-phone-v1';
-const S = {code: '', name: '', token: null, status: 'idle', msg: null, tab: 'turn', sel: null, special: '', decKey: '', busy: false, pending: null, dirty: false, lastHTML: '', lastScreen: '', face: 0, revealed: '', votes: null, gloss: '', joinError: ''};
+const S = {intro: null, pendingReveal: null, net: {}, code: '', name: '', token: null, status: 'idle', msg: null, tab: 'turn', sel: null, special: '', decKey: '', busy: false, pending: null, dirty: false, lastHTML: '', lastScreen: '', face: 0, revealed: '', votes: null, gloss: '', joinError: ''};
 let link = null, root, fxRoot, toastTimer, pendTimer, voteTimer, viewCache = null;
 
 const store = () => {try {return JSON.parse(localStorage.getItem(SKEY) || '{}');} catch {return {};}};
@@ -5185,11 +5433,12 @@ const tcSig = () => JSON.stringify([game()?.round, game()?.phase, mine()?.tc || 
 function connect() {
   link?.close(); S.status = 'connecting'; S.lastSeen = Date.now(); render();
   link = joinRoom(S.code, {
-    onStatus(st) {S.status = st; if (st !== 'online' && S.pending) cancelPending('Connessione persa: riprova appena torna il pallino verde.'); renderShell();},
+    onStatus(st, info) {S.status = st; S.net = info || {}; if (st !== 'online' && S.pending) cancelPending('Connessione persa: riprova appena torna il pallino verde.'); renderShell();},
     onOpen() {link.send({t: 'hello', token: S.token, name: S.name});},
     onMessage: onMessage
   });
-  if (!link) {S.status = 'nolib'; render();}
+  if (!link && !['nortc', 'nolib'].includes(S.status)) S.status = 'nolib';
+  if (!link) renderShell();
 }
 const send = msg => link?.send(msg);
 function onMessage(m) {
@@ -5246,6 +5495,7 @@ async function landing(kind) {
 
 // ───────────────────────── overlay ─────────────────────────
 function showReveal(seat) {
+  if (S.intro !== null) {S.pendingReveal = seat; return;}
   S.revealed = seat; remember({revealed: {...(store().revealed || {}), [S.code]: seat}}); const c = charOf(seat); buzz([60, 40, 120]);
   fxRoot.innerHTML = `<div class="ph-reveal" data-action="reveal-ok"><p class="ph-reveal-k">Il tuo personaggio</p>
    <div class="ph-flip"><div class="ph-flip-in"><div class="ph-face ph-back">${auraBack()}</div><div class="ph-face ph-front" style="--pc:${c.color}"><img src="${c.image}" alt=""><b>${c.name}</b><span>${c.age} anni</span></div></div></div>
@@ -5280,18 +5530,58 @@ function joinScreen() {
     ${S.joinError ? `<p class="ph-err">${esc(S.joinError)}</p>` : ''}
     <p class="ph-privacy">Basta un nickname: niente email, niente dati personali. Il nickname compare sul proiettore.</p></form></main>`;
 }
+const NET_TEXT = {
+  connecting: ['↻', 'Mi collego alla stanza…'], reconnecting: ['↻', 'Riprovo a collegarmi…'], offline: ['↻', 'Connessione persa: riprovo da solo.'],
+  noroom: ['⚠', 'Non trovo la stanza: controlla il codice o aspetta che il proiettore la apra.'],
+  nosignal: ['⚠', 'Non raggiungo il servizio di collegamento.'],
+  ice: ['⚠', 'La rete non lascia passare il collegamento con il proiettore.'],
+  nortc: ['⚠', 'Questo browser non permette il collegamento.'], nolib: ['⚠', 'Il collegamento non è disponibile su questo browser.']};
+function netHint() {
+  const st = S.status, i = S.net || {};
+  if (st === 'nortc' || st === 'nolib') return 'Apri il link in <b>Chrome</b> o <b>Safari</b>. I browser dentro WhatsApp, Instagram, Facebook o le app per i QR spesso non funzionano: tocca ⋮ o il pulsante di condivisione e scegli «Apri nel browser».';
+  if (st === 'ice' || (st === 'reconnecting' && i.iceFails)) return 'La rete blocca il collegamento diretto. Prova a <b>cambiare rete</b>: spegni il Wi-Fi e usa i dati mobili (o viceversa), poi tocca Riprova.';
+  if (st === 'nosignal' && i.signalFails >= 2) return 'Questa rete blocca il servizio che collega i telefoni. Prova con i <b>dati mobili</b>.';
+  if (st === 'noroom') return 'Il codice è quello scritto in giallo sul proiettore. Se il proiettore è appena stato ricaricato, aspetta qualche secondo.';
+  return '';
+}
+function netDetails() {
+  const i = S.net || {}; const ua = navigator.userAgent.slice(0, 160);
+  return `<details class="ph-diag-more"><summary>Dettagli per chi facilita</summary><code>stato ${esc(S.status)} · fase ${esc(i.stage || '-')} · tentativi ${i.attempts || 0} · errori rete ${i.iceFails || 0}/${i.signalFails || 0} · relay ${i.turn ? 'sì' : 'base'} · ${esc(i.last || '')} · ${esc(ua)}</code></details>`;
+}
+function netBox() {
+  const t = NET_TEXT[S.status]; if (!t) return '';
+  const hint = netHint(); const retry = ['ice', 'nosignal', 'noroom', 'offline'].includes(S.status) || (S.net?.attempts || 0) > 2;
+  return `<div class="ph-diag"><b>${t[0]} ${t[1]}</b>${hint ? `<p>${hint}</p>` : ''}${retry ? '<button class="primary small" data-action="net-retry">Riprova adesso</button>' : ''}${netDetails()}</div>`;
+}
 function statusLine() {
-  const t = {connecting: 'Mi collego alla stanza…', reconnecting: 'Riprovo a collegarmi…', offline: 'Connessione persa: riprovo da solo.', noroom: 'Non trovo la stanza: controlla il codice o aspetta che il proiettore la apra.', nolib: 'Il collegamento non è disponibile su questo browser.'}[S.status];
-  return t ? `<div class="ph-offline ${S.status}">${S.status === 'noroom' ? '⚠' : '↻'} ${t}${S.status === 'noroom' ? ' <button class="linkish" data-action="change-room">Cambia codice</button>' : ''}</div>` : '';
+  const t = NET_TEXT[S.status]; if (!t) return '';
+  const hint = netHint();
+  return `<div class="ph-offline ${S.status}">${t[0]} ${t[1]}${['ice', 'nosignal', 'noroom', 'offline'].includes(S.status) ? ' <button class="retry" data-action="net-retry">Riprova</button>' : ''}${S.status === 'noroom' ? ' <button class="linkish" data-action="change-room">Cambia codice</button>' : ''}${hint ? `<div class="ph-hint">${hint}</div>` : ''}</div>`;
 }
 function connectingScreen() {
-  return `<main class="ph-wait"><img class="ph-logo" src="${__ASSET.logo}" alt=""><div class="ph-spinner" aria-hidden="true"></div><h2>Stanza ${esc(S.code)}</h2>${statusLine() || '<p>Mi collego…</p>'}<button class="ghost small" data-action="change-room">Cambia stanza o nickname</button></main>`;
+  const bad = ['ice', 'nosignal', 'nortc', 'nolib'].includes(S.status) || (S.net?.attempts || 0) > 2;
+  return `<main class="ph-wait"><img class="ph-logo" src="${__ASSET.logo}" alt="">${bad ? '' : '<div class="ph-spinner" aria-hidden="true"></div>'}<h2>Stanza ${esc(S.code)}</h2>${netBox() || '<p>Mi collego…</p>'}
+   <p class="ph-wait-alt"><button class="ghost small" data-action="intro">Che gioco è?</button> <button class="ghost small" data-action="change-room">Cambia stanza o nickname</button></p></main>`;
+}
+function introScreen() {
+  const i = S.intro, c = PHONE_INTRO[i], last = i === PHONE_INTRO.length - 1;
+  const net = S.status === 'online' ? '● collegato alla stanza ' + esc(S.code) : NET_TEXT[S.status] ? NET_TEXT[S.status][1] : '';
+  return `<main class="ph-intro"><div class="ph-intro-top"><img src="${__ASSET.logo}" alt="AURA"><button class="ghost small" data-action="intro-done">Salta</button></div>
+   <section class="ph-intro-card" data-k="${i}"><span class="ph-intro-ic">${c.icon}</span><h1>${esc(c.title)}</h1><p>${esc(c.text)}</p></section>
+   <div class="ph-intro-dots">${PHONE_INTRO.map((_, k) => `<i class="${k === i ? 'on' : ''}"></i>`).join('')}</div>
+   <div class="ph-intro-nav">${i ? '<button class="ghost" data-action="intro-prev">←</button>' : ''}<button class="primary big" data-action="${last ? 'intro-done' : 'intro-next'}">${last ? 'Ho capito, entro 👉' : 'Avanti →'}</button></div>
+   ${net ? `<p class="ph-intro-net">${net}</p>` : ''}</main>`;
+}
+function rulesMirror() {
+  const i = S.msg?.rules; if (i === undefined || i < 0 || !RULES[i]) return '';
+  const r = RULES[i];
+  return `<section class="ph-card ph-rules"><div class="eyebrow">📽 Sul proiettore · regole ${i + 1}/${RULES.length}</div><h3>${esc(r.title)}</h3><ul>${r.phone.map(x => `<li>${esc(x.replace('{dice}', S.msg.dice || ''))}</li>`).join('')}</ul></section>`;
 }
 function waitingScreen() {
   const y = you(); const n = S.msg.count;
-  if (!y.seat) return `<main class="ph-wait"><img class="ph-logo" src="${__ASSET.logo}" alt=""><h2>Ci sei, ${esc(y.name)}! 🙌</h2><p>Siete in <b>${n}</b> nella stanza. Tra poco chi facilita distribuisce i personaggi: guarda il proiettore.</p>
-    <div class="ph-tip"><b>Intanto, un po’ di slang:</b> ${glossTeaser()}</div><button class="ghost small" data-action="change-name">Cambia nickname</button></main>`;
-  return `<main class="ph-sheet-wait">${sheet(true)}<p class="ph-wait-note">⏳ La partita sta per iniziare: guarda il proiettore.</p></main>`;
+  if (!y.seat) return `<main class="ph-wait">${rulesMirror()}<img class="ph-logo" src="${__ASSET.logo}" alt=""><h2>Ci sei, ${esc(y.name)}! 🙌</h2><p>Siete in <b>${n}</b> nella stanza. Tra poco chi facilita distribuisce i personaggi: guarda il proiettore.</p>
+    <div class="ph-tip"><b>Intanto, un po’ di slang:</b> ${glossTeaser()}</div><p class="ph-wait-alt"><button class="ghost small" data-action="intro">Che gioco è?</button> <button class="ghost small" data-action="change-name">Cambia nickname</button></p></main>`;
+  return `<main class="ph-sheet-wait">${rulesMirror()}${sheet(true)}<p class="ph-wait-note">⏳ La partita sta per iniziare: guarda il proiettore.</p><p class="ph-wait-alt"><button class="ghost small" data-action="intro">Che gioco è?</button></p></main>`;
 }
 function glossTeaser() {const g = pickOne(Object.values(GLOSSARY)); return `<em>${esc(g.term)}</em> · ${esc(g.def)}`;}
 
@@ -5307,12 +5597,13 @@ function nav() {
 }
 function screen() {
   if (!S.code || S.status === 'idle') return ['join', joinScreen()];
+  if (S.intro !== null) return ['intro' + S.intro, introScreen()];
   if (S.msg && !S.msg.you) return ['gone', `<main class="ph-wait"><img class="ph-logo" src="${__ASSET.logo}" alt=""><h2>Sei fuori dalla stanza</h2><p>Chi facilita ti ha tolto dall’elenco, oppure la stanza è stata riaperta.</p><button class="primary big" data-action="rejoin">Rientra</button></main>`];
   if (!S.msg?.you) return ['connecting', connectingScreen()];
   if (!game()) return ['waiting', waitingScreen()];
   if (!mine()) return ['noseat', `<main class="ph-wait"><h2>Sei nella stanza</h2><p>Chi facilita ti assegnerà un personaggio tra un attimo.</p>${statusLine()}</main>`];
   const body = S.tab === 'sheet' ? sheet(false) : S.tab === 'cards' ? cardsTab() : S.tab === 'gloss' ? glossTab() : turnTab();
-  return ['game-' + S.tab + '-' + game().phase, `${head()}<main class="ph-main">${body}</main>${nav()}`];
+  return ['game-' + S.tab + '-' + game().phase, `${head()}<main class="ph-main">${rulesMirror()}${body}</main>${nav()}`];
 }
 function render() {
   if (!root) return;
@@ -5495,6 +5786,11 @@ function bind() {
       case 'send-need': {const t = $('#need')?.value.trim(); if (!t) return toast('Scrivi una frase, anche breve.'); send({t: 'need', text: t}); toast('Inviato al proiettore ✓'); break;}
       case 'vote': {const n = +id, d = +b.dataset.d; const used = Object.values(S.votes).reduce((t, x) => t + x, 0); const cur = S.votes[n] || 0; if (d > 0 && used >= 3) return; const nv = Math.max(0, Math.min(3, cur + d)); if (nv) S.votes[n] = nv; else delete S.votes[n]; buzz(15); S.lastHTML = ''; render(); clearTimeout(voteTimer); voteTimer = setTimeout(() => send({t: 'vote', votes: S.votes}), 250); break;}
       case 'send-feel': {const w = $('#feel')?.value.trim(); if (!w) return toast('Scrivi una parola.'); send({t: 'feel', word: w}); toast('Grazie ✓'); break;}
+      case 'intro': S.intro = 0; S.lastHTML = ''; render(); break;
+      case 'intro-next': S.intro = Math.min(PHONE_INTRO.length - 1, S.intro + 1); render(); break;
+      case 'intro-prev': S.intro = Math.max(0, S.intro - 1); render(); break;
+      case 'intro-done': {S.intro = null; remember({introSeen: true}); S.lastHTML = ''; render(); scrollTo(0, 0); const r = S.pendingReveal; S.pendingReveal = null; if (r) showReveal(r); break;}
+      case 'net-retry': if (link?.retry) link.retry(); else connect(); break;
       case 'rejoin': S.token = null; send({t: 'hello', token: null, name: S.name}); break;
       case 'change-name': link?.close(); link = null; S.status = 'idle'; S.msg = null; S.lastHTML = ''; render(); break;
       case 'change-room': link?.close(); link = null; S.status = 'idle'; S.msg = null; S.code = ''; history.replaceState(null, '', location.pathname + '?s='); render(); break;
@@ -5507,6 +5803,7 @@ function bind() {
     if (!name) {S.joinError = 'Scrivi un nickname.'; return renderShell();}
     S.joinError = ''; S.code = code; S.name = name; S.token = store().tokens?.[code] || null; remember({name});
     const q = new URLSearchParams(location.search); q.set('s', code); history.replaceState(null, '', location.pathname + '?' + q.toString());
+    if (!store().introSeen) S.intro = 0;
     connect();
   });
   document.addEventListener('input', e => {if (e.target.id === 'gloss-q') {S.gloss = e.target.value; render();}});

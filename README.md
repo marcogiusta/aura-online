@@ -9,13 +9,16 @@
 1. Sul computer collegato al proiettore aprite il link qui sopra e cliccate **«Apri una nuova stanza»**: compaiono un QR code e un codice di 4 lettere.
 2. Le persone inquadrano il QR con il telefono, scrivono un nickname ed entrano. Niente app, niente email, niente dati personali.
 3. **«Distribuisci i personaggi»**: il gioco sceglie i personaggi con il divario più ampio e sorteggia chi li gioca (oltre 6 persone si gioca in coppia).
-4. Tutti giocano insieme, ognuno dal proprio telefono; il proiettore mostra tabellone, pedine e chi ha finito.
-5. Dopo il giro 6 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
+4. **«Regole e via!»**: 9 diapositive con le regole sul proiettore (frecce ← → o telecomando); sui telefoni compare il riassunto. Si possono rivedere con «📽 Regole».
+5. Tutti giocano insieme, ognuno dal proprio telefono; il proiettore mostra tabellone, pedine e chi ha finito.
+6. Eventi Mondo dopo i giri 4, 7 e 9. Dopo il giro 8 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
 
 ## Prima di ogni formazione
 
 - Aprite la stanza sul proiettore: la scritta verde «Stanza aperta» indica che il collegamento funziona.
 - Provate con 2 telefoni, uno sul Wi-Fi della sala e uno con i dati mobili.
+- Se un telefono non si collega, sullo schermo trova il motivo e che cosa fare (cambiare rete, aprire in Chrome/Safari, riprovare).
+- Per reti difficili si può aggiungere un relay TURN gratuito di Metered: aprite il gioco con `?turn=NOMEAPP:APIKEY` (il QR lo passa ai telefoni).
 - Tenete a portata di mano la versione offline v0.4 come piano B.
 
 ## Tecnica
