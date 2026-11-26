@@ -17,10 +17,11 @@
 
 - Aprite la stanza sul proiettore: la scritta verde «Stanza aperta» indica che il collegamento funziona.
 - Provate con 2 telefoni, uno sul Wi-Fi della sala e uno con i dati mobili.
-- Se un telefono non si collega, sullo schermo trova il motivo e che cosa fare (cambiare rete, aprire in Chrome/Safari, riprovare).
+- Se il collegamento diretto è bloccato dalla rete, il telefono passa da solo alla **via di riserva** (broker MQTT pubblici, messaggi cifrati): pallino giallo invece che verde, si gioca uguale.
+- Se un telefono non si collega comunque, sullo schermo trova il motivo e che cosa fare (cambiare rete, riprovare).
 - Per reti difficili si può aggiungere un relay TURN gratuito di Metered: aprite il gioco con `?turn=NOMEAPP:APIKEY` (il QR lo passa ai telefoni).
 - Tenete a portata di mano la versione offline v0.4 come piano B.
 
 ## Tecnica
 
-Un solo file statico (`index.html`). Proiettore e telefoni si collegano direttamente (WebRTC) tramite il servizio pubblico gratuito di PeerJS. La partita è salvata nel browser del proiettore.
+Un solo file statico (`index.html`). Proiettore e telefoni si collegano direttamente (WebRTC) tramite il servizio pubblico gratuito di PeerJS; se la rete lo blocca, via di riserva su broker MQTT pubblici (EMQX, HiveMQ, Eclipse) con messaggi cifrati AES-GCM. La partita è salvata nel browser del proiettore.

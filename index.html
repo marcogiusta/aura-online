@@ -782,6 +782,13 @@ body.mode-phone{background:var(--crema);overscroll-behavior-y:contain}
 .rv-attr{font-size:16px}
 .rv-pols{gap:16px}.rv-pol b{font-size:22px}.rv-pol span{font-size:17px}.rv-coins .coin{width:66px;height:66px;font-size:30px}
 .rv-evfront h3{font-size:30px}.rv-evfront .voice-s{font-size:16px}
+.net-sub{font-size:11.5px;color:var(--muted);font-weight:700;margin-top:2px}
+.ph-dot.on.relay{background:var(--giallo);box-shadow:0 0 0 4px #fff3cc}
+/* telefono: niente scorrimento orizzontale, le carte 3D restano sotto la barra in basso */
+body.mode-phone{overflow-x:hidden}
+.mode-phone .ph-main{isolation:isolate;overflow-x:clip}
+.ph-cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ph-deck{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+.mode-phone .ph-nav{z-index:40}
 
 
 </style>
@@ -4343,6 +4350,140 @@ const rollFace = (s, random = Math.random) => {const f = (DICE[s.config.dice] ||
 
 return {CTX, PLAYER_ACTIONS, ADVANTAGE, pickCharacters, suggestSeats, load, playerView, tcOf, startRound, toParallel, act, doneFor, pending, allDone, endRound, approvePolicies, adjust, finish, autoAction, rollFace, clamp};
 })();
+const __relay = (() => {
+// AURA · ponte di riserva tra telefoni e proiettore quando il collegamento diretto (WebRTC) è bloccato dalla rete.
+// I messaggi passano da un broker MQTT pubblico via WebSocket sicuro, cifrati con AES-GCM (chiave derivata dal codice
+// della stanza). Nessun account, nessun server nostro. Per le prove: ?relay=ws://127.0.0.1:8885 (anche più indirizzi, separati da virgola).
+// Tre broker pubblici: il terzo usa la porta 443, quella che passa quasi ovunque.
+const BROKERS = ['wss://broker.emqx.io:8084/mqtt', 'wss://broker.hivemq.com:8884/mqtt', 'wss://mqtt.eclipseprojects.io:443/mqtt'];
+const NS = 'aura-icei/r1';
+const te = new TextEncoder(), td = new TextDecoder();
+const relayBrokers = () => {const r = new URLSearchParams(location.search).get('relay'); return r ? r.split(',').filter(Boolean) : BROKERS;};
+const relayAvailable = () => typeof WebSocket === 'function' && !!globalThis.crypto?.subtle;
+const rid = (n = 10) => Array.from(crypto.getRandomValues(new Uint8Array(n)), b => 'abcdefghijkmnpqrstuvwxyz23456789'[b % 32]).join('');
+
+// ───────── MQTT 3.1.1 minimo (QoS 0) su WebSocket ─────────
+const str = s => {const b = te.encode(s); return [b.length >> 8, b.length & 255, ...b];};
+const remLen = n => {const out = []; do {let d = n % 128; n = Math.floor(n / 128); if (n > 0) d |= 128; out.push(d);} while (n > 0); return out;};
+const packet = (type, body) => new Uint8Array([type, ...remLen(body.length), ...body]);
+class Mqtt {
+  constructor(url, clientId, {onConnect, onMessage, onClose}) {
+    this.url = url; this.id = clientId; this.h = {onConnect, onMessage, onClose}; this.buf = new Uint8Array(0); this.pid = 1; this.ok = false;
+    const ws = this.ws = new WebSocket(url, ['mqtt']); ws.binaryType = 'arraybuffer';
+    ws.onopen = () => ws.send(packet(0x10, [...str('MQTT'), 4, 0x02, 0, 40, ...str(clientId)]));
+    ws.onmessage = e => this.feed(new Uint8Array(e.data));
+    ws.onclose = ws.onerror = () => this.end();
+    this.ping = setInterval(() => {try {if (this.ok) ws.send(new Uint8Array([0xC0, 0]));} catch {}}, 20000);
+  }
+  feed(chunk) {
+    const b = new Uint8Array(this.buf.length + chunk.length); b.set(this.buf); b.set(chunk, this.buf.length); this.buf = b;
+    for (;;) {
+      if (this.buf.length < 2) return;
+      let len = 0, mul = 1, i = 1, byte;
+      do {if (i >= this.buf.length) return; byte = this.buf[i++]; len += (byte & 127) * mul; mul *= 128;} while (byte & 128);
+      if (this.buf.length < i + len) return;
+      const hdr = this.buf[0], type = hdr >> 4, body = this.buf.slice(i, i + len); this.buf = this.buf.slice(i + len);
+      if (type === 2) {if (body[1] === 0) {this.ok = true; this.h.onConnect?.();} else this.end();}
+      else if (type === 3) {const tl = (body[0] << 8) | body[1]; const topic = td.decode(body.subarray(2, 2 + tl)); const qos = (hdr >> 1) & 3; this.h.onMessage?.(topic, body.slice(2 + tl + (qos ? 2 : 0)));}
+    }
+  }
+  subscribe(topic) {const p = this.pid++; this.ws.send(packet(0x82, [p >> 8, p & 255, ...str(topic), 0]));}
+  publish(topic, bytes) {if (!this.ok) return false; try {const t = str(topic); const b = new Uint8Array(t.length + bytes.length); b.set(t); b.set(bytes, t.length); this.ws.send(packet(0x30, b)); return true;} catch {return false;}}
+  end() {if (this.closed) return; this.closed = true; this.ok = false; clearInterval(this.ping); try {this.ws.close();} catch {} this.h.onClose?.();}
+}
+
+// ───────── cifratura e argomenti della stanza ─────────
+const keyCache = new Map();
+async function roomCrypto(code) {
+  if (keyCache.has(code)) return keyCache.get(code);
+  const h = new Uint8Array(await crypto.subtle.digest('SHA-256', te.encode('aura-icei|stanza|' + code)));
+  const topic = NS + '/' + Array.from(h.subarray(0, 8), b => b.toString(16).padStart(2, '0')).join('');
+  const raw = await crypto.subtle.digest('SHA-256', te.encode('aura-icei|chiave|' + code));
+  const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['encrypt', 'decrypt']);
+  const rc = {topic, key}; keyCache.set(code, rc); return rc;
+}
+async function seal(key, obj) {const iv = crypto.getRandomValues(new Uint8Array(12)); const ct = new Uint8Array(await crypto.subtle.encrypt({name: 'AES-GCM', iv}, key, te.encode(JSON.stringify(obj)))); const out = new Uint8Array(12 + ct.length); out.set(iv); out.set(ct, 12); return out;}
+async function unseal(key, bytes) {const pt = await crypto.subtle.decrypt({name: 'AES-GCM', iv: bytes.subarray(0, 12)}, key, bytes.subarray(12)); return JSON.parse(td.decode(pt));}
+
+/** Proiettore: ascolta su tutti i broker; ogni telefono che arriva dal ponte diventa una "connessione" come quelle dirette. */
+function hostRelay(code, {onJoin, onMessage, onLeave, onState}) {
+  if (!relayAvailable()) {onState?.('off'); return null;}
+  let closed = false; const clients = new Map(); const state = {};
+  const report = () => onState?.(Object.values(state).some(s => s === 'on') ? 'on' : Object.values(state).some(s => s === 'try') ? 'try' : 'off');
+  roomCrypto(code).then(({topic, key}) => {
+    for (const url of relayBrokers()) {
+      const start = () => {
+        if (closed) return; state[url] = 'try'; report();
+        const m = new Mqtt(url, 'aura-h-' + rid(), {
+          onConnect() {state[url] = 'on'; report(); m.subscribe(topic + '/h');},
+          onClose() {state[url] = 'off'; report(); if (!closed) setTimeout(start, 4000);},
+          onMessage(t, bytes) {
+            let c; chain = chain.then(async () => {
+              let env; try {env = await unseal(key, bytes);} catch {return;}
+              if (!env || typeof env.c !== 'string' || !/^[a-z0-9]{6,20}$/.test(env.c)) return;
+              const id = 'rl_' + env.c; c = clients.get(id);
+              if (!c) {
+                let out = Promise.resolve();
+                c = {connectionId: id, peer: env.c, open: true, relay: url, seen: Date.now(), mq: m,
+                  send(msg) {out = out.then(async () => {const b = await seal(key, msg); c.mq.publish(topic + '/p/' + env.c, b);}).catch(() => {});}};
+                clients.set(id, c); onJoin?.(c);
+              }
+              c.seen = Date.now();
+              if (env.m?.t === 'probe') {const b = await seal(key, {t: 'here'}); m.publish(topic + '/p/' + env.c, b); return;}
+              c.mq = m; c.relay = url;
+              if (env.m?.t === 'bye') {clients.delete(id); c.open = false; onLeave?.(c); return;}
+              onMessage?.(c, env.m);
+            });
+          }
+        });
+      };
+      let chain = Promise.resolve();
+      start();
+    }
+  });
+  const sweep = setInterval(() => {for (const [id, c] of clients) if (Date.now() - c.seen > 40000) {clients.delete(id); c.open = false; onLeave?.(c);}}, 5000);
+  return {close() {closed = true; clearInterval(sweep);}, get size() {return clients.size;}};
+}
+
+/** Telefono: prova tutti i broker insieme; vince il primo da cui risponde il proiettore. */
+function phoneRelay(code, {onOpen, onMessage, onFail}) {
+  if (!relayAvailable()) {onFail?.('nows'); return null;}
+  const me = rid(12); let rc = null, winner = null, closed = false, round = [], timer = null, out = Promise.resolve();
+  const sendVia = (m, msg) => {out = out.then(async () => {if (m?.ok) m.publish(rc.topic + '/h', await seal(rc.key, {c: me, m: msg}));}).catch(() => {});};
+  function start() {
+    if (closed) return; clearTimeout(timer);
+    for (const m of round) if (m !== winner) m.end();
+    round = relayBrokers().map(url => {
+      let chain = Promise.resolve();
+      const m = new Mqtt(url, 'aura-p-' + me, {
+        onConnect() {m.subscribe(rc.topic + '/p/' + me); setTimeout(() => sendVia(m, {t: 'probe'}), 150);},
+        onClose() {
+          if (closed) return;
+          if (m === winner) {winner = null; onFail?.('lost'); clearTimeout(timer); timer = setTimeout(start, 1500); return;}
+          if (!winner && round.every(x => x.closed)) {onFail?.('relay'); clearTimeout(timer); timer = setTimeout(start, 5000);}
+        },
+        onMessage(t, bytes) {chain = chain.then(async () => {
+          let msg; try {msg = await unseal(rc.key, bytes);} catch {return;}
+          if (!winner) {winner = m; clearTimeout(timer); for (const x of round) if (x !== m) x.end(); onOpen?.(url);}
+          if (m !== winner || msg?.t === 'here') return;
+          onMessage?.(msg);
+        });}
+      });
+      return m;
+    });
+    timer = setTimeout(() => {if (!winner && !closed) {onFail?.('relay'); start();}}, 12000);
+  }
+  roomCrypto(code).then(r => {rc = r; start();});
+  return {
+    send(msg) {if (!winner?.ok) return false; sendVia(winner, msg); return true;},
+    get online() {return !!winner?.ok;},
+    get broker() {return winner?.url || '';},
+    close() {closed = true; clearTimeout(timer); if (winner?.ok) sendVia(winner, {t: 'bye'}); setTimeout(() => {for (const m of round) m.end();}, 250);}
+  };
+}
+
+return {relayBrokers, relayAvailable, hostRelay, phoneRelay};
+})();
 const __net = (() => {
 // AURA · collegamento proiettore ↔ telefoni con PeerJS (WebRTC).
 // Il proiettore apre una "stanza" con un id noto (prefisso + codice); i telefoni si collegano a quell’id.
@@ -4352,6 +4493,7 @@ const __net = (() => {
 // Di default usiamo più server STUN e il TURN pubblico di PeerJS (UDP e TCP). Per una rete più robusta si può
 // aggiungere un TURN gratuito di Metered (Open Relay): basta compilare METERED qui sotto, oppure passare
 // ?turn=NOMEAPP:APIKEY nell’indirizzo (il QR lo inoltra ai telefoni).
+const {hostRelay, phoneRelay, relayAvailable} = __relay;
 const ROOM_PREFIX = 'aura-icei-v05-';
 const METERED = {app: '', key: ''};
 const ALPHABET = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
@@ -4385,15 +4527,15 @@ async function peerOptions() {
   return o;
 }
 /** Parametri da inoltrare ai telefoni (prove locali e TURN). */
-const testParams = () => ['peerhost', 'peerport', 'peerpath', 'peersecure', 'turn'].filter(k => q().get(k)).map(k => k + '=' + encodeURIComponent(q().get(k))).join('&');
+const testParams = () => ['peerhost', 'peerport', 'peerpath', 'peersecure', 'turn', 'relay', 'via'].filter(k => q().get(k)).map(k => k + '=' + encodeURIComponent(q().get(k))).join('&');
 const hasWebRTC = () => typeof window.RTCPeerConnection === 'function';
 
-/** Proiettore. handlers: onOpen(), onJoin(conn), onMessage(conn, msg), onLeave(conn), onError(kind, err) */
+/** Proiettore. handlers: onOpen(), onJoin(conn), onMessage(conn, msg), onLeave(conn), onError(kind, err), onRelay(state)
+ *  Ascolta sia i collegamenti diretti (PeerJS/WebRTC) sia il ponte di riserva (relay.js). */
 function hostRoom(code, handlers) {
-  if (!window.Peer) {handlers.onError?.('nolib'); return null;}
-  if (!hasWebRTC()) {handlers.onError?.('nortc'); return null;}
   let peer, closed = false, retry = 0;
   const conns = new Map();
+  const relay = hostRelay(code, {onJoin: c => handlers.onJoin?.(c), onMessage: (c, m) => handlers.onMessage?.(c, m), onLeave: c => handlers.onLeave?.(c), onState: st => handlers.onRelay?.(st)});
   const start = async () => {
     if (closed) return;
     peer = new window.Peer(ROOM_PREFIX + code, await peerOptions());
@@ -4412,63 +4554,80 @@ function hostRoom(code, handlers) {
       handlers.onError?.(err.type || 'error', err);
     });
   };
-  start();
+  if (!window.Peer) handlers.onError?.('nolib'); else if (!hasWebRTC()) handlers.onError?.('nortc'); else start();
   return {
-    send(conn, msg) {try {if (conn.open) conn.send(JSON.stringify(msg));} catch {}},
-    each(fn) {for (const c of conns.values()) fn(c);},
-    get size() {return conns.size;},
-    close() {closed = true; try {peer?.destroy();} catch {}}
+    send(conn, msg) {if (conn.relay) return conn.send(msg); try {if (conn.open) conn.send(JSON.stringify(msg));} catch {}},
+    get size() {return conns.size + (relay?.size || 0);},
+    close() {closed = true; try {peer?.destroy();} catch {} relay?.close();}
   };
 }
 
 /** Telefono. handlers: onStatus(status, info), onOpen(), onMessage(msg). Si ricollega da solo.
+ * *  Prova prima il collegamento diretto (WebRTC); se dopo 5 s non è aperto, o fallisce, apre in parallelo il ponte
+ *  di riserva (relay.js). Vince il primo che risponde.
  *  status: connecting | reconnecting | online | offline | noroom | nosignal | ice | nortc | nolib
- *  info: {attempts, stage, last} per la diagnosi sul telefono. */
+ *  info: {attempts, stage, last, iceFails, signalFails, turn, via, relay, broker} per la diagnosi sul telefono. */
 function joinRoom(code, handlers) {
-  if (!window.Peer) {handlers.onStatus?.('nolib', {}); return null;}
-  if (!hasWebRTC()) {handlers.onStatus?.('nortc', {}); return null;}
-  let peer = null, conn = null, closed = false, timer = null;
-  const info = {attempts: 0, stage: 'start', last: '', iceFails: 0, signalFails: 0, turn: false};
+  const forceRelay = q().get('via') === 'relay', canRtc = !!window.Peer && hasWebRTC() && !forceRelay;
+  if (!canRtc && !relayAvailable()) {handlers.onStatus?.(window.Peer ? 'nortc' : 'nolib', {}); return null;}
+  let peer = null, conn = null, closed = false, timer = null, relayTimer = null, relay = null, active = null;
+  const info = {attempts: 0, stage: 'start', last: '', iceFails: 0, signalFails: 0, turn: false, via: '', relay: '', broker: ''};
   const status = s => handlers.onStatus?.(s, {...info});
-  const schedule = (ms = Math.min(8000, 1500 + info.attempts * 1000)) => {clearTimeout(timer); if (!closed) timer = setTimeout(connect, ms);};
+  const schedule = (ms = Math.min(8000, 1500 + info.attempts * 1000)) => {clearTimeout(timer); if (!closed && active !== 'relay' && canRtc) timer = setTimeout(connect, ms);};
+  const win = via => {if (active) return false; active = via; info.via = via; info.attempts = 0; info.stage = 'online'; status('online'); handlers.onOpen?.(); return true;};
+  const lost = via => {if (active !== via) return; active = null; info.via = ''; info.stage = 'room'; status('offline'); if (canRtc) schedule(); startRelay();};
+  function startRelay() {
+    if (relay || closed || !relayAvailable()) return;
+    info.relay = 'try'; status(info.attempts > 1 ? 'reconnecting' : 'connecting');
+    relay = phoneRelay(code, {
+      onOpen(url) {info.relay = 'on'; info.broker = url.replace(/^wss?:\/\//, '').split(/[:/]/)[0]; if (win('relay')) {clearTimeout(timer); try {conn?.close();} catch {} try {peer?.destroy();} catch {} peer = null; conn = null;}},
+      onMessage(m) {if (active === 'relay') handlers.onMessage?.(m);},
+      onFail(why) {info.relay = why; if (why === 'lost') lost('relay'); else if (!active) status(canRtc && info.iceFails ? 'ice' : 'reconnecting');}
+    });
+  }
   async function connect() {
-    if (closed) return;
+    if (closed || active === 'relay' || !canRtc) return;
     info.attempts++; status(info.attempts === 1 ? 'connecting' : 'reconnecting');
+    clearTimeout(relayTimer); relayTimer = setTimeout(() => {if (!active) startRelay();}, 5000);
     const open = () => {
       info.stage = 'room';
       try {conn?.close();} catch {}
       const c = conn = peer.connect(ROOM_PREFIX + code, {reliable: true, serialization: 'json'});
-      // La negoziazione passa da STUN e, se serve, dal relay TURN: può richiedere anche 15–20 secondi.
-      const t = setTimeout(() => {if (c === conn && !c.open) {info.iceFails++; info.last = 'timeout'; status('ice'); try {c.close();} catch {} schedule(1000);}}, 25000);
-      c.on('open', () => {clearTimeout(t); info.attempts = 0; info.iceFails = 0; info.signalFails = 0; info.stage = 'online'; status('online'); handlers.onOpen?.();});
-      c.on('data', d => {let m = d; if (typeof d === 'string') {try {m = JSON.parse(d);} catch {return;}} handlers.onMessage?.(m);});
-      c.on('close', () => {clearTimeout(t); if (c !== conn) return; if (info.stage === 'online') {info.stage = 'room'; status('offline');} schedule();});
-      c.on('error', e => {clearTimeout(t); if (c !== conn) return; info.iceFails++; info.last = e?.message || 'errore'; status('ice'); schedule();});
+      const t = setTimeout(() => {if (c === conn && !c.open) {info.iceFails++; info.last = 'timeout'; startRelay(); if (!active) status('ice'); try {c.close();} catch {} schedule(1000);}}, 25000);
+      c.on('open', () => {clearTimeout(t); if (c !== conn) return; if (!win('rtc')) {try {c.close();} catch {} return;} info.iceFails = 0; info.signalFails = 0; if (relay) {relay.close(); relay = null; info.relay = '';}});
+      c.on('data', d => {if (active !== 'rtc' || c !== conn) return; let m = d; if (typeof d === 'string') {try {m = JSON.parse(d);} catch {return;}} handlers.onMessage?.(m);});
+      c.on('close', () => {clearTimeout(t); if (c !== conn) return; if (active === 'rtc') lost('rtc'); else schedule();});
+      c.on('error', e => {clearTimeout(t); if (c !== conn) return; info.iceFails++; info.last = e?.message || 'errore'; startRelay(); if (!active) status('ice'); schedule();});
     };
     if (peer && !peer.destroyed && !peer.disconnected && peer.open) return open();
     try {peer?.destroy();} catch {}
     info.stage = 'signal';
     const opts = await peerOptions(); info.turn = iceCache?.turn || false;
-    if (closed) return;
-    peer = new window.Peer(undefined, opts);
-    peer.on('open', open);
-    peer.on('error', err => {
+    if (closed || active === 'relay') return;
+    const p = peer = new window.Peer(undefined, opts);
+    p.on('open', () => {if (p === peer && active !== 'relay') open();});
+    p.on('error', err => {
+      if (p !== peer || active === 'relay') return;
       info.last = err.type || 'errore';
-      if (err.type === 'peer-unavailable') {status('noroom'); schedule(4000); return;}
-      if (err.type === 'browser-incompatible') {status('nortc'); return;}
-      if (['network', 'server-error', 'socket-error', 'socket-closed', 'unavailable-id'].includes(err.type)) {info.signalFails++; status('nosignal'); try {peer.destroy();} catch {} schedule(); return;}
-      if (err.type === 'webrtc' || err.type === 'negotiation-failed') {info.iceFails++; status('ice'); schedule(); return;}
-      status('offline'); schedule();
+      if (err.type === 'peer-unavailable') {if (!active) status('noroom'); schedule(4000); return;}
+      if (err.type === 'browser-incompatible') {startRelay(); return;}
+      if (['network', 'server-error', 'socket-error', 'socket-closed', 'unavailable-id'].includes(err.type)) {info.signalFails++; startRelay(); if (!active) status('nosignal'); try {p.destroy();} catch {} schedule(); return;}
+      if (err.type === 'webrtc' || err.type === 'negotiation-failed') {info.iceFails++; startRelay(); if (!active) status('ice'); schedule(); return;}
+      if (!active) status('offline'); schedule();
     });
-    peer.on('disconnected', () => {if (conn?.open) return; status('offline'); schedule();});
+    p.on('disconnected', () => {if (p !== peer || conn?.open || active === 'relay') return; if (!active) status('offline'); schedule();});
   }
-  connect();
-  document.addEventListener('visibilitychange', () => {if (document.visibilityState === 'visible' && !(conn && conn.open)) {clearTimeout(timer); connect();}});
+  if (canRtc) connect(); else startRelay();
+  document.addEventListener('visibilitychange', () => {if (document.visibilityState === 'visible' && !active && canRtc) {clearTimeout(timer); connect();}});
   return {
-    send(msg) {try {if (conn && conn.open) {conn.send(JSON.stringify(msg)); return true;}} catch {} return false;},
-    get online() {return !!(conn && conn.open);},
-    retry() {clearTimeout(timer); info.attempts = 0; connect();},
-    close() {closed = true; clearTimeout(timer); try {peer?.destroy();} catch {}}
+    send(msg) {
+      if (active === 'relay') return relay?.send(msg) || false;
+      try {if (active === 'rtc' && conn && conn.open) {conn.send(JSON.stringify(msg)); return true;}} catch {} return false;
+    },
+    get online() {return active === 'relay' ? !!relay?.online : !!(conn && conn.open);},
+    get via() {return active || '';},
+    retry() {clearTimeout(timer); info.attempts = 0; if (relay && !active) {relay.close(); relay = null;} if (canRtc) connect(); startRelay();},
+    close() {closed = true; clearTimeout(timer); clearTimeout(relayTimer); try {peer?.destroy();} catch {} relay?.close();}
   };
 }
 
@@ -4881,7 +5040,8 @@ const KEY = 'aura-online-host-v1', FKEY = 'aura-facilitatore';
 const TIMER_OPTIONS = [0, 60, 90, 120, 180];
 let root, modalRoot, zoomRoot, fxRoot;
 let H = null;            // sessione: {code, people, G, settings, feed, votes, needsLive, feelings, policyStep, policySel, deadline, closeAt}
-let room = null, netStatus = 'off';
+let room = null, netStatus = 'off', relayState = 'off';
+const netShown = () => netStatus === 'online' || relayState === 'on' ? 'online' : netStatus;
 const connTok = new Map();   // connectionId -> token
 const connById = new Map();
 let modal = null, zoom = null, overlay = null, auraQueue = [], toastTimer, saveT, lastRoundShown = 0, tick = null;
@@ -4906,7 +5066,8 @@ function openRoom() {
     onJoin(conn) {DBG('join', conn.connectionId, conn.peer); connById.set(conn.connectionId, conn);},
     onLeave(conn) {DBG('leave', conn.connectionId, conn.open); const t = connTok.get(conn.connectionId); connTok.delete(conn.connectionId); connById.delete(conn.connectionId); if (t) renderSoft();},
     onMessage(conn, m) {try {handle(conn, m);} catch (e) {console.error(e);}},
-    onError(kind) {netStatus = kind === 'nolib' ? 'nolib' : kind === 'taken' ? 'taken' : 'network'; renderSoft();}
+    onError(kind) {netStatus = kind === 'nolib' ? 'nolib' : kind === 'taken' ? 'taken' : 'network'; renderSoft();},
+    onRelay(st) {if (st !== relayState) {relayState = st; renderSoft();}}
   });
 }
 const DBG = /[?&]debug=1/.test(location.search) ? (...a) => console.log('NETDBG', ...a) : () => {};
@@ -4933,10 +5094,10 @@ function slimPlayer(p, mineId) {
 let bcastQueued = false;
 function broadcast() {if (bcastQueued) return; bcastQueued = true; queueMicrotask(() => {bcastQueued = false; for (const [cid, tok] of connTok) {const c = connById.get(cid); if (c) send(c, phoneMessage(tok));}});}
 function assignLate(token) {
-  const g = G(); if (!g) return;
-  const counts = g.players.map(p => [p.id, seatPeople(p.id).length]).sort((a, b) => a[1] - b[1]);
+  const g = G(); const ids = g ? g.players.map(p => p.id) : H.plan?.chars; if (!ids?.length) return;
+  const counts = ids.map(id => [id, seatPeople(id).length]).sort((a, b) => a[1] - b[1]);
   H.people[token].seat = counts[0][0];
-  toast(`${H.people[token].name} entra in gioco con ${charOf(counts[0][0]).name}.`);
+  toast(`${H.people[token].name} ${g ? 'entra in gioco' : 'giocherà'} con ${charOf(counts[0][0]).name}.`);
 }
 function handle(conn, m) {
   if (!m || typeof m !== 'object') return;
@@ -4944,7 +5105,7 @@ function handle(conn, m) {
   if (m.t === 'hello') {DBG('hello', conn.connectionId, m.token, m.name);
     let token = typeof m.token === 'string' && H.people[m.token] ? m.token : null;
     const name = String(m.name || '').trim().slice(0, 24) || 'Ospite';
-    if (!token) {token = randToken(); H.people[token] = {token, name, seat: null, joinedAt: Date.now()}; if (G()) assignLate(token);}
+    if (!token) {token = randToken(); H.people[token] = {token, name, seat: null, joinedAt: Date.now()}; if (G() || H.plan) assignLate(token);}
     else if (m.name) H.people[token].name = name;
     for (const [cid, t] of connTok) if (t === token && cid !== conn.connectionId) connTok.delete(cid);
     connTok.set(conn.connectionId, token); connById.set(conn.connectionId, conn);
@@ -5033,7 +5194,7 @@ function timerHTML() {
 function topbar() {
   const n = Object.keys(H?.people || {}).length, on = new Set(connTok.values()).size;
   return `<header class="topbar"><button class="brand" data-action="splash" title="Rivedi l’intro"><img src="${__ASSET.logo}" alt="Logo AURA"><span><strong>AURA</strong><small>Stesse regole. Vite diverse.</small></span></button>
-  <nav class="top-actions">${H ? `<span class="room-pill net-${netStatus}" title="Stato del collegamento">${netStatus === 'online' ? '●' : '○'} Stanza <b>${H.code}</b> · 📱 ${on}/${n}</span>` : ''}
+  <nav class="top-actions">${H ? `<span class="room-pill net-${netShown()}" title="Collegamento diretto: ${netStatus === 'online' ? 'attivo' : 'non attivo'} · via di riserva: ${relayState === 'on' ? 'attiva' : relayState === 'try' ? 'in apertura' : 'non raggiungibile'}">${netShown() === 'online' ? '●' : '○'} Stanza <b>${H.code}</b> · 📱 ${on}/${n}</span>` : ''}
   ${H ? `<button class="ghost small" data-action="rules">📽 Regole</button>` : ''}<button class="ghost small" data-action="auradeck">🃏 Carte AURA</button><button class="ghost small" data-action="glossary">📖 Dizionario</button>
   ${H ? `<button class="ghost small" data-action="show-qr">▦ QR</button><button class="secondary small" data-action="tools">⚙︎ Strumenti${ctx.facilitator ? ' · facilitatore' : ''}</button>` : ''}<button class="ghost small icon" data-action="fullscreen" aria-label="Schermo intero">⛶</button></nav></header>`;
 }
@@ -5059,7 +5220,8 @@ function lobby() {
    <section class="lobby-join"><div class="eyebrow">Entrate dal telefono</div><h1>Inquadrate il QR</h1>
      <div class="qr-box">${qrSVG(joinURL())}</div>
      <p class="join-alt">oppure aprite <b>${esc(joinURL().split('?')[0])}</b><br>e scrivete il codice <span class="code-big">${H.code}</span></p>
-     <p class="net-line net-${netStatus}">${{online: '● Stanza aperta: i telefoni possono entrare.', connecting: '○ Apertura della stanza…', network: '⚠ Collegamento instabile: riprovo da solo.', taken: '⚠ Il codice è ancora occupato da una sessione precedente: riprovo tra pochi secondi.', nolib: '⚠ Libreria di rete mancante.'}[netStatus] || ''}</p></section>
+     <p class="net-line net-${netShown()}">${{online: '● Stanza aperta: i telefoni possono entrare.', connecting: '○ Apertura della stanza…', network: '⚠ Collegamento instabile: riprovo da solo.', taken: '⚠ Il codice è ancora occupato da una sessione precedente: riprovo tra pochi secondi.', nolib: '⚠ Libreria di rete mancante.'}[netShown()] || ''}</p>
+     <p class="net-sub">Collegamento diretto ${netStatus === 'online' ? '✓' : '…'} · via di riserva ${relayState === 'on' ? '✓' : relayState === 'try' ? '…' : '✗'}</p></section>
    <section class="lobby-side"><div class="lobby-head"><h2>Nella stanza <span class="count">${n}</span></h2><span class="muted">I nomi compaiono man mano che entrate.</span></div>
      <div class="people-chips">${ppl.map((p, i) => `<span class="pchip ${online(p) ? 'on' : 'off'}" style="--d:${i * 40}ms">${esc(p.name)}</span>`).join('') || '<span class="muted">Nessuno ancora. Il QR è lì a sinistra 👈</span>'}</div>
      <div class="lobby-settings">
@@ -5321,7 +5483,8 @@ function makePlan(newChars = true) {
   H.plan = {chars}; persist(); render(); broadcast();
 }
 function startGame() {
-  if (!H.plan) return; const g = newGame(H.plan.chars, {rounds: H.settings.rounds, dice: H.settings.dice, events: H.settings.events});
+  if (!H.plan) return;
+  for (const p of Object.values(H.people)) if (!p.seat || !H.plan.chars.includes(p.seat)) assignLate(p.token); const g = newGame(H.plan.chars, {rounds: H.settings.rounds, dice: H.settings.dice, events: H.settings.events});
   H.G = toParallel(g); H.feed = []; H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; H.closeAt = 0; H.seenEvent = {}; lastRoundShown = 0;
   ctx.dropPawns = true; persist(); render(true); broadcast();
 }
@@ -5538,23 +5701,26 @@ const NET_TEXT = {
   nortc: ['⚠', 'Questo browser non permette il collegamento.'], nolib: ['⚠', 'Il collegamento non è disponibile su questo browser.']};
 function netHint() {
   const st = S.status, i = S.net || {};
+  if (i.relay === 'try' && st !== 'online') return 'Il collegamento diretto è lento o bloccato: sto provando la <b>via di riserva</b>, aspetta qualche secondo.';
   if (st === 'nortc' || st === 'nolib') return 'Apri il link in <b>Chrome</b> o <b>Safari</b>. I browser dentro WhatsApp, Instagram, Facebook o le app per i QR spesso non funzionano: tocca ⋮ o il pulsante di condivisione e scegli «Apri nel browser».';
-  if (st === 'ice' || (st === 'reconnecting' && i.iceFails)) return 'La rete blocca il collegamento diretto. Prova a <b>cambiare rete</b>: spegni il Wi-Fi e usa i dati mobili (o viceversa), poi tocca Riprova.';
+  if (st === 'ice' || (st === 'reconnecting' && i.iceFails)) return 'Questa rete blocca sia il collegamento diretto sia la via di riserva. Prova a <b>cambiare rete</b>: spegni il Wi-Fi e usa i dati mobili (o viceversa), poi tocca Riprova.';
   if (st === 'nosignal' && i.signalFails >= 2) return 'Questa rete blocca il servizio che collega i telefoni. Prova con i <b>dati mobili</b>.';
   if (st === 'noroom') return 'Il codice è quello scritto in giallo sul proiettore. Se il proiettore è appena stato ricaricato, aspetta qualche secondo.';
   return '';
 }
 function netDetails() {
   const i = S.net || {}; const ua = navigator.userAgent.slice(0, 160);
-  return `<details class="ph-diag-more"><summary>Dettagli per chi facilita</summary><code>stato ${esc(S.status)} · fase ${esc(i.stage || '-')} · tentativi ${i.attempts || 0} · errori rete ${i.iceFails || 0}/${i.signalFails || 0} · relay ${i.turn ? 'sì' : 'base'} · ${esc(i.last || '')} · ${esc(ua)}</code></details>`;
+  return `<details class="ph-diag-more"><summary>Dettagli per chi facilita</summary><code>stato ${esc(S.status)} · via ${esc(i.via || '-')} · fase ${esc(i.stage || '-')} · tentativi ${i.attempts || 0} · errori rete ${i.iceFails || 0}/${i.signalFails || 0} · turn ${i.turn ? 'dedicato' : 'base'} · riserva ${esc(i.relay || '-')}${i.broker ? ' (' + esc(i.broker) + ')' : ''} · ${esc(i.last || '')} · ${esc(ua)}</code></details>`;
 }
 function netBox() {
-  const t = NET_TEXT[S.status]; if (!t) return '';
+  let t = NET_TEXT[S.status]; if (!t) return '';
+  if (S.net?.relay === 'try' && ['ice', 'nosignal', 'reconnecting'].includes(S.status)) t = ['↻', 'Provo la via di riserva…'];
   const hint = netHint(); const retry = ['ice', 'nosignal', 'noroom', 'offline'].includes(S.status) || (S.net?.attempts || 0) > 2;
   return `<div class="ph-diag"><b>${t[0]} ${t[1]}</b>${hint ? `<p>${hint}</p>` : ''}${retry ? '<button class="primary small" data-action="net-retry">Riprova adesso</button>' : ''}${netDetails()}</div>`;
 }
 function statusLine() {
-  const t = NET_TEXT[S.status]; if (!t) return '';
+  let t = NET_TEXT[S.status]; if (!t) return '';
+  if (S.net?.relay === 'try' && ['ice', 'nosignal', 'reconnecting'].includes(S.status)) t = ['↻', 'Provo la via di riserva…'];
   const hint = netHint();
   return `<div class="ph-offline ${S.status}">${t[0]} ${t[1]}${['ice', 'nosignal', 'noroom', 'offline'].includes(S.status) ? ' <button class="retry" data-action="net-retry">Riprova</button>' : ''}${S.status === 'noroom' ? ' <button class="linkish" data-action="change-room">Cambia codice</button>' : ''}${hint ? `<div class="ph-hint">${hint}</div>` : ''}</div>`;
 }
@@ -5588,7 +5754,7 @@ function glossTeaser() {const g = pickOne(Object.values(GLOSSARY)); return `<em>
 function head() {
   const g = game(), p = mine(), c = charOf(p.id);
   return `<header class="ph-top" style="--pc:${c.color}">${avatar(p.id, 'sm')}<div class="ph-who"><b>${c.name}</b><small>${esc(you().name)}${you().mates?.length ? ' + ' + you().mates.map(esc).join(', ') : ''}</small></div>
-   <div class="ph-round">${g.phase === 'summary' ? 'Fine' : `Giro <b>${g.round}</b>/${g.config.rounds}`}</div><span class="ph-dot ${S.status === 'online' ? 'on' : ''}" title="${S.status === 'online' ? 'Collegato' : 'Non collegato'}"></span></header>${statusLine()}
+   <div class="ph-round">${g.phase === 'summary' ? 'Fine' : `Giro <b>${g.round}</b>/${g.config.rounds}`}</div><span class="ph-dot ${S.status === 'online' ? 'on' : ''} ${S.net?.via === 'relay' ? 'relay' : ''}" title="${S.status === 'online' ? (S.net?.via === 'relay' ? 'Collegato (via di riserva)' : 'Collegato') : 'Non collegato'}"></span></header>${statusLine()}
    <div class="ph-res">${RES.map(k => `<span class="${p.res[k] === 0 ? 'zero' : ''}" title="${LABEL[k]}">${ICON[k]}<b>${p.res[k]}</b></span>`).join('')}<span title="Casella">📍<b>${p.position}</b></span></div>`;
 }
 function nav() {
