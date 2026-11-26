@@ -790,6 +790,55 @@ body.mode-phone{overflow-x:hidden}
 .ph-cards{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.ph-deck{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 .mode-phone .ph-nav{z-index:40}
 
+/* ============ il racconto sul proiettore: scene e riepilogo del giro ============ */
+.scene-veil,.recap-veil{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 24px;background:#082f51b8;backdrop-filter:blur(3px);animation:veilIn .3s}
+@media(min-width:1061px){.mode-host .scene-veil,.mode-host .recap-veil{inset:72px 404px 0 0;border-radius:0 0 26px 0}}
+@media(min-width:1061px) and (max-width:1280px){.mode-host .scene-veil,.mode-host .recap-veil{right:354px}}
+.scene{width:min(100%,1120px);max-height:100%;overflow:hidden;background:var(--crema);border-radius:30px;border:5px solid #fff;box-shadow:0 30px 80px #0008,inset 0 10px 0 var(--pc);display:flex;flex-direction:column;animation:sceneIn .55s cubic-bezier(.2,1.2,.4,1)}
+@keyframes sceneIn{from{opacity:0;transform:translateY(40px) scale(.96)}to{opacity:1;transform:none}}
+.sc-who{display:flex;align-items:center;gap:14px;padding:20px 26px 12px;background:linear-gradient(90deg,color-mix(in srgb,var(--pc) 22%,#fff),transparent 70%)}
+.sc-who .av.md{width:64px;height:64px;border-width:4px}.sc-who b{display:block;font-family:var(--head);font-size:34px;line-height:1}.sc-who small{font-weight:800;color:var(--muted);font-size:14px}
+.sc-move{margin-left:auto;font-family:var(--head);font-size:26px;background:#fff;border-radius:999px;padding:4px 16px;border:3px solid var(--verde);color:#00634f}.sc-move.back{border-color:var(--corallo);color:#b0102a}
+.sc-main{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:22px;padding:8px 26px 22px;min-height:0}
+.sc-story{display:flex;flex-direction:column;gap:12px;min-width:0}
+.sc-cell{display:flex;align-items:center;gap:14px}
+.sc-ring{flex:none;width:70px;height:70px;border-radius:50%;background:#fff;border:10px solid var(--k);display:grid;place-items:center;font-family:var(--head);font-size:24px}
+.sc-cell small{font-family:var(--head);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--k);font-size:15px}.sc-cell h2{font-size:clamp(28px,2.6vw,42px);line-height:1.08;color:var(--notte)}
+.sc-voice{margin:0;font-size:clamp(18px,1.55vw,24px);line-height:1.45;font-weight:700;background:#fff;border-radius:18px;padding:14px 18px;border-left:7px solid var(--pc)}
+.sc-hits{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-weight:800;font-size:16px;color:#9b1830}.sc-hits .attr-chip{font-size:15px}
+.sc-line{font-size:17px;font-weight:700}
+.sc-choice{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-size:clamp(18px,1.5vw,23px)}.sc-choice span{font-weight:800;color:var(--muted)}.sc-choice b{font-family:var(--head);color:var(--blu);font-size:1.15em}.sc-choice em{font-style:normal;color:var(--muted);font-weight:700;font-size:.85em}
+.sc-blocked{background:#ffe3e7;color:#9b1830;border-radius:14px;padding:8px 14px;font-weight:800;font-size:17px}
+.sc-special{background:#fff3cc;color:#5c4300;border-radius:14px;padding:8px 14px;font-weight:700;font-size:17px}
+.sc-effects{display:flex;flex-wrap:wrap;gap:8px}.sc-effects .tok{font-size:20px;padding:7px 14px}
+.sc-lock{display:flex;align-items:center;gap:10px;background:var(--notte);color:#fff;border-radius:14px;padding:10px 14px;font-weight:700;font-size:16px}.sc-lock .tok{background:#fff;color:var(--notte);font-size:18px}
+.sc-micro{background:#e8f3ff;color:var(--blu);border-radius:14px;padding:8px 14px;font-weight:800;font-size:16px}
+.sc-auto{font-size:14px;color:var(--muted);font-weight:700}
+.sc-fac{background:#f2eaff;border-radius:14px;padding:10px 14px;font-size:15px;line-height:1.45}
+.sc-card{width:220px;align-self:flex-start}.sc-card .acard{font-size:12px}
+.sc-side{background:#fff;border-radius:22px;border:2px solid var(--line);padding:14px 16px;align-self:start}.sc-side .stats{padding:0}.sc-side .stat{font-size:15px}
+.sc-foot{width:min(100%,1120px);display:flex;flex-direction:column;gap:6px;margin-top:10px;color:#cfe3f5;font-size:13px;font-weight:700;text-align:center}
+.sc-bar{display:block;height:6px;border-radius:3px;background:#ffffff33;overflow:hidden;position:relative}.sc-bar:after{content:'';position:absolute;inset:0;background:var(--giallo);transform-origin:left;animation:scBar var(--t) linear both}
+@keyframes scBar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.recap{width:min(100%,1180px);max-height:100%;overflow:auto;background:var(--crema);border-radius:30px;border:5px solid #fff;box-shadow:0 30px 80px #0008;padding:20px 24px;animation:sceneIn .5s cubic-bezier(.2,1.2,.4,1)}
+.rc-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.rc-head small{font-family:var(--head);letter-spacing:.12em;text-transform:uppercase;color:var(--blu);font-size:15px}.rc-head h2{font-size:clamp(30px,3vw,46px);color:var(--corallo);line-height:1.05}
+.rc-ctrl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.rc-count{font-size:13px;font-weight:800;color:var(--muted)}
+.rc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.rc-grid.many{grid-template-columns:repeat(5,minmax(0,1fr))}
+.rc-card{background:#fff;border-radius:20px;border:2px solid var(--line);border-top:7px solid var(--pc);padding:10px 12px;display:flex;flex-direction:column;gap:8px;animation:popIn .45s var(--d) both}
+.rc-card header{display:flex;align-items:center;gap:8px}.rc-card header b{font-family:var(--head);font-size:21px}
+.rc-move{margin-left:auto;font-family:var(--head);font-size:16px;color:#00634f;white-space:nowrap}.rc-move.back{color:#b0102a}.rc-move.still{color:var(--muted)}
+.rc-card ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;flex:1}
+.rc-card li{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:14px;line-height:1.3;border-bottom:1px dashed var(--line);padding-bottom:6px}
+.rc-where{font-weight:800}.rc-where b{display:inline-grid;place-items:center;min-width:26px;height:22px;border-radius:11px;background:var(--crema2);font-family:var(--head);font-size:13px;padding:0 5px;margin-right:2px}
+.rc-choice{color:var(--blu);font-weight:800}.rc-toks{display:flex;flex-wrap:wrap;gap:3px}.rc-toks .tok{font-size:12px;padding:2px 8px}
+.rc-card footer{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;font-weight:800}.rc-card footer .neg{color:#b0102a}.rc-card footer .pos{color:#00634f}.rc-card footer .still{color:var(--muted)}
+.rc-res{margin-left:auto;color:var(--muted);font-weight:700;font-size:12px}
+.rc-grid.many .rc-card li{font-size:12.5px}.rc-grid.many .rc-card header b{font-size:17px}
+.rc-q{margin-top:14px;text-align:center;font-family:var(--head);font-size:clamp(20px,1.8vw,28px);color:var(--notte)}
+@media(max-height:780px){.sc-voice{font-size:17px;padding:10px 14px}.sc-cell h2{font-size:28px}.sc-ring{width:56px;height:56px;border-width:8px;font-size:19px}.sc-card{width:170px}}
+.sc-side .sc-card{width:min(100%,210px);margin:14px auto 0}.sc-voice.long{font-size:clamp(16px,1.3vw,20px)}
+
 
 </style>
 </head>
@@ -5031,11 +5080,11 @@ const __host = (() => {
 // AURA online · pagina del proiettore (regista). Tiene la partita e la condivide con i telefoni.
 const {DICE, DEFAULT_DICE, CHARACTERS, CELLS, RES, LABEL, ICON, ATTR, POLICIES, EVENTS, AURA_CARDS, AURA_FORMULA, GLOSSARY, ROUND_LINES, REACTIONS, DEBRIEF, POLICY_ROUND, EVENT_ROUNDS, ROUND_OPTIONS, MICRO_LIMIT} = __data;
 const {NOTES} = __notes;
-const {newGame, eventImpact, specificRows} = __engine;
+const {newGame, eventImpact, specificRows, choices, specialOptions} = __engine;
 const {toParallel, act: pAct, playerView, pending, allDone, endRound, approvePolicies, adjust: pAdjust, finish: pFinish, autoAction, rollFace, pickCharacters, suggestSeats, doneFor} = __parallel;
 const {hostRoom, newRoomCode, testParams} = __net;
 const {RULES} = __rules;
-const {ctx, $, $$, dieHTML, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
+const {ctx, $, $$, dieHTML, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, KIND, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
 const KEY = 'aura-online-host-v1', FKEY = 'aura-facilitatore';
 const TIMER_OPTIONS = [0, 60, 90, 120, 180];
 let root, modalRoot, zoomRoot, fxRoot;
@@ -5044,11 +5093,11 @@ let room = null, netStatus = 'off', relayState = 'off';
 const netShown = () => netStatus === 'online' || relayState === 'on' ? 'online' : netStatus;
 const connTok = new Map();   // connectionId -> token
 const connById = new Map();
-let modal = null, zoom = null, overlay = null, auraQueue = [], toastTimer, saveT, lastRoundShown = 0, tick = null;
+let modal = null, zoom = null, overlay = null, stageQueue = [], toastTimer, saveT, lastRoundShown = 0, tick = null;
 let lastBoardKey = '', auraNow = null;
 const lastBy = {};
 
-const blankSession = code => ({code, people: {}, G: null, settings: {rounds: ROUND_OPTIONS[0], dice: DEFAULT_DICE, events: true, timer: 120, seats: null}, plan: null, feed: [], votes: {}, needsLive: {}, feelings: {}, policyStep: 'look', policySel: [], deadline: 0, closeAt: 0, paused: false, seenEvent: {}});
+const blankSession = code => ({code, people: {}, G: null, settings: {rounds: ROUND_OPTIONS[0], dice: DEFAULT_DICE, events: true, timer: 120, seats: null, story: 'full'}, plan: null, feed: [], votes: {}, needsLive: {}, feelings: {}, policyStep: 'look', policySel: [], deadline: 0, closeAt: 0, paused: false, seenEvent: {}});
 const G = () => H?.G;
 const randToken = () => Array.from(crypto.getRandomValues(new Uint8Array(9)), b => b.toString(36).padStart(2, '0')).join('').slice(0, 14);
 const joinURL = () => {const base = location.origin === 'null' || location.protocol === 'file:' ? location.href.split('?')[0] : location.origin + location.pathname; const tp = testParams(); return base + '?s=' + H.code + (tp ? '&' + tp : '');};
@@ -5142,31 +5191,48 @@ function sanitize(a, g) {
 // ───────────────────────── gioco ─────────────────────────
 function apply(pid, a, who = null, auto = false) {
   const g = G(); const before = g.players.find(p => p.id === pid); const fromPos = before.position; const prevTc = before.tc || {};
+  // per il racconto: le opzioni che il personaggio aveva davanti, prima di scegliere
+  let pre = null;
+  if (['resolve', 'wellbeing', 'digitalPass'].includes(a.type)) {
+    try {const v = playerView(g, pid); const cs = a.type === 'digitalPass' ? [] : choices(v); const sp = a.special ? specialOptions(v, a.choice || 'apply').find(x => x.id === a.special) : null;
+      pre = {phase: v.phase, cs, sp, aura: prevTc.auraCard || null, verify: prevTc.verification ?? null};} catch {}
+  }
   let next; try {next = pAct(g, pid, a);} catch (e) {return e.message;}
   H.G = next; const after = next.players.find(p => p.id === pid); const tc = after.tc;
   const name = charOf(pid).name;
   if (a.type === 'roll') addFeed({pid, kind: 'roll', text: `🎲 ${tc.dice} → casella ${tc.landed ?? after.position}`, auto});
   if (a.type === 'resolve' || a.type === 'wellbeing') {
     const landed = prevTc.landed; const spec = a.type === 'resolve' && landed && !g.event && specificRows(playerView(g, pid), before, landed).length > 0;
-    addFeed({pid, kind: 'effect', n: g.event ? null : landed, ev: g.event?.id || null, ops: tc.lastOps || [], pols: tc.lastPols || [], micro: tc.lastMicro, spec, text: tc.lastResult || '', auto});
+    const chosen = pre?.cs.find(c => c.id === a.choice);
+    const entry = {pid, kind: 'effect', n: g.event ? null : landed, ev: g.event?.id || null, ops: tc.lastOps || [], pols: tc.lastPols || [], micro: tc.lastMicro, spec, text: tc.lastResult || '', auto,
+      phase: pre?.phase || '', choice: chosen && !(chosen.id === 'apply' && pre.cs.length === 1) ? chosen.label : '', alts: (pre?.cs || []).filter(c => c.id !== a.choice && !c.disabled && !c.requiresSpecial).map(c => c.label),
+      blocked: (pre?.cs || []).filter(c => c.disabled).map(c => c.label), special: pre?.sp ? {name: charOf(pid).special, label: pre.sp.label} : null, aura: pre?.aura, verify: pre?.verify, from: fromPos, to: after.position, before: {res: {...before.res}}};
+    addFeed(entry); queueScene(entry);
   }
-  if (a.type === 'drawAura' && tc.auraCard) queueAura(tc.auraCard, pid);
+  if (a.type === 'digitalPass') {const entry = {pid, kind: 'effect', n: prevTc.landed || null, ev: g.event?.id || null, ops: [], pols: [], text: tc.lastResult || '', phase: 'cell', choice: '', alts: [], blocked: [], special: {name: charOf(pid).special, label: 'supera la prova digitale'}, from: fromPos, to: after.position, before: {res: {...before.res}}}; queueScene(entry);}
+  if (a.type === 'drawAura' && tc.auraCard) {stageQueue.push({type: 'aura', cardId: tc.auraCard, pid}); if (!overlay) maybeOverlays();}
   if (auto) lastBy[pid] = {token: 'auto', name: 'chi facilita (o il timer)', at: Date.now()};
   persist(); renderSoft();
   if (fromPos !== after.position) animateTravel(pid, fromPos, after.position);
-  if (a.type === 'resolve' || a.type === 'wellbeing') setTimeout(() => floatTokens(pid, tc.lastOps, tc.lastPols, tc.lastMicro), fromPos !== after.position ? Math.abs(after.position - fromPos) * 250 + 200 : 60);
+  if ((a.type === 'resolve' || a.type === 'wellbeing') && H.settings.story !== 'full') setTimeout(() => floatTokens(pid, tc.lastOps, tc.lastPols, tc.lastMicro), fromPos !== after.position ? Math.abs(after.position - fromPos) * 250 + 200 : 60);
   checkRoundEnd(); broadcast();
   return true;
 }
 function addFeed(e) {H.feed.unshift({...e, round: G().round, at: Date.now()}); H.feed = H.feed.slice(0, 40);}
+const RECAP_SECONDS = 25;
 function checkRoundEnd() {
   const g = G(); if (!g) return;
-  if (allDone(g)) {if (!H.closeAt) H.closeAt = Date.now() + 7000;}
-  else H.closeAt = 0;
+  if (allDone(g)) {
+    if (H.settings.story === 'off') {if (!H.closeAt) H.closeAt = Date.now() + 7000;}
+    else if (!H.recapShown) {H.recapPending = true; if (!overlay) maybeOverlays();}
+  } else {H.closeAt = 0; H.recapPending = false;}
 }
+function snapshotStart() {const g = G(); if (!g) return; H.startSnap = {round: g.round, phase: g.phase, players: Object.fromEntries(g.players.map(p => [p.id, {position: p.position, res: {...p.res}}]))}; H.recapShown = false; H.recapPending = false;}
 function closeRound() {
   const g = G(); if (!g || !['round', 'event'].includes(g.phase)) return;
-  H.G = endRound(g, true); H.closeAt = 0;
+  if (overlay === 'recap' || overlay === 'scene') {overlay = null; fxRoot.innerHTML = '';}
+  stageQueue = stageQueue.filter(x => x.type === 'aura');
+  H.G = endRound(g, true); H.closeAt = 0; H.paused = false; snapshotStart();
   if (['round', 'event'].includes(H.G.phase)) H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0;
   if (H.G.phase === 'policy') {H.policyStep = 'look'; H.policySel = []; H.votes = {}; H.needsLive = {};}
   persist(); render(true); broadcast();
@@ -5179,10 +5245,11 @@ function onTick() {
   const now = Date.now();
   if (['round', 'event'].includes(g.phase) && !H.paused) {
     if (H.deadline && now > H.deadline) {for (const pid of pending(g)) {const a = autoAction(G(), pid); if (a) apply(pid, a, null, true);}}
-    if (H.closeAt && now > H.closeAt && !overlay) closeRound();
+    if (H.closeAt && now > H.closeAt && (!overlay || overlay === 'recap')) closeRound();
   }
   const t = $('#timer'); if (t) t.outerHTML = timerHTML();
   const c = $('#close-count'); if (c && H.closeAt) c.textContent = Math.max(0, Math.ceil((H.closeAt - now) / 1000));
+  const rc = $('#recap-count'); if (rc) rc.textContent = H.closeAt ? Math.max(0, Math.ceil((H.closeAt - now) / 1000)) + ' s' : 'in pausa';
 }
 function timerHTML() {
   if (!H.settings.timer || !H.deadline || !['round', 'event'].includes(G()?.phase)) return `<span id="timer" class="timer off">⏱ senza timer</span>`;
@@ -5229,6 +5296,7 @@ function lobby() {
        <label class="field">Durata<select data-set="rounds">${ROUND_OPTIONS.map(r => `<option value="${r}" ${H.settings.rounds === r ? 'selected' : ''}>${r} giri</option>`).join('')}</select></label>
        <label class="field">Dado<select data-set="dice">${Object.entries(DICE).map(([k, d]) => `<option value="${k}" ${H.settings.dice === k ? 'selected' : ''}>${d.label}</option>`).join('')}</select></label>
        <label class="field">Timer per giro<select data-set="timer">${TIMER_OPTIONS.map(t => `<option value="${t}" ${H.settings.timer === t ? 'selected' : ''}>${t ? t + ' secondi' : 'nessun timer'}</option>`).join('')}</select></label>
+<label class="field">Racconto sul proiettore<select data-set="story">${[['full', 'Completo: ogni mossa + riepilogo'], ['recap', 'Solo riepilogo a fine giro'], ['off', 'Spento']].map(([v, l]) => `<option value="${v}" ${(H.settings.story || 'full') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
        <label class="check-field"><input type="checkbox" data-set="events" ${H.settings.events ? 'checked' : ''}> Eventi Mondo dopo i giri ${EVENT_ROUNDS.join(', ')}</label>
      </div>
      ${plan ? `<div class="plan"><h3>Chi gioca chi</h3><p class="muted">Personaggi scelti per avere il massimo divario, dal più avvantaggiato al meno. Le persone sono sorteggiate.</p><div class="plan-grid">${plan.chars.map((id, i) => {const c = charOf(id); const names = Object.values(H.people).filter(p => p.seat === id).map(p => esc(p.name)); return `<div class="plan-card" style="--pc:${c.color};--d:${i * 90}ms">${avatar(id, 'md')}<b>${c.name}</b><span>${names.join(' · ') || '<em>senza telefono: lo gioca chi facilita</em>'}</span></div>`;}).join('')}</div>
@@ -5253,6 +5321,7 @@ function seatPanel() {
   return `<div class="sp-head">${ev ? `<div class="sp-ev" style="--ec:${ev.color}">${ev.icon} <b>${esc(ev.title)}</b> · si risponde dal telefono</div>` : ''}
     <div class="sp-title"><h3>${ev ? 'Evento Mondo' : 'Giro ' + g.round + ' · tutti insieme'}</h3>${timerHTML()}</div>
     <div class="sp-progress"><i style="width:${doneN / total * 100}%"></i></div><div class="sp-count">${doneN} di ${total} hanno finito ${H.paused ? '· <b>pausa</b>' : ''}</div>
+    ${!H.closeAt && H.recapPending ? `<div class="sp-close">Tutti fatto! Sul tabellone scorre il racconto del giro (${stageQueue.length}). <button class="ghost small" data-action="skip-story">Salta al riepilogo</button></div>` : ''}
     ${H.closeAt ? `<div class="sp-close">Tutti fatto! ${ev ? 'Si riprende' : 'Il giro si chiude'} tra <b id="close-count">${Math.max(0, Math.ceil((H.closeAt - Date.now()) / 1000))}</b> s <button class="primary small" data-action="close-round">Avanti ora →</button><button class="ghost small" data-action="hold-round">Aspetta</button></div>` : ''}</div>
    <div class="seats ${g.players.length > 6 ? 'many' : ''}">${g.players.map(p => seatCard(p, g)).join('')}</div>
    <div class="sp-foot"><button class="ghost small" data-action="pause">${H.paused ? '▶ Riprendi il timer' : '⏸ Pausa timer'}</button>${!H.closeAt ? `<button class="ghost small" data-action="force-close">Chiudi comunque il giro</button>` : ''}</div>`;
@@ -5343,7 +5412,8 @@ function renderSoft() {
 }
 function maybeOverlays() {
   const g = G(); if (!g || overlay) return;
-  if (auraQueue.length) return showAuraReveal();
+  if (stageQueue.length) return showStage();
+  if (H.recapPending && ['round', 'event'].includes(g.phase) && allDone(g)) return showRecap();
   if (g.phase === 'event' && !H.seenEvent[g.round]) return showEventReveal();
   if (g.phase === 'round' && g.round !== lastRoundShown) {lastRoundShown = g.round; showRoundBanner();}
 }
@@ -5362,9 +5432,9 @@ function showEventReveal() {
     <div class="ev-actions"><button class="primary big" data-action="event-go">Ok: rispondete dal telefono →</button></div></div></div>`;
   if (reduced()) $('.ev-slot.reveal', fxRoot)?.classList.add('instant');
 }
-function queueAura(cardId, pid) {auraQueue.push({cardId, pid}); if (!overlay) showAuraReveal();}
+function showStage() {const item = stageQueue[0]; if (!item) return; if (item.type === 'scene') return showScene(); return showAuraReveal();}
 function showAuraReveal() {
-  const item = auraQueue.shift(); if (!item) return; overlay = 'aura';
+  const item = stageQueue.shift(); if (!item) return; overlay = 'aura';
   const card = AURA_CARDS.find(c => c.id === item.cardId), c = charOf(item.pid), p = G().players.find(x => x.id === item.pid);
   let value = card.aura; if (card.id === 2 && p.res.rete >= 3) value += 1000; const neg = value < 0;
   const COLORS = ['#FFB700', '#FF3E56', '#0878CF', '#59CFA5', '#7433B9', '#8DD3F5'];
@@ -5374,9 +5444,74 @@ function showAuraReveal() {
      <div class="ar-card"><div class="ar-flip"><div class="ar-face ar-back">${auraBack()}</div><div class="ar-face ar-front">${auraFace(card)}</div></div><div class="ar-burst" aria-hidden="true">${parts}</div></div></div>
     <div class="ar-score ${neg ? 'neg' : ''}">${card.choice ? '<b>+4.000</b><small>oppure</small><b>0</b>' : `<b id="ar-num">0</b>`}<span>✨ AURA</span></div><p class="ar-line"><em>${esc(AURA_FORMULA)}</em></p></div></div>`;
   if (!card.choice) countUp($('#ar-num', fxRoot), value, 2500);
-  auraNow = item; setTimeout(() => {if (overlay === 'aura' && auraNow === item) closeOverlay();}, auraQueue.length ? 4800 : 6000);
+  auraNow = item; setTimeout(() => {if (overlay === 'aura' && auraNow === item) closeOverlay();}, stageQueue.length ? 4800 : 6000);
 }
 function closeOverlay() {overlay = null; fxRoot.innerHTML = ''; maybeOverlays();}
+
+// ───────────────────────── il racconto sul proiettore ─────────────────────────
+function queueScene(entry) {if (H.settings.story !== 'full') return; stageQueue.push({type: 'scene', entry}); if (!overlay) maybeOverlays();}
+const kindOf = n => KIND[CELLS[n - 1].kind] || {label: '', color: '#0878CF'};
+function hitsFor(pid, n) {const c = charOf(pid); return n ? CELLS[n - 1].hits.filter(h => c.attrs.includes(h)) : [];}
+function sceneHTML(e) {
+  const c = charOf(e.pid), g = G(), p = g.players.find(x => x.id === e.pid) || {id: e.pid, res: c.initial};
+  const ppl = seatPeople(e.pid).map(x => esc(x.name)).join(' + ');
+  const ev = e.ev ? EVENTS.find(x => x.id === e.ev) : null, cell = e.n && !ev ? CELLS[e.n - 1] : null;
+  let head = '';
+  if (ev) head = `<div class="sc-cell ev" style="--k:${ev.color}"><span class="sc-ring">${ev.icon}</span><div><small>EVENTO MONDO</small><h2>${esc(ev.title)}</h2></div></div><blockquote class="sc-voice">“${esc(ev.voice)}”</blockquote>`;
+  else if (e.phase === 'wellbeing') head = `<div class="sc-cell" style="--k:#FF3E56"><span class="sc-ring">💚</span><div><small>BENESSERE A ZERO</small><h2>Batteria scarica.</h2></div></div><blockquote class="sc-voice">“Non ce la faccio, raga. Oggi no.”</blockquote>`;
+  else if (cell) {const k = kindOf(e.n); head = `<div class="sc-cell" style="--k:${k.color}"><span class="sc-ring">${pad(e.n)}</span><div><small>${esc(k.label)} · ${esc(cell.tag)}</small><h2>${esc(cell.title)}</h2></div></div><blockquote class="sc-voice ${cell.voice.length > 130 ? 'long' : ''}">“${esc(cell.voice)}”</blockquote>`;}
+  const hits = cell ? hitsFor(e.pid, e.n) : [];
+  const card = e.aura ? AURA_CARDS.find(x => x.id === e.aura) : null;
+  const lines = [];
+  if (hits.length) lines.push(`<div class="sc-hits">Per ${c.name} pesa di più: ${hits.map(h => attrChip(h, {mine: true})).join('')}</div>`);
+  if (e.verify !== null && e.verify !== undefined) lines.push(`<div class="sc-line">🎲 Dado di verifica: <b>${e.verify}</b> ${e.verify <= 3 ? '· l’informazione si perde nel feed' : '· trovata'}</div>`);
+  if (e.choice) lines.push(`<div class="sc-choice"><span>Ha scelto</span><b>«${esc(e.choice)}»</b>${e.alts?.length ? `<em>invece di ${e.alts.map(x => '«' + esc(x) + '»').join(' o ')}</em>` : ''}</div>`);
+  const after = [];
+  if (e.blocked?.length) after.push(`<div class="sc-blocked">🚫 Non poteva permettersi ${e.blocked.map(x => '«' + esc(x) + '»').join(' né ')}</div>`);
+  if (e.special) after.push(`<div class="sc-special">✦ Usa la capacità speciale <b>${esc(e.special.name)}</b>: ${esc(e.special.label)}</div>`);
+  const toks = (e.ops?.length || e.pols?.length) ? tokens(e.ops, e.pols || [], true) : `<span class="tok zero">${esc(e.text || 'Nessuna variazione')}</span>`;
+  const extra = [];
+  if (e.spec) extra.push(`<div class="sc-lock"><span class="tok lock">🔒</span> Qui è successo qualcosa che vede solo chi gioca ${c.name}. Se vuole, lo racconterà nel debrief.</div>`);
+  if (e.micro) extra.push(`<div class="sc-micro">💧 ${e.micro.drop ? `Goccia dopo goccia: ${MICRO_LIMIT}ª microaggressione, −1 BENESSERE.` : `Microaggressione ${e.micro.count} di ${MICRO_LIMIT}.`}</div>`);
+  if (e.auto) extra.push(`<div class="sc-auto">⏱ Scelta automatica: era finito il tempo.</div>`);
+  if (ctx.facilitator && cell && NOTES.cells[e.n]) extra.push(`<div class="sc-fac"><b>Per chi facilita:</b> ${esc(NOTES.cells[e.n].chiave || '')}</div>`);
+  const move = e.from !== e.to ? `<span class="sc-move ${e.to < e.from ? 'back' : ''}">📍 ${e.from} → ${e.to}</span>` : `<span class="sc-move">📍 ${e.to}</span>`;
+  return `<article class="scene" style="--pc:${c.color}">
+    <header class="sc-who">${avatar(e.pid, 'md')}<div><b>${c.name}</b><small>${c.age} anni${ppl ? ' · ' + ppl : ''}</small></div>${move}</header>
+    <div class="sc-main"><div class="sc-story">${head}${lines.join('')}<div class="sc-effects">${toks}</div>${after.join('')}${extra.join('')}</div>
+      <aside class="sc-side">${statBars(p, e.before)}${card ? `<div class="sc-card">${auraFace(card)}</div>` : ''}</aside></div>
+  </article>`;
+}
+function showScene() {
+  const item = stageQueue.shift(); if (!item) return; overlay = 'scene';
+  const left = stageQueue.filter(x => x.type === 'scene').length; const ms = left >= 5 ? 3600 : left >= 2 ? 5200 : 7000;
+  fxRoot.innerHTML = `<div class="scene-veil" data-action="stage-next">${sceneHTML(item.entry)}<div class="sc-foot"><i class="sc-bar" style="--t:${ms}ms"></i><span>${left ? `ancora ${left} ${left === 1 ? 'scena' : 'scene'} · ` : ''}tocca per andare avanti</span></div></div>`;
+  const mine = item; auraNow = item; setTimeout(() => {if (overlay === 'scene' && auraNow === mine) closeOverlay();}, ms);
+}
+function recapHTML() {
+  const g = G(), snap = H.startSnap && H.startSnap.round === g.round && H.startSnap.phase === g.phase ? H.startSnap : null;
+  const ev = g.event ? EVENTS.find(x => x.id === g.event.id) : null;
+  const since = H.feed.filter(f => f.kind === 'effect' && f.round === g.round && (ev ? f.ev === ev.id : !f.ev)).slice().reverse();
+  const cards = g.players.map((p, i) => {
+    const c = charOf(p.id), s0 = snap?.players[p.id], mine = since.filter(f => f.pid === p.id);
+    const from = s0?.position ?? mine[0]?.from ?? p.position, d = p.position - from;
+    const delta = s0 ? RES.map(k => [k, p.res[k] - s0.res[k]]).filter(([, v]) => v) : [];
+    const rows = mine.map(f => {const cell = f.n && !f.ev ? CELLS[f.n - 1] : null; const where = f.ev ? '⚡ ' + esc(ev?.title || '') : f.phase === 'wellbeing' ? '💚 Benessere a zero' : cell ? `<b>${pad(f.n)}</b> ${esc(cell.tile || cell.title)}` : '';
+      return `<li><span class="rc-where">${where}</span>${f.choice ? `<span class="rc-choice">«${esc(f.choice)}»</span>` : ''}${f.blocked?.length ? '<span class="rc-blocked" title="Non poteva permettersi un’opzione">🚫</span>' : ''}<span class="rc-toks">${tokens(f.ops, f.pols || [])}${f.spec ? '<span class="tok lock">🔒</span>' : ''}${f.micro ? '<span class="tok micro">💧</span>' : ''}</span></li>`;}).join('');
+    return `<div class="rc-card" style="--pc:${c.color};--d:${i * 70}ms"><header>${avatar(p.id, 'sm')}<b>${c.name}</b><span class="rc-move ${d < 0 ? 'back' : d === 0 ? 'still' : ''}">📍 ${from} → ${p.arrived ? '🏁 ' : ''}${p.position}${d ? ` (${d > 0 ? '+' : ''}${d})` : ''}</span></header>
+      <ul>${rows || '<li class="muted">nessuna mossa registrata</li>'}</ul>
+      <footer>${delta.length ? delta.map(([k, v]) => `<span class="${v < 0 ? 'neg' : 'pos'}">${ICON[k]} ${v > 0 ? '+' : ''}${v}</span>`).join('') : '<span class="still">risorse invariate</span>'}<span class="rc-res">${RES.map(k => `${ICON[k]}${p.res[k]}`).join(' ')}</span></footer></div>`;
+  }).join('');
+  return `<div class="recap-veil"><section class="recap"><header class="rc-head"><div><small>${ev ? 'Evento Mondo · ' + esc(ev.title) : 'Giro ' + g.round + ' di ' + g.config.rounds} · in breve</small><h2>${ev ? 'Stessa crisi, vite diverse.' : 'Stesso giro, vite diverse.'}</h2></div>
+    <div class="rc-ctrl"><span class="rc-count">si va avanti tra <b id="recap-count">${H.closeAt ? Math.max(0, Math.ceil((H.closeAt - Date.now()) / 1000)) + ' s' : 'in pausa'}</b></span><button class="ghost small" data-action="hold-round">⏸ Aspetta, ne parliamo</button><button class="primary" data-action="close-round">Avanti →</button></div></header>
+    <div class="rc-grid ${g.players.length > 6 ? 'many' : ''}">${cards}</div>
+    <p class="rc-q">${ev ? 'Chi ha avuto più margine per assorbire il colpo? Perché?' : pickOne(['Chi ha avanzato di più, e grazie a che cosa?', 'Chi non ha potuto scegliere? Che cosa gli mancava?', 'Dove le stesse regole hanno pesato in modo diverso?', 'Che cosa avrebbe cambiato le cose per chi è rimasto indietro?'])}</p></section></div>`;
+}
+function showRecap() {
+  overlay = 'recap'; H.recapPending = false; H.recapShown = true;
+  if (!H.paused) H.closeAt = Date.now() + RECAP_SECONDS * 1000;
+  fxRoot.innerHTML = recapHTML(); persist(); renderSoft();
+}
 function floatTokens(pid, ops, pols, micro) {
   if (reduced() || !ops) return; const pawn = $(`[data-pawn="${pid}"]`); if (!pawn) return; const r = pawn.getBoundingClientRect();
   const agg = aggregate(ops); const neg = agg.some(t => t.delta < 0 && t.key !== 'institutionAura'), pos = agg.some(t => t.delta > 0);
@@ -5458,6 +5593,7 @@ function renderModal() {
     const ppl = Object.values(H.people);
     body = `<div class="eyebrow">Per chi facilita</div><h2>Strumenti della stanza ${H.code}</h2>
      <label class="switch"><input type="checkbox" id="fac-toggle" ${ctx.facilitator ? 'checked' : ''}><span>Modalità facilitatore</span><small>Mostra sul proiettore le note pedagogiche. Spegnila quando proietti ai partecipanti.</small></label>
+     <label class="field">Racconto sul proiettore<select data-set="story">${[['full', 'Completo: ogni mossa + riepilogo'], ['recap', 'Solo riepilogo a fine giro'], ['off', 'Spento']].map(([v, l]) => `<option value="${v}" ${(H.settings.story || 'full') === v ? 'selected' : ''}>${l}</option>`).join('')}</select></label>
      <label class="field">Timer per giro<select data-set="timer">${TIMER_OPTIONS.map(t => `<option value="${t}" ${H.settings.timer === t ? 'selected' : ''}>${t ? t + ' secondi' : 'nessun timer'}</option>`).join('')}</select></label>
      ${g ? `<h3>Persone e personaggi</h3><div class="tools-people">${ppl.map(p => `<div class="tp-row"><span class="${online(p) ? 'on' : 'off'}">${online(p) ? '●' : '○'} ${esc(p.name)}</span><select data-reseat="${p.token}"><option value="">— nessuno —</option>${g.players.map(x => `<option value="${x.id}" ${p.seat === x.id ? 'selected' : ''}>${charOf(x.id).name}</option>`).join('')}</select><button class="ghost small" data-action="remove-person" data-id="${p.token}">Togli</button></div>`).join('') || '<p class="muted">Nessuno.</p>'}</div>
      <h3>Correggi un personaggio</h3><form id="adjust-form" class="adjust-grid">${''}<label class="field">Personaggio<select name="pid">${g.players.map(x => `<option value="${x.id}">${charOf(x.id).name}</option>`).join('')}</select></label>${RES.map(k => `<label class="field">${ICON[k]} ${LABEL[k]}<input name="${k}" type="number" min="0" max="4" placeholder="="></label>`).join('')}<label class="field">Casella<input name="position" type="number" min="1" max="40" placeholder="="></label><label class="field" style="grid-column:1/-1">Motivo<input name="reason" required placeholder="Es. capacità di Bea applicata a una prova"></label><button class="secondary" type="submit">Registra</button></form>` : ''}
@@ -5485,10 +5621,10 @@ function makePlan(newChars = true) {
 function startGame() {
   if (!H.plan) return;
   for (const p of Object.values(H.people)) if (!p.seat || !H.plan.chars.includes(p.seat)) assignLate(p.token); const g = newGame(H.plan.chars, {rounds: H.settings.rounds, dice: H.settings.dice, events: H.settings.events});
-  H.G = toParallel(g); H.feed = []; H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; H.closeAt = 0; H.seenEvent = {}; lastRoundShown = 0;
+  H.G = toParallel(g); snapshotStart(); H.feed = []; H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; H.closeAt = 0; H.seenEvent = {}; lastRoundShown = 0;
   ctx.dropPawns = true; persist(); render(true); broadcast();
 }
-function newRoom() {try {room?.close();} catch {} H = blankSession(newRoomCode()); lastRoundShown = 0; auraQueue = []; overlay = null; fxRoot.innerHTML = ''; persist(); openRoom(); closeModal(); render();}
+function newRoom() {try {room?.close();} catch {} H = blankSession(newRoomCode()); lastRoundShown = 0; stageQueue = []; overlay = null; fxRoot.innerHTML = ''; persist(); openRoom(); closeModal(); render();}
 
 function bind() {
   document.addEventListener('click', async e => {
@@ -5513,10 +5649,12 @@ function bind() {
       case 'play-for': playFor(id); break;
       case 'close-round': closeRound(); break;
       case 'force-close': if (confirm('Chiudere il giro? Chi non ha ancora giocato resta fermo.')) closeRound(); break;
-      case 'hold-round': H.closeAt = 0; H.paused = true; persist(); renderSoft(); break;
-      case 'pause': H.paused = !H.paused; if (!H.paused && H.deadline) H.deadline = Math.max(H.deadline, Date.now() + 20000); if (!H.paused) checkRoundEnd(); persist(); renderSoft(); break;
+      case 'hold-round': H.closeAt = 0; H.paused = true; persist(); renderSoft(); {const rc = $('#recap-count'); if (rc) rc.textContent = 'in pausa';} break;
+      case 'pause': H.paused = !H.paused; if (!H.paused && overlay === 'recap') H.closeAt = Date.now() + 10000; if (!H.paused && H.deadline) H.deadline = Math.max(H.deadline, Date.now() + 20000); if (!H.paused) checkRoundEnd(); persist(); renderSoft(); break;
       case 'event-go': H.seenEvent[G().round] = true; if (H.settings.timer) H.deadline = Date.now() + H.settings.timer * 1000; persist(); closeOverlay(); renderSoft(); break;
       case 'aura-ok': if (overlay === 'aura') closeOverlay(); break;
+      case 'stage-next': if (overlay === 'scene') closeOverlay(); break;
+      case 'skip-story': stageQueue = stageQueue.filter(x => x.type !== 'scene'); if (overlay === 'scene') closeOverlay(); else maybeOverlays(); break;
       case 'cell': zoom = {n: +id}; renderZoom(true); break;
       case 'zoom-close': zoom = null; zoomRoot.innerHTML = ''; break;
       case 'lens': ctx.lens = id || null; closeModal(); render(true); break;
@@ -5529,7 +5667,7 @@ function bind() {
       case 'policy-step': H.policyStep = id; persist(); render(); broadcast(); scrollTo(0, 0); break;
       case 'select-policy': {const n = +id; H.policySel = H.policySel.includes(n) ? H.policySel.filter(x => x !== n) : [...H.policySel, n]; persist(); render(); break;}
       case 'policy-top': {const tot = voteTotals(); const sorted = [...POLICIES].sort((x, y) => (tot[y.id] || 0) - (tot[x.id] || 0)); const sel = []; let cost = 0; for (const p of sorted) if ((tot[p.id] || 0) > 0 && sel.length < 3 && cost + p.cost <= 5) {sel.push(p.id); cost += p.cost;} H.policySel = sel; persist(); render(); break;}
-      case 'approve': {for (const c of $$('.policy-card.selected')) {c.classList.add('stamping'); await wait(reduced() ? 0 : 420);} await wait(reduced() ? 0 : 600); try {H.G = approvePolicies(G(), H.policySel, H.needsLive); H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; H.closeAt = 0; persist(); render(true); broadcast(); scrollTo(0, 0);} catch (err) {toast(err.message);} break;}
+      case 'approve': {for (const c of $$('.policy-card.selected')) {c.classList.add('stamping'); await wait(reduced() ? 0 : 420);} await wait(reduced() ? 0 : 600); try {H.G = approvePolicies(G(), H.policySel, H.needsLive); snapshotStart(); H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; H.closeAt = 0; persist(); render(true); broadcast(); scrollTo(0, 0);} catch (err) {toast(err.message);} break;}
       case 'finish': closeModal(); H.G = pFinish(G()); persist(); render(); broadcast(); break;
       case 'remove-person': delete H.people[id]; persist(); renderModal(); renderSoft(); broadcast(); break;
       case 'export': download('AURA_online_stanza_' + H.code + '.json', JSON.stringify(H, null, 1), 'application/json'); break;
@@ -5539,7 +5677,7 @@ function bind() {
   });
   document.addEventListener('change', e => {
     const t = e.target;
-    if (t.dataset.set) {const k = t.dataset.set; H.settings[k] = t.type === 'checkbox' ? t.checked : k === 'dice' ? t.value : +t.value; if (k === 'timer' && G() && ['round', 'event'].includes(G().phase)) H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; persist(); if (!modal) render(); else renderSoft(); broadcast();}
+    if (t.dataset.set) {const k = t.dataset.set; H.settings[k] = t.type === 'checkbox' ? t.checked : ['dice', 'story'].includes(k) ? t.value : +t.value; if (k === 'timer' && G() && ['round', 'event'].includes(G().phase)) H.deadline = H.settings.timer ? Date.now() + H.settings.timer * 1000 : 0; persist(); if (!modal) render(); else renderSoft(); broadcast();}
     if (t.id === 'fac-toggle') {ctx.facilitator = t.checked; try {localStorage.setItem(FKEY, t.checked ? '1' : '0');} catch {} render(true); renderModal();}
     if (t.dataset.reseat) {const p = H.people[t.dataset.reseat]; if (p) {p.seat = t.value || null; persist(); renderSoft(); broadcast();}}
   });
