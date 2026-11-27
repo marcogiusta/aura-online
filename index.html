@@ -509,6 +509,8 @@ button.small{font-size:13px;padding:8px 14px}.icon{font-size:18px!important}.ful
 .rp-micro{position:absolute;right:22px;top:-9px;font-size:11px;font-weight:800;background:#e3f0ff;color:#0b5a99;border-radius:999px;padding:0 6px}
 .ph-extra{flex-wrap:wrap}
 @keyframes specIn{0%{opacity:0;transform:translateY(16px) scale(.96) rotate(-1deg)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}100%{opacity:1;transform:none}}
+.explain{background:#eef6ff;border-left:6px solid var(--blu);border-radius:0 16px 16px 0;padding:10px 14px;margin:10px 0}
+.explain b{display:block;font-family:var(--head);font-size:15px;color:var(--blu);letter-spacing:.04em;margin-bottom:2px}.explain p{font-size:15.5px;line-height:1.5;font-weight:600;color:var(--ink);margin:0}
 
 /* ============ AURA online · proiettore + telefoni ============ */
 
@@ -838,6 +840,63 @@ body.mode-phone{overflow-x:hidden}
 .rc-q{margin-top:14px;text-align:center;font-family:var(--head);font-size:clamp(20px,1.8vw,28px);color:var(--notte)}
 @media(max-height:780px){.sc-voice{font-size:17px;padding:10px 14px}.sc-cell h2{font-size:28px}.sc-ring{width:56px;height:56px;border-width:8px;font-size:19px}.sc-card{width:170px}}
 .sc-side .sc-card{width:min(100%,210px);margin:14px auto 0}.sc-voice.long{font-size:clamp(16px,1.3vw,20px)}
+
+/* ============ v0.8: spiegazioni, scene complete, carta AURA con dizionario, evento in due passaggi ============ */
+.explain{background:#eef6ff;border-left:6px solid var(--blu);border-radius:0 16px 16px 0;padding:10px 14px}
+.explain b{display:block;font-family:var(--head);font-size:15px;color:var(--blu);letter-spacing:.04em;margin-bottom:2px}.explain p{font-size:15.5px;line-height:1.5;font-weight:600;color:var(--ink);margin:0}
+.explain.ev{margin-top:12px;background:#ffffffe6}
+.zoom-card .explain{margin:10px 0}
+/* telefono: fermo un giro */
+.ph-idle{text-align:center;border-width:3px;padding:24px 18px}.ph-idle.skip{border-color:var(--giallo);background:#fffaeb}.ph-idle.arrived{border-color:var(--verde);background:#f1fbf6}
+.ph-idle-ic{font-size:64px;line-height:1;display:block;margin-bottom:6px}.ph-idle h2{font-size:28px;margin:4px 0 10px}.ph-idle p{font-size:16.5px;line-height:1.55;margin-bottom:8px}.ph-idle-sub{color:var(--muted);font-size:14px!important;font-weight:700}
+.seat-status .idle{font-weight:800;color:#7a5600}
+/* scena */
+.scene{overflow:auto;width:min(100%,1180px)}
+.sc-main{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:20px;padding:6px 22px 20px}
+.sc-what{background:#eef6ff;border-radius:16px;padding:12px 16px;border-left:7px solid var(--blu)}.sc-what b{font-family:var(--head);color:var(--blu);font-size:16px;letter-spacing:.04em}.sc-what p{font-size:clamp(16px,1.35vw,20px);line-height:1.5;font-weight:600;margin:4px 0 0}
+.sc-rules{display:flex;flex-direction:column;gap:6px;background:#fff;border-radius:16px;border:2px solid var(--line);padding:10px 14px}
+.sc-rules div{display:grid;grid-template-columns:minmax(110px,auto) 1fr;gap:10px;align-items:baseline;font-size:15px;line-height:1.4}.sc-rules small{font-family:var(--head);font-weight:600;color:var(--muted);font-size:12.5px;letter-spacing:.06em}.sc-rules span{font-weight:700}
+.slang-list{display:flex;flex-direction:column;gap:6px}.slang-list div{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline;font-size:14px;line-height:1.4}.slang-list b{font-family:var(--head);color:var(--viola);font-size:16px}.slang-list em{display:block;width:100%;color:var(--muted);font-size:13px}
+.sc-words{background:#f6f0ff;border-radius:14px;padding:8px 12px}.sc-words:before{content:'📖 Le parole';display:block;font-family:var(--head);color:var(--viola);font-size:13px;letter-spacing:.06em}
+.sc-act{display:flex;flex-direction:column;gap:10px;min-width:0}
+.sc-box{background:#fff;border-radius:16px;border:2px solid var(--line);padding:10px 14px}.sc-box h4{font-family:var(--head);font-size:17px;margin-bottom:6px;color:var(--notte)}
+.sc-opts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.sc-opts li{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:baseline;border-radius:12px;padding:7px 10px;background:var(--crema)}
+.sc-opts .op-mark{grid-row:span 2;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);white-space:nowrap}
+.sc-opts b{font-size:17px}.sc-opts .op-detail{font-size:14px;color:var(--muted);font-weight:700;line-height:1.35}
+.sc-opts li.chosen{background:#e6f6ee;box-shadow:inset 0 0 0 2px var(--verde)}.sc-opts li.chosen .op-mark{color:#00634f}.sc-opts li.chosen b{color:#00634f}
+.sc-opts li.blocked{background:#ffe8eb}.sc-opts li.blocked .op-mark,.sc-opts li.blocked b{color:#b0102a}.sc-opts li.blocked b{text-decoration:line-through;text-decoration-thickness:2px}
+.fx-lines{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}.fx-lines li{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.fx-lines .tok{font-size:17px;padding:5px 12px}.fx-lines em{font-style:normal;font-weight:700;color:var(--muted);font-size:14.5px}
+.fx-none{font-weight:700;color:var(--muted);font-size:15px}
+.sc-res{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start;background:#fff;border-radius:16px;border:2px solid var(--line);padding:10px 14px}.sc-res .stats{padding:0}.sc-res .stat{font-size:14px}.sc-res .sc-card{width:150px;margin:0}
+.sc-res:not(:has(.sc-card)){grid-template-columns:1fr}
+.sc-foot{flex-direction:row;align-items:center;justify-content:space-between;width:min(100%,1180px);font-size:14px}
+.sc-move.still{border-color:var(--line);color:var(--muted)}
+/* carta AURA con dizionario */
+.ar-wrap{display:flex;gap:30px;align-items:center;justify-content:center;width:min(1180px,100%);margin:auto}
+.ar-wrap .ar-stage{width:auto;flex:0 1 380px}
+.ar-gloss{flex:1 1 380px;max-width:480px;background:var(--crema);color:var(--ink);border-radius:26px;border:4px solid #fff;padding:18px 20px;text-align:left;display:flex;flex-direction:column;gap:12px;box-shadow:0 20px 60px #0006;animation:slideUp .5s 2.4s both}
+.ar-gloss h3{font-size:22px}.ar-gloss .slang-list div{font-size:16px}.ar-gloss .slang-list b{font-size:20px}.ar-gloss .slang-list em{font-size:14px}
+.ar-why{background:#fff;border-radius:14px;padding:10px 12px}.ar-why b{font-family:var(--head);font-size:15px;color:var(--viola)}.ar-why p{font-size:15px;line-height:1.45;margin:2px 0 0;font-weight:600}
+.ar-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}.ar-nav span{font-size:13px;font-weight:800;color:var(--muted)}
+@media(max-width:1280px){.ar-wrap{flex-direction:column}.ar-gloss{max-width:none;width:100%}}
+/* evento mondo */
+.ev-two{display:grid;grid-template-columns:auto minmax(0,1fr);gap:26px;align-items:center;width:min(1320px,100%)}
+.ev-stage:has(.ev-two),.ev-stage.wide{width:min(1340px,100%)}
+.ev-explain{display:flex;flex-direction:column;gap:12px}
+.ev-explain>div{background:#ffffff14;border:2px solid #ffffff30;border-radius:18px;padding:14px 18px}
+.ev-explain b{font-family:var(--head);color:var(--giallo);font-size:18px;letter-spacing:.03em}.ev-explain p{font-size:clamp(17px,1.4vw,21px);line-height:1.5;margin:4px 0 0}
+.ev-explain .ev-rule{background:#ffffff0d}.ev-explain .ev-rule p{font-size:16px;color:#d6e6f5}
+.ei-table{width:100%;display:flex;flex-direction:column;gap:8px}
+.ei-row{display:grid;grid-template-columns:70px minmax(170px,1.1fr) minmax(160px,1fr) minmax(0,2.2fr);gap:14px;align-items:center;background:var(--crema);color:var(--ink);border-radius:18px;padding:10px 14px;border-left:8px solid var(--pc)}
+.ei-row.head{background:none;color:#cfe3f5;border:0;padding:0 14px;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.ei-row.heavy{box-shadow:inset 0 0 0 3px var(--corallo)}
+.ei-row .av.md{width:58px;height:58px}.ei-who b{display:block;font-family:var(--head);font-size:22px}.ei-who span{display:flex;flex-wrap:wrap;gap:6px;font-size:14px;font-weight:800}.ei-who i{font-style:normal}.ei-who i.zero{color:var(--corallo)}
+.ei-why{display:flex;flex-wrap:wrap;gap:5px}.ei-fx{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.ei-fx .tok{font-size:16px}
+.ei-opts{width:100%;display:flex;flex-direction:column;gap:3px;font-size:14px;font-weight:700;color:#00634f}.ei-opts .off{color:#b0102a}
+.rc-blocked{color:#b0102a;font-weight:800;font-size:12.5px}
+.rc-q{line-height:1.35}
+.ei-fx .fx-lines{width:100%}.ei-fx .fx-lines .tok{font-size:15px;padding:4px 10px}.ei-fx .fx-lines em{font-size:13.5px}
 
 
 </style>
@@ -3165,10 +3224,10 @@ const __ASSET = {"assets/personaggio-1.webp": "data:image/webp;base64,UklGRkxOAA
 const __data = (() => {
 // AURA · contenuti di gioco v0.2
 // Regole: tabellone v0.5, personaggi v0.1, politiche v0.2, guida v0.3, carte AURA A1–A8.
-// Politiche dopo il giro 8 (POLICY_ROUND), Eventi Mondo dopo i giri 4, 7, 9 (v0.6). Mazzo AURA integrato, slang e glossario.
+// Politiche dopo il giro 6 (POLICY_ROUND), Eventi Mondo dopo i giri 2, 7, 9 (v0.8). Mazzo AURA integrato, slang e glossario.
 
-const POLICY_ROUND = 8;
-const EVENT_ROUNDS = [4, 7, 9];
+const POLICY_ROUND = 6;
+const EVENT_ROUNDS = [2, 7, 9];
 const ROUND_OPTIONS = [10, 12, 14];
 // Dadi di movimento. Il predefinito include l’1 (v0.3.2); gli altri restano selezionabili.
 const DICE = {
@@ -3443,21 +3502,21 @@ const CELLS = [
 
 const AURA_FORMULA = 'AURA conta, ma quasi mai cambia la struttura.';
 const AURA_CARDS = [
-  {id: 1, emoji: '🌟', badge: '+3.000', extra: '', title: 'Main character per un minuto', effect: '+3.000 AURA. Nessun altro effetto.', aura: 3000,
+  {id: 1, slang: ['maincharacter', 'npc', 'aura'], emoji: '🌟', badge: '+3.000', extra: '', title: 'Main character per un minuto', effect: '+3.000 AURA. Nessun altro effetto.', aura: 3000,
     voice: 'Per sessanta secondi tutti ti guardano. Poi si torna NPC.', hue: ['#FFB700', '#FF3E56']},
-  {id: 2, emoji: '📲', badge: '+2.000', extra: 'se RETE ≥3: +1.000', title: 'Ti hanno taggato', effect: '+2.000 AURA. Se RETE è 3 o 4, +1.000 AURA extra.', aura: 2000,
+  {id: 2, slang: ['taggare', 'stories', 'aura'], emoji: '📲', badge: '+2.000', extra: 'se RETE ≥3: +1.000', title: 'Ti hanno taggato', effect: '+2.000 AURA. Se RETE è 3 o 4, +1.000 AURA extra.', aura: 2000,
     voice: 'Notifica: ti hanno taggato in una storia. Con tanti amici, rimbalza ovunque.', hue: ['#0878CF', '#8DD3F5']},
-  {id: 3, emoji: '💀', badge: '−2.000', extra: '', title: 'Cringe intergalattico', effect: '−2.000 AURA. Nessun altro effetto.', aura: -2000,
+  {id: 3, slang: ['cringe', 'aura'], emoji: '💀', badge: '−2.000', extra: '', title: 'Cringe intergalattico', effect: '−2.000 AURA. Nessun altro effetto.', aura: -2000,
     voice: 'Hai risposto al saluto di qualcuno che salutava un altro. Davanti a tutti. Cringe cosmico.', hue: ['#7433B9', '#FF3E56']},
-  {id: 4, emoji: '🐸', badge: '+4.000 o 0', extra: 'decidi tu', title: 'Sei diventato un meme', effect: 'Scegli: +4.000 AURA oppure nessuna variazione. Nessun altro effetto.', aura: 0, choice: true,
+  {id: 4, slang: ['meme', 'w', 'aura'], emoji: '🐸', badge: '+4.000 o 0', extra: 'decidi tu', title: 'Sei diventato un meme', effect: 'Scegli: +4.000 AURA oppure nessuna variazione. Nessun altro effetto.', aura: 0, choice: true,
     voice: 'Il tuo video gira in tutti i gruppi. È una W o una L? Decidi tu come viverla.', hue: ['#009D84', '#FFB700']},
-  {id: 5, emoji: '👏', badge: '+1.500', extra: '+1 💚 Benessere', title: 'Applauso vero', effect: '+1.500 AURA e +1 BENESSERE.', aura: 1500, res: {benessere: 1},
+  {id: 5, slang: ['aura'], emoji: '👏', badge: '+1.500', extra: '+1 💚 Benessere', title: 'Applauso vero', effect: '+1.500 AURA e +1 BENESSERE.', aura: 1500, res: {benessere: 1},
     voice: 'Non un like: un applauso vero, dal vivo. Si sente fino alle ossa.', hue: ['#59CFA5', '#009D84']},
-  {id: 6, emoji: '👂', badge: '+1.000', extra: '+1 📣 Voce', title: 'Finalmente ti ascoltano', effect: '+1.000 AURA e +1 VOCE.', aura: 1000, res: {voce: 1},
+  {id: 6, slang: ['aura'], emoji: '👂', badge: '+1.000', extra: '+1 📣 Voce', title: 'Finalmente ti ascoltano', effect: '+1.000 AURA e +1 VOCE.', aura: 1000, res: {voce: 1},
     voice: 'Qualcuno ha preso appunti mentre parlavi. E poi ti ha richiamato. Non è un sogno.', hue: ['#0878CF', '#7433B9']},
-  {id: 7, emoji: '🚪', badge: '+1.000', extra: '+1 🤝 Rete', title: 'Passaparola buono', effect: '+1.000 AURA e +1 RETE.', aura: 1000, res: {rete: 1},
+  {id: 7, slang: ['aura'], emoji: '🚪', badge: '+1.000', extra: '+1 🤝 Rete', title: 'Passaparola buono', effect: '+1.000 AURA e +1 RETE.', aura: 1000, res: {rete: 1},
     voice: '«Conosco una che ti può aiutare, ti giro il contatto.» Una porta si apre.', hue: ['#FFB700', '#59CFA5']},
-  {id: 8, emoji: '🦗', badge: '−1.000', extra: '', title: 'Nessuno ha capito la battuta', effect: '−1.000 AURA. Nessun altro effetto.', aura: -1000,
+  {id: 8, slang: ['cringe', 'aura'], emoji: '🦗', badge: '−1.000', extra: '', title: 'Nessuno ha capito la battuta', effect: '−1.000 AURA. Nessun altro effetto.', aura: -1000,
     voice: 'Silenzio. Qualcuno tossisce. La battuta era fortissima, giuro.', hue: ['#8DD3F5', '#7433B9']}
 ];
 
@@ -3552,6 +3611,8 @@ const GLOSSARY = {
   deadname: {term: 'Deadname', def: 'Il nome assegnato alla nascita che una persona trans non usa più. Usarlo, o leggerlo ad alta voce, la espone e la ferisce.', ex: '«All’appello hanno letto il mio deadname, davanti a tutti.»'},
   misgendering: {term: 'Misgendering', def: 'Rivolgersi a qualcuno con un genere o pronomi che non sono i suoi. Una volta può essere una svista; se nessuno si corregge, diventa un messaggio.', ex: '«Il prof continua col misgendering, anche dopo che gliel’ho detto.»'},
   microaggressione: {term: 'Microaggressione', def: 'Una frase o un gesto piccolo, spesso “senza cattiveria”, che ricorda a qualcuno che è fuori posto. Pesa perché si ripete.', ex: '«“Parli benissimo l’italiano!” Sono nata qui.»'},
+  meme: {term: 'Meme', def: 'Immagine, video o frase che gira in rete, ripresa e modificata con ironia. Diventare un meme può essere una gloria o una presa in giro.', ex: '«Il video della verifica è diventato un meme.»'},
+  taggare: {term: 'Taggare', def: 'Segnalare il nome di qualcuno in un post o in una storia: il contenuto arriva anche a tutti i suoi contatti.', ex: '«Mi hanno taggato nella storia della festa.»'},
   letteralmente: {term: 'Letteralmente', def: 'Rafforzativo usato per tutto, anche quando non è letterale.', ex: '«Sto letteralmente morendo di caldo.»'}
 };
 
@@ -3862,6 +3923,62 @@ const NOTES = {
 
 return {NOTES};
 })();
+const __explain = (() => {
+// AURA · spiegazioni in linguaggio semplice, per chi non ha 17 anni.
+// EXPLAIN[n]: che cosa succede nella casella n, e perché non pesa uguale per tutti.
+// EVENT_EXPLAIN[id]: che cosa succede nell'Evento Mondo, e chi ne paga di più il prezzo.
+const EXPLAIN = {
+  1: 'Tutti i personaggi partono dalla stessa casella e useranno lo stesso dado. Il gioco mette alla prova un’idea: se le regole sono uguali per tutti, le possibilità sono davvero le stesse?',
+  2: 'Si pesca una carta AURA. L’«aura» è un modo di dire dei ragazzi: un punteggio immaginario di quanto sei «figo» agli occhi degli altri. Si guadagna e si perde in un attimo, ma quasi mai cambia la situazione concreta.',
+  3: 'Il bus che doveva portarti a scuola o al lavoro non passa, o passa in ritardo. Chi abita in centro trova un’alternativa a piedi o in bici; chi vive in periferia o in un paese con poche corse perde la lezione, il turno, l’appuntamento.',
+  4: 'Nel gruppo WhatsApp degli amici gira un bando o un’opportunità che scade a breve. Chi ha tanti contatti lo viene a sapere in tempo; chi è più isolato non lo saprà mai. Le informazioni viaggiano attraverso le relazioni.',
+  5: 'Un adulto chiude la discussione dicendo che sei troppo giovane per capire. Togliere la parola ai giovani succede a tutti; per chi è già guardato con pregiudizio, per origine, aspetto o identità, pesa ancora di più.',
+  6: 'La scuola o l’associazione chiede una quota per una gita o un’attività. Per molte famiglie 70 euro sono poca cosa; per altre sono la spesa di una settimana. Chi non può pagare resta indietro, anche se non lo dice a nessuno.',
+  7: 'Uno spazio libero e informale: qualcuno porta la cassa per la musica, qualcuno un pallone. Niente iscrizioni né moduli. Sono i luoghi dove i ragazzi si incontrano e costruiscono relazioni: per questo fanno avanzare.',
+  8: 'Ansia per la scuola, sonno che non arriva, telefono fino a tardi. Il benessere cala per tutti; chi ha già una fragilità di salute o vive sotto forte pressione perde anche tempo ed energie per il giorno dopo.',
+  9: 'La famiglia chiede di badare a un fratello più piccolo o a un familiare. Per chi ha compiti di cura in casa, le attività e il tempo libero saltano spesso: non per scelta, ma perché qualcuno deve farlo.',
+  10: 'Un gruppo di ragazzi seduti su una panchina viene guardato con sospetto o allontanato, solo per come si veste o per da dove viene. «Maranza» è un’etichetta usata per i ragazzi di periferia, spesso di origine straniera. Chi non subisce questo pregiudizio non ne paga il prezzo.',
+  11: 'Le informazioni importanti (scadenze, orari, opportunità) arrivano mescolate a centinaia di notifiche, storie e messaggi vocali. Trovarle è anche questione di fortuna: per questo si tira un dado di verifica.',
+  12: 'Ti offrono uno stage o un’esperienza «utile per il curriculum», ma senza pagarti. Chi può permettersi di lavorare gratis va avanti; chi ha bisogno di guadagnare, anche solo per pagarsi i trasporti, deve rinunciare.',
+  13: 'Un luogo viene dichiarato accessibile, ma ci sono gradini, porte pesanti, ascensori fuori servizio. Per una persona con disabilità quella porta è chiusa, anche se sulla carta è aperta.',
+  14: 'Un’istituzione organizza un incontro «per ascoltare i giovani», ma le decisioni sono già prese: i ragazzi servono per la foto da pubblicare. È partecipazione di facciata: costa tempo a tutti e toglie fiducia.',
+  15: 'Un momento di vuoto, senza obiettivi né risultati da dimostrare. Chi sceglie di fermarsi recupera energie ma salta il prossimo tiro: anche riposarsi ha un costo, in un mondo che chiede sempre di correre.',
+  16: 'Un’educatrice spiega con chiarezza budget e limiti, poi lascia davvero decidere ai ragazzi e rispetta la loro scelta. È partecipazione vera: fa crescere la fiducia e la voce di tutti.',
+  17: 'Qualcosa che hai creato (un video, un disegno, un’idea) viene apprezzato e condiviso dagli amici. Il riconoscimento dei coetanei dà energia e apre porte: per questo si avanza e si ritira il dado.',
+  18: 'L’attività finisce dopo l’ultimo autobus. Chi ha soldi per un taxi o qualcuno che lo viene a prendere torna a casa tranquillo; gli altri devono andarsene prima o rinunciare del tutto.',
+  19: 'Un ragazzo propone un’idea e chi conduce risponde «sì, poi ne parliamo», ma non ne parla più. Ignorare una proposta scoraggia tutti; chi è abituato a non essere preso sul serio, o è già sotto pressione, ne soffre di più.',
+  20: 'Si rompe il telefono. Oggi per un ragazzo il telefono serve per il gruppo di classe, gli orari, i compiti, il lavoro. Chi non ha i soldi per ricomprarlo resta tagliato fuori da tutto, di colpo.',
+  21: 'I ragazzi vogliono solo stare insieme, ma ovunque bisogna consumare qualcosa per restare, e gli spazi pubblici sono chiusi o mancano. Chi ha pochi amici e poche alternative finisce per restare a casa.',
+  22: 'Un ragazzo trova il coraggio di chiedere un supporto psicologico, ma nel servizio pubblico il primo appuntamento è tra cinque mesi. Chi può pagare un professionista privato non aspetta; chi sta già male rischia di crollare.',
+  23: 'Secondo «aura check»: si pesca una carta AURA. Fa ridere o fa arrossire, ma ricordatevi: l’aura conta per l’immagine, quasi mai per le possibilità reali.',
+  24: 'L’incontro «per i giovani» ha un tema già deciso dagli adulti: i ragazzi lo scoprono dalla locandina. Nessuno ha chiesto loro di che cosa volessero parlare.',
+  25: 'I ragazzi hanno realizzato un murale; il Comune lo trasforma in un suo «format» e ci mette sopra il proprio logo, senza riconoscere chi l’ha fatto. La loro voce diventa la vetrina di qualcun altro.',
+  26: 'A un ragazzo nato e cresciuto qui chiedono di continuo «ma da dove vieni davvero?». Ogni volta deve spiegarsi. È una microaggressione: piccola nel singolo episodio, pesante quando si ripete per anni.',
+  27: 'Un’attività bellissima, ma alle 22. Tornare a casa a quell’ora non è sicuro per tutti: soprattutto per le ragazze e per chi deve attraversare zone poco servite. Chi non si sente sicuro rinuncia.',
+  28: 'Per una pratica servono SPID, moduli, marca da bollo e uno sportello aperto due ore il martedì mattina. La burocrazia costa tempo a tutti; per chi non padroneggia la lingua o le procedure diventa un muro.',
+  29: 'Lo spazio è aperto a tutti, ma quando entri tutti si girano e capisci che non sei atteso. Nessun cartello ti esclude: lo fa il clima. Per chi è visto come «diverso», quello spazio di fatto non esiste.',
+  30: 'Un’educatrice ha frequentato i ragazzi per settimane, senza progetti né moduli, costruendo fiducia. Ora sono loro a chiederle aiuto. La relazione viene prima di ogni proposta: per questo si avanza.',
+  31: 'Colloquio di lavoro, lezione e turno tutti alla stessa ora. Chi deve lavorare per mantenersi o ha qualcuno da accudire è costretto a scegliere, e perde comunque qualcosa.',
+  32: 'Tutti gli amici sono a una festa e la pubblicano nelle storie; tu sei a casa. È la paura di essere tagliati fuori (FOMO). Chi sta già male la sente di più; chi ha amici da chiamare la supera.',
+  33: 'Il corso che sognavi esiste, ma a 25 km: due treni e un bus. Servono tempo e denaro; chi dipende dai mezzi pubblici paga ancora di più. Chi non può permetterselo rinuncia.',
+  34: 'Il Comune organizza l’incontro con i giovani il martedì alle 10, quando sono a scuola o al lavoro. Un orario pensato dagli adulti per gli adulti esclude proprio chi si voleva coinvolgere.',
+  35: 'Il Comune prova a parlare come i ragazzi in un video sui social e il risultato è imbarazzante («cringe»). L’istituzione perde credibilità, cioè AURA; il personaggio pesca una carta AURA.',
+  36: 'I ragazzi hanno dato idee, tempo ed entusiasmo a un percorso partecipativo. Tre mesi dopo nessuno ha detto che cosa ne è stato. Il silenzio insegna che partecipare non serve.',
+  37: 'Un ragazzo va a chiedere un’informazione e gli fanno domande sulla sua identità (origine, genere, nome) che non c’entrano nulla. Per chi le subisce è un’umiliazione; per gli altri non succede niente.',
+  38: 'Un servizio risponde in due giorni, senza giudicare, spiegando tutto con chiarezza. Quando i servizi funzionano, tutti ne beneficiano e chi era rimasto indietro recupera terreno.',
+  39: 'La proposta dei ragazzi viene presa sul serio: c’è un referente, un budget, una data, un passo successivo. Ecco come la partecipazione diventa reale.',
+  40: 'Arrivare alla 40 non vuol dire vincere: da qui si guarda il sistema e si partecipa alle decisioni collettive. Chi arriva prima, spesso, aveva meno ostacoli, non più merito.'
+};
+
+const EVENT_EXPLAIN = {
+  caldo: {what: 'Un’ondata di calore colpisce la città per giorni. Fa caldo per tutti: si dorme male, ci si stanca prima.', who: 'Paga di più chi si sposta con bus affollati e senza aria condizionata, e chi ha già problemi di salute o vive sotto pressione. Chi ha qualche soldo può evitare una parte delle conseguenze.'},
+  prezzi: {what: 'I prezzi aumentano: il panino, il cinema, l’abbonamento del bus. Tutto costa di più, per tutti.', who: 'Per chi ha qualche risparmio è un fastidio. Per chi ha già pochi soldi vuol dire rinunciare, e più i soldi sono pochi, più si resta indietro.'},
+  tilt: {what: 'Nubifragio e sciopero dei trasporti nello stesso giorno: la città si blocca.', who: 'Tutti perdono tempo, ma chi dipende dai mezzi pubblici resta bloccato e torna indietro. Chi può pagare un passaggio se la cava.'},
+  online: {what: 'Tutti i servizi passano online: portali, SPID, codici via SMS che non arrivano.', who: 'Per molti è una seccatura che si supera con un po’ di fortuna (si tira un dado). Per chi ha difficoltà con la lingua o con la burocrazia è un muro: perde tempo e terreno, senza nemmeno tirare.'}
+};
+
+return {EXPLAIN, EVENT_EXPLAIN};
+})();
 const __engine = (() => {
 const {CHARACTERS, RES, POLICIES, EVENTS, AURA_CARDS, AURA_CELLS, DICE, DEFAULT_DICE, SPECIFIC, MICRO_TAGS, MICRO_LIMIT, POLICY_ROUND, EVENT_ROUNDS, ROUND_OPTIONS} = __data;
 const VERSION = 2;
@@ -3897,10 +4014,10 @@ function newGame(ids, config = {}, random = Math.random) {
 }
 
 function startTurn(s) {
-  s.dice = null; s.verification = null; s.penalty = 0; s.landed = null; s.lastResult = null; s.lastOps = null; s.auraCard = null; s.lastMicro = null;
+  s.dice = null; s.verification = null; s.penalty = 0; s.landed = null; s.lastResult = null; s.lastOps = null; s.auraCard = null; s.lastMicro = null; s.idle = null;
   const p = current(s); p.bonusUsed = false;
-  if (p.arrived) {s.phase = 'done'; s.lastResult = 'Alla 40: partecipi agli eventi e alle decisioni collettive.'; return;}
-  if (p.skip) {p.skip--; s.phase = 'done'; s.lastResult = 'Pausa scelta alla casella 15: salti questo tiro.'; addLog(s, s.lastResult, 'pausa'); return;}
+  if (p.arrived) {s.phase = 'done'; s.idle = 'arrived'; s.lastResult = 'Alla 40: partecipi agli eventi e alle decisioni collettive.'; return;}
+  if (p.skip) {p.skip--; s.phase = 'done'; s.idle = 'skip'; s.lastResult = 'Pausa scelta alla casella 15: salti questo tiro.'; addLog(s, s.lastResult, 'pausa'); return;}
   if (p.res.benessere === 0) {
     if (policy(s, 3)) {p.res.benessere = 1; p.policyHelps++; addLog(s, 'P3: recuperi 1 BENESSERE e giochi senza spendere RETE.', 'politica'); s.phase = 'ready'; s.startNote = 'P3 attiva: +1 BENESSERE a inizio turno.';}
     else s.phase = 'wellbeing';
@@ -4131,7 +4248,7 @@ function applyOps(s, plan) {
   for (const n of plan.pols ?? []) addLog(s, 'P' + n + ' modifica questo effetto.', 'politica');
   if (plan.voiceUsed) addLog(s, 'VOCE era già 0: −1 casella (al massimo una volta per giro).', 'regola');
   s.lastResult = changes.length ? changes.join(' · ') : 'Nessuna variazione di risorse o posizione.';
-  s.lastOps = plan.ops.map(o => ({key: o.key, delta: o.delta, src: o.src, tag: o.tag})).concat(microOp ? [microOp] : []); s.lastPols = plan.pols ?? []; s.lastMicro = microHit ? {count: p.micro, drop: !!microOp} : null;
+  s.lastOps = plan.ops.map(o => ({key: o.key, delta: o.delta, src: o.src, tag: o.tag, ...(o.spec ? {spec: true} : {}), ...(o.kind === 'cost' ? {kind: 'cost'} : {})})).concat(microOp ? [microOp] : []); s.lastPols = plan.pols ?? []; s.lastMicro = microHit ? {count: p.micro, drop: !!microOp} : null;
   addLog(s, s.lastResult, s.event ? 'evento' : 'effetto');
   s.lastChange = {before, after: clone(p)};
 }
@@ -4277,9 +4394,9 @@ const __parallel = (() => {
 // per applicare un’azione si carica il contesto del personaggio nello stato, si chiama reduce(), si salva il contesto.
 const {CHARACTERS, POLICIES, EVENTS, EVENT_ROUNDS, POLICY_ROUND, RES, DICE, DEFAULT_DICE} = __data;
 const {reduce, startTurn, choices, needsVerification, needsAuraDraw, clamp} = __engine;
-const CTX = ['phase', 'landed', 'dice', 'verification', 'penalty', 'auraCard', 'lastResult', 'lastOps', 'lastPols', 'lastMicro', 'lastChange', 'startNote'];
+const CTX = ['phase', 'landed', 'dice', 'verification', 'penalty', 'auraCard', 'lastResult', 'lastOps', 'lastPols', 'lastMicro', 'lastChange', 'startNote', 'idle'];
 const clone = x => structuredClone(x);
-const blank = () => ({phase: 'ready', landed: null, dice: null, verification: null, penalty: 0, auraCard: null, lastResult: null, lastOps: null, lastPols: null, lastMicro: null, lastChange: null, startNote: null});
+const blank = () => ({phase: 'ready', landed: null, dice: null, verification: null, penalty: 0, auraCard: null, lastResult: null, lastOps: null, lastPols: null, lastMicro: null, lastChange: null, startNote: null, idle: null});
 const log = (s, text, kind, player = null) => s.log.push({round: s.round, player, text, kind});
 const PLAYER_ACTIONS = ['wellbeing', 'roll', 'verify', 'digitalPass', 'drawAura', 'resolve'];
 
@@ -4696,15 +4813,15 @@ const RULES = [
     phone: ['5 risorse da 0 a 4: Denaro, Tempo, Rete, Benessere, Voce.', 'Gli attriti rendono alcune caselle più pesanti.', 'In coppia: decidete insieme, conferma uno solo.']},
   {id: 'turn', kicker: '2 · Il giro', title: 'Un giro, tutti insieme.',
     lead: 'Non si aspetta il proprio turno: si gioca tutti nello stesso momento, ognuno dal proprio telefono.',
-    points: ['Tira il dado (facce {dice}).', 'Leggi la casella: la frase, l’effetto, per chi pesa di più.', 'Scegli e conferma. Il proiettore mostra chi ha finito.'],
-    phone: ['Tira il dado dal telefono.', 'Leggi la casella e scegli.', 'Conferma: quando tutti hanno finito si passa al giro dopo.']},
+    points: ['Tira il dado (facce {dice}).', 'Leggi la casella: la frase, l’effetto, per chi pesa di più.', 'Scegli e conferma. Poi chi facilita racconta ogni mossa sul proiettore: si va avanti solo con il suo ok.'],
+    phone: ['Tira il dado dal telefono.', 'Leggi la casella e scegli.', 'Conferma: poi si racconta sul proiettore e si va avanti con l’ok di chi facilita.']},
   {id: 'cells', kicker: '3 · Le caselle', title: '40 caselle, una città.',
     lead: 'Scuola, lavoro, trasporti, sportelli, spazi, partecipazione. Ogni casella ha un colore.',
     points: ['Le caselle rosse sono ostacoli, le verdi opportunità, le gialle scelte.', 'Le caselle OCA fanno rilanciare il dado. Quelle viola fanno pescare una carta AURA.', 'Un’etichetta rossa con un attrito vuol dire: per qualcuno costa di più.'],
     phone: ['Rosso ostacolo, verde opportunità, giallo scelta.', 'OCA: rilanci. Viola: carta AURA.', 'Etichetta rossa: per qualcuno costa di più.']},
   {id: 'limits', kicker: '4 · Quando le risorse finiscono', title: 'Batteria scarica.',
     lead: 'Le risorse a zero non sono un game over: cambiano il modo in cui giocate.',
-    points: ['💚 Benessere a 0: prima di tirare scegli se fermarti, chiedere supporto o stringere i denti.', '📣 Voce a 0: se ne perdi ancora, arretri di una casella (al massimo una volta per giro).', `💧 Microaggressioni: alla ${MICRO_LIMIT}ª perdi 1 Benessere, goccia dopo goccia.`, '🔒 Alcune cose le vede solo chi gioca quel personaggio, sul proprio telefono.'],
+    points: ['💚 Benessere a 0: prima di tirare scegli se fermarti, chiedere supporto o stringere i denti.', '📣 Voce a 0: se ne perdi ancora, arretri di una casella (al massimo una volta per giro).', `💧 Microaggressioni: alla ${MICRO_LIMIT}ª perdi 1 Benessere, goccia dopo goccia.`, '🔒 Alcune cose le vede solo chi gioca quel personaggio, sul proprio telefono.', '⏸ Se il personaggio deve stare fermo un giro, il telefono lo dice al momento del tiro.'],
     phone: ['Benessere a 0: scegli come proseguire prima di tirare.', `Microaggressioni: alla ${MICRO_LIMIT}ª perdi 1 Benessere.`, '🔒 «Solo per te»: alcune cose le vedi solo tu.']},
   {id: 'aura', kicker: '5 · Carte AURA', title: 'Aura check ✨',
     lead: `In ${AURA_CELLS.length} caselle si pesca una carta AURA: punti di «figaggine» sociale, a volte una figuraccia.`,
@@ -4738,6 +4855,7 @@ const __ui = (() => {
 // AURA · componenti grafici condivisi tra proiettore e telefono (estratti dalla v0.4).
 const {MICRO_LIMIT, DICE, DEFAULT_DICE, AURA_CELLS, CHARACTERS, CELLS, RES, LABEL, ICON, RES_HINT, ATTR, POLICIES, EVENTS, AURA_CARDS, AURA_FORMULA, GLOSSARY, DEBRIEF, POLICY_ROUND, EVENT_ROUNDS} = __data;
 const {NOTES} = __notes;
+const {EXPLAIN} = __explain;
 const {cellImpact, specificRows} = __engine;
 const ctx = {state: null, lens: null, facilitator: false, focus: null, dropPawns: false};
 const $ = (s, el = document) => el.querySelector(s);
@@ -5001,6 +5119,7 @@ function zoomHTML(n, mode) {
   const note = NOTES.cells[n] || {};
   const info = `<section class="z-info">
     <blockquote class="voice"><span class="q">“</span>${esc(c.voice)}</blockquote>
+    ${EXPLAIN[n] ? `<div class="explain"><b>Che cosa succede</b><p>${esc(EXPLAIN[n])}</p></div>` : ''}
     ${mode === 'turn' ? specificRows(ctx.state, p, n).map(r => `<div class="spec-box" style="--pc:${me.color}"><div class="spec-head">${avatar(p.id, 'sm')}<span>SOLO PER ${esc(me.name.toUpperCase())}</span><b>${esc(r.title)}</b></div><p class="spec-voice">${esc(r.voice)}</p><p class="spec-text">${esc(r.text)}</p>${ctx.facilitator ? `<p class="fac-note"><b>Per chi facilita.</b> ${esc(r.note)}</p>` : ''}</div>`).join('') : ''}
     ${c.slang.length ? `<div class="slang-row"><span class="sl-label">📖 Dizionario</span>${c.slang.map(s => GLOSSARY[s] ? `<details class="slang"><summary>${esc(GLOSSARY[s].term)}</summary><p>${esc(GLOSSARY[s].def)}</p></details>` : '').join('')}</div>` : ''}
     <div class="rules">${c.groups.map(([l, t]) => `<div class="rule"><small>${esc(l)}</small><strong>${esc(t)}</strong></div>`).join('')}${c.note ? `<p class="rule-note">${esc(c.note)}</p>` : ''}</div>
@@ -5074,7 +5193,23 @@ function syncNodes(a, b) {
   }
 }
 
-return {ctx, $, $$, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, ROW_COLORS, KIND, avatar, attrChip, aggregate, tokenText, tokens, fxChip, PIPS, FACE_ROT, diceFaces, dieHTML, dieFace, spinDie, microDots, coords, tileHTML, board, VEHICLES, tree, lamp, drawRoad, skylineCache, skyline, pawnSpot, placePawns, positionPawn, animateTravel, tileEl, statBars, auraFace, auraBack, countUp, splashCache, splashHTML, sameCellHTML, zoomHTML, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable, morph};
+
+/** Spiega da dove viene ogni effetto: per tutti, per un attrito, per risorse scarse, una politica, una capacità, una carta. */
+function effectLines(ops, pols = [], base = 'per tutti') {
+  const why = o => o.tag === 'carta' ? 'carta AURA' : o.spec ? '🔒 una situazione che vede solo chi gioca questo personaggio' : o.tag === 'voce0' ? 'VOCE già a zero: si arretra' : o.tag === 'micro' ? 'microaggressioni accumulate' : o.src === 'attr' && ATTR[o.tag] ? `per l’attrito ${ATTR[o.tag].icon} ${ATTR[o.tag].label}` : o.src === 'cond' ? 'perché le sue risorse sono già scarse' : o.src === 'policy' ? 'grazie a una politica del Comune' : o.src === 'special' ? 'capacità speciale' : o.kind === 'cost' ? 'costo da pagare' : o.tag === 'digital' ? 'dado di verifica sfortunato' : base;
+  const m = new Map();
+  for (const o of ops || []) {if (!o.delta) continue; const k = o.key + '|' + why(o); const e = m.get(k) || {key: o.key, delta: 0, why: why(o), attr: o.src === 'attr', cond: o.src === 'cond'}; e.delta += o.delta; m.set(k, e);}
+  const rows = [...m.values()].filter(e => e.delta).map(e => `<li><span class="tok ${e.delta < 0 ? 'neg' : 'pos'} ${e.attr && e.delta < 0 ? 'attr' : ''} ${e.cond && e.delta < 0 ? 'cond' : ''}">${tokenText(e, true)}</span><em>${esc(e.why)}</em></li>`);
+  for (const n of pols || []) {const p = POLICIES.find(x => x.id === n); if (p) rows.push(`<li><span class="tok pol">P${n} ✓</span><em>la politica «${esc(p.name)}» ha aiutato</em></li>`);}
+  return rows.length ? `<ul class="fx-lines">${rows.join('')}</ul>` : '<p class="fx-none">Nessun effetto su risorse o posizione.</p>';
+}
+/** Le parole in slang di una lista di chiavi del glossario. */
+function slangList(keys, cls = '') {
+  const items = (keys || []).map(k => GLOSSARY[k]).filter(Boolean);
+  return items.length ? `<div class="slang-list ${cls}">${items.map(g => `<div><b>${esc(g.term)}</b><span>${esc(g.def)}</span>${cls.includes('ex') ? `<em>${esc(g.ex)}</em>` : ''}</div>`).join('')}</div>` : '';
+}
+
+return {ctx, $, $$, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, ROW_COLORS, KIND, avatar, attrChip, aggregate, tokenText, tokens, fxChip, PIPS, FACE_ROT, diceFaces, dieHTML, dieFace, spinDie, microDots, coords, tileHTML, board, VEHICLES, tree, lamp, drawRoad, skylineCache, skyline, pawnSpot, placePawns, positionPawn, animateTravel, tileEl, statBars, auraFace, auraBack, countUp, splashCache, splashHTML, sameCellHTML, zoomHTML, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable, morph, effectLines, slangList};
 })();
 const __host = (() => {
 // AURA online · pagina del proiettore (regista). Tiene la partita e la condivide con i telefoni.
@@ -5084,7 +5219,8 @@ const {newGame, eventImpact, specificRows, choices, specialOptions} = __engine;
 const {toParallel, act: pAct, playerView, pending, allDone, endRound, approvePolicies, adjust: pAdjust, finish: pFinish, autoAction, rollFace, pickCharacters, suggestSeats, doneFor} = __parallel;
 const {hostRoom, newRoomCode, testParams} = __net;
 const {RULES} = __rules;
-const {ctx, $, $$, dieHTML, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, KIND, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
+const {EXPLAIN, EVENT_EXPLAIN} = __explain;
+const {ctx, $, $$, dieHTML, esc, fmt, sgn, wait, reduced, pad, pickOne, charOf, avatar, attrChip, aggregate, tokenText, tokens, board, drawRoad, placePawns, positionPawn, animateTravel, morph, KIND, effectLines, slangList, statBars, microDots, auraFace, auraBack, countUp, splashHTML, zoomHTML, tileEl, roundTrack, trackHTML, trajectoryChart, costBars, summaryTable} = __ui;
 const KEY = 'aura-online-host-v1', FKEY = 'aura-facilitatore';
 const TIMER_OPTIONS = [0, 60, 90, 120, 180];
 let root, modalRoot, zoomRoot, fxRoot;
@@ -5095,9 +5231,10 @@ const connTok = new Map();   // connectionId -> token
 const connById = new Map();
 let modal = null, zoom = null, overlay = null, stageQueue = [], toastTimer, saveT, lastRoundShown = 0, tick = null;
 let lastBoardKey = '', auraNow = null;
-const lastBy = {};
+const lastBy = {}, seenAt = {};
+const stale = p => !online(p) || Date.now() - (seenAt[p.token] || 0) > 12000;
 
-const blankSession = code => ({code, people: {}, G: null, settings: {rounds: ROUND_OPTIONS[0], dice: DEFAULT_DICE, events: true, timer: 120, seats: null, story: 'full'}, plan: null, feed: [], votes: {}, needsLive: {}, feelings: {}, policyStep: 'look', policySel: [], deadline: 0, closeAt: 0, paused: false, seenEvent: {}});
+const blankSession = code => ({code, people: {}, G: null, settings: {rounds: ROUND_OPTIONS[0], dice: DEFAULT_DICE, events: true, timer: 0, seats: null, story: 'full'}, plan: null, feed: [], votes: {}, needsLive: {}, feelings: {}, policyStep: 'look', policySel: [], deadline: 0, closeAt: 0, paused: false, seenEvent: {}});
 const G = () => H?.G;
 const randToken = () => Array.from(crypto.getRandomValues(new Uint8Array(9)), b => b.toString(36).padStart(2, '0')).join('').slice(0, 14);
 const joinURL = () => {const base = location.origin === 'null' || location.protocol === 'file:' ? location.href.split('?')[0] : location.origin + location.pathname; const tp = testParams(); return base + '?s=' + H.code + (tp ? '&' + tp : '');};
@@ -5113,7 +5250,7 @@ function openRoom() {
   room = hostRoom(H.code, {
     onOpen() {netStatus = 'online'; renderSoft();},
     onJoin(conn) {DBG('join', conn.connectionId, conn.peer); connById.set(conn.connectionId, conn);},
-    onLeave(conn) {DBG('leave', conn.connectionId, conn.open); const t = connTok.get(conn.connectionId); connTok.delete(conn.connectionId); connById.delete(conn.connectionId); if (t) renderSoft();},
+    onLeave(conn) {DBG('leave', conn.connectionId, conn.open); const t = connTok.get(conn.connectionId); connTok.delete(conn.connectionId); connById.delete(conn.connectionId); if (t) {mergeReturning(); renderSoft();}},
     onMessage(conn, m) {try {handle(conn, m);} catch (e) {console.error(e);}},
     onError(kind) {netStatus = kind === 'nolib' ? 'nolib' : kind === 'taken' ? 'taken' : 'network'; renderSoft();},
     onRelay(st) {if (st !== relayState) {relayState = st; renderSoft();}}
@@ -5144,9 +5281,25 @@ let bcastQueued = false;
 function broadcast() {if (bcastQueued) return; bcastQueued = true; queueMicrotask(() => {bcastQueued = false; for (const [cid, tok] of connTok) {const c = connById.get(cid); if (c) send(c, phoneMessage(tok));}});}
 function assignLate(token) {
   const g = G(); const ids = g ? g.players.map(p => p.id) : H.plan?.chars; if (!ids?.length) return;
-  const counts = ids.map(id => [id, seatPeople(id).length]).sort((a, b) => a[1] - b[1]);
-  H.people[token].seat = counts[0][0];
-  toast(`${H.people[token].name} ${g ? 'entra in gioco' : 'giocherà'} con ${charOf(counts[0][0]).name}.`);
+  // prima i personaggi rimasti senza nessun telefono collegato (per esempio chi è uscito per sbaglio), poi quelli con meno persone
+  const score = id => {const ppl = seatPeople(id).filter(p => p.token !== token); return [ppl.filter(online).length, ppl.length];};
+  const best = ids.map(id => [id, ...score(id)]).sort((a, b) => a[1] - b[1] || a[2] - b[2])[0][0];
+  H.people[token].seat = best;
+  toast(`${H.people[token].name} ${g ? 'entra in gioco' : 'giocherà'} con ${charOf(best).name}.`);
+}
+const normName = n => String(n || '').trim().toLowerCase().replace(/\s+/g, ' ');
+// Chi esce per sbaglio e rientra subito può risultare "nuovo" finché la vecchia connessione non scade:
+// appena la vecchia risulta persa, la nuova persona con lo stesso nickname riprende il personaggio della vecchia.
+function mergeReturning() {
+  if (!H) return; let changed = false;
+  for (const old of Object.values(H.people)) {
+    if (!old.seat || !stale(old)) continue;
+    const nu = Object.values(H.people).find(p => p !== old && normName(p.name) === normName(old.name) && online(p) && p.joinedAt > (seenAt[old.token] || old.joinedAt) - 5000 && Date.now() - p.joinedAt < 10 * 60000);
+    if (!nu || nu.seat === old.seat) {if (nu && nu.seat === old.seat) {delete H.people[old.token]; changed = true;} continue;}
+    nu.seat = old.seat; delete H.people[old.token]; changed = true;
+    toast(`${nu.name} è rientrata/o: riprende ${charOf(nu.seat).name}.`);
+  }
+  if (changed) {persist(); renderSoft(); broadcast();}
 }
 function handle(conn, m) {
   if (!m || typeof m !== 'object') return;
@@ -5154,14 +5307,20 @@ function handle(conn, m) {
   if (m.t === 'hello') {DBG('hello', conn.connectionId, m.token, m.name);
     let token = typeof m.token === 'string' && H.people[m.token] ? m.token : null;
     const name = String(m.name || '').trim().slice(0, 24) || 'Ospite';
-    if (!token) {token = randToken(); H.people[token] = {token, name, seat: null, joinedAt: Date.now()}; if (G() || H.plan) assignLate(token);}
+    if (!token) {
+      // stesso nickname di una persona non collegata: è lei che rientra, riprende il suo personaggio
+      const back = Object.values(H.people).filter(p => normName(p.name) === normName(name) && stale(p)).sort((a, b) => b.joinedAt - a.joinedAt)[0];
+      if (back) {token = back.token; if (back.seat) toast(`${back.name} è rientrata/o: riprende ${charOf(back.seat).name}.`);}
+      else {token = randToken(); H.people[token] = {token, name, seat: null, joinedAt: Date.now()}; if (G() || H.plan) assignLate(token);}
+    }
     else if (m.name) H.people[token].name = name;
     for (const [cid, t] of connTok) if (t === token && cid !== conn.connectionId) connTok.delete(cid);
-    connTok.set(conn.connectionId, token); connById.set(conn.connectionId, conn);
+    connTok.set(conn.connectionId, token); connById.set(conn.connectionId, conn); seenAt[token] = Date.now();
     send(conn, {t: 'welcome', token, name: H.people[token].name, room: H.code});
     persist(); renderSoft(); broadcast(); return;
   }
-  const token = connTok.get(conn.connectionId); const person = token && H.people[token]; if (!person) {DBG('unknown', conn.connectionId, m.t, token); return send(conn, {t: 'who'});}
+  const token = connTok.get(conn.connectionId); const person = token && H.people[token]; if (token) seenAt[token] = Date.now();
+  if (m.t === 'bye' && token) {connTok.delete(conn.connectionId); mergeReturning(); renderSoft(); return;} if (!person) {DBG('unknown', conn.connectionId, m.t, token); return send(conn, {t: 'who'});}
   if (m.t === 'ping') return send(conn, {t: 'pong'});
   if (m.t === 'act') {
     const g = G(); if (!g || !person.seat) return send(conn, {t: 'error', text: 'La partita non è ancora iniziata.'});
@@ -5205,7 +5364,8 @@ function apply(pid, a, who = null, auto = false) {
     const landed = prevTc.landed; const spec = a.type === 'resolve' && landed && !g.event && specificRows(playerView(g, pid), before, landed).length > 0;
     const chosen = pre?.cs.find(c => c.id === a.choice);
     const entry = {pid, kind: 'effect', n: g.event ? null : landed, ev: g.event?.id || null, ops: tc.lastOps || [], pols: tc.lastPols || [], micro: tc.lastMicro, spec, text: tc.lastResult || '', auto,
-      phase: pre?.phase || '', choice: chosen && !(chosen.id === 'apply' && pre.cs.length === 1) ? chosen.label : '', alts: (pre?.cs || []).filter(c => c.id !== a.choice && !c.disabled && !c.requiresSpecial).map(c => c.label),
+      phase: pre?.phase || '', choice: chosen && !(chosen.id === 'apply' && pre.cs.length === 1) ? chosen.label : '',
+      opts: (pre?.cs || []).map(c => ({label: c.label, detail: c.detail || '', disabled: !!c.disabled, hint: c.hint || '', chosen: c.id === a.choice, special: !!c.requiresSpecial})), alts: (pre?.cs || []).filter(c => c.id !== a.choice && !c.disabled && !c.requiresSpecial).map(c => c.label),
       blocked: (pre?.cs || []).filter(c => c.disabled).map(c => c.label), special: pre?.sp ? {name: charOf(pid).special, label: pre.sp.label} : null, aura: pre?.aura, verify: pre?.verify, from: fromPos, to: after.position, before: {res: {...before.res}}};
     addFeed(entry); queueScene(entry);
   }
@@ -5219,15 +5379,12 @@ function apply(pid, a, who = null, auto = false) {
   return true;
 }
 function addFeed(e) {H.feed.unshift({...e, round: G().round, at: Date.now()}); H.feed = H.feed.slice(0, 40);}
-const RECAP_SECONDS = 25;
 function checkRoundEnd() {
   const g = G(); if (!g) return;
-  if (allDone(g)) {
-    if (H.settings.story === 'off') {if (!H.closeAt) H.closeAt = Date.now() + 7000;}
-    else if (!H.recapShown) {H.recapPending = true; if (!overlay) maybeOverlays();}
-  } else {H.closeAt = 0; H.recapPending = false;}
+  if (allDone(g)) {H.readyToClose = true; if (H.settings.story !== 'off' && !H.recapShown) {H.recapPending = true; if (!overlay) maybeOverlays();}}
+  else {H.closeAt = 0; H.recapPending = false; H.readyToClose = false;}
 }
-function snapshotStart() {const g = G(); if (!g) return; H.startSnap = {round: g.round, phase: g.phase, players: Object.fromEntries(g.players.map(p => [p.id, {position: p.position, res: {...p.res}}]))}; H.recapShown = false; H.recapPending = false;}
+function snapshotStart() {const g = G(); if (!g) return; H.startSnap = {round: g.round, phase: g.phase, players: Object.fromEntries(g.players.map(p => [p.id, {position: p.position, res: {...p.res}}]))}; H.recapShown = false; H.recapPending = false; H.readyToClose = false;}
 function closeRound() {
   const g = G(); if (!g || !['round', 'event'].includes(g.phase)) return;
   if (overlay === 'recap' || overlay === 'scene') {overlay = null; fxRoot.innerHTML = '';}
@@ -5240,12 +5397,14 @@ function closeRound() {
 function playFor(pid, steps = 8) {
   for (let i = 0; i < steps; i++) {const g = G(); const a = autoAction(g, pid); if (!a) break; if (apply(pid, a, null, true) !== true) break; if (a.type === 'roll' || a.type === 'resolve') {/* continua fino a fine turno */}}
 }
+let mergeTick = 0;
 function onTick() {
+  if (++mergeTick % 5 === 0) mergeReturning();
   const g = G(); if (!g) return;
   const now = Date.now();
   if (['round', 'event'].includes(g.phase) && !H.paused) {
     if (H.deadline && now > H.deadline) {for (const pid of pending(g)) {const a = autoAction(G(), pid); if (a) apply(pid, a, null, true);}}
-    if (H.closeAt && now > H.closeAt && (!overlay || overlay === 'recap')) closeRound();
+    if (H.closeAt && now > H.closeAt && !overlay) closeRound();
   }
   const t = $('#timer'); if (t) t.outerHTML = timerHTML();
   const c = $('#close-count'); if (c && H.closeAt) c.textContent = Math.max(0, Math.ceil((H.closeAt - now) / 1000));
@@ -5312,7 +5471,7 @@ function seatCard(p, g) {
     <button class="seat-av" data-action="character" data-id="${p.id}">${avatar(p.id, 'md')}</button>
     <div class="seat-main"><div class="seat-top"><b>${c.name}</b><span class="seat-pos">${p.arrived ? '🏁 40' : '#' + p.position}</span>${p.microTotal ? `<span class="rp-micro2">💧${p.microTotal}</span>` : ''}</div>
       <div class="seat-people">${ppl.map(x => `<span class="${online(x) ? 'on' : 'off'}">${esc(x.name)}</span>`).join('') || '<span class="off">nessun telefono</span>'}</div>
-      <div class="seat-status">${done ? `<span class="ok">✓</span>${last ? tokens(last.ops, last.pols) + (last.spec ? '<span class="tok lock" title="Una conseguenza che vede solo chi gioca questo personaggio">🔒</span>' : '') + (last.auto ? '<span class="tok zero">⏱ auto</span>' : '') : '<span class="tok zero">' + esc(tc.lastResult || 'fatto') + '</span>'}` : esc(statusTxt)}</div></div>
+      <div class="seat-status">${done && tc.idle && !g.event ? `<span class="idle">${tc.idle === 'skip' ? '⏸ fermo questo giro (pausa alla 15)' : '🏁 arrivato: non tira più'}</span>` : done ? `<span class="ok">✓</span>${last ? tokens(last.ops, last.pols) + (last.spec ? '<span class="tok lock" title="Una conseguenza che vede solo chi gioca questo personaggio">🔒</span>' : '') + (last.auto ? '<span class="tok zero">⏱ auto</span>' : '') : '<span class="tok zero">' + esc(tc.lastResult || 'fatto') + '</span>'}` : esc(statusTxt)}</div></div>
     ${done ? '' : `<button class="seat-play" data-action="play-for" data-id="${p.id}" title="Gioca al suo posto (scelta prudente)">▶</button>`}</div>`;
 }
 function seatPanel() {
@@ -5321,10 +5480,10 @@ function seatPanel() {
   return `<div class="sp-head">${ev ? `<div class="sp-ev" style="--ec:${ev.color}">${ev.icon} <b>${esc(ev.title)}</b> · si risponde dal telefono</div>` : ''}
     <div class="sp-title"><h3>${ev ? 'Evento Mondo' : 'Giro ' + g.round + ' · tutti insieme'}</h3>${timerHTML()}</div>
     <div class="sp-progress"><i style="width:${doneN / total * 100}%"></i></div><div class="sp-count">${doneN} di ${total} hanno finito ${H.paused ? '· <b>pausa</b>' : ''}</div>
-    ${!H.closeAt && H.recapPending ? `<div class="sp-close">Tutti fatto! Sul tabellone scorre il racconto del giro (${stageQueue.length}). <button class="ghost small" data-action="skip-story">Salta al riepilogo</button></div>` : ''}
-    ${H.closeAt ? `<div class="sp-close">Tutti fatto! ${ev ? 'Si riprende' : 'Il giro si chiude'} tra <b id="close-count">${Math.max(0, Math.ceil((H.closeAt - Date.now()) / 1000))}</b> s <button class="primary small" data-action="close-round">Avanti ora →</button><button class="ghost small" data-action="hold-round">Aspetta</button></div>` : ''}</div>
+    ${H.recapPending && stageQueue.length ? `<div class="sp-close">Tutti hanno giocato. Sul tabellone: ancora ${stageQueue.length} da raccontare. <button class="ghost small" data-action="skip-story">Salta al riepilogo</button></div>` : ''}
+    ${allDone(g) && (H.settings.story === 'off' || (!H.recapPending && overlay !== 'recap')) ? `<div class="sp-close">Tutti hanno giocato. <button class="primary small" data-action="close-round">${ev ? 'Avanti: si riprende →' : 'Avanti: chiudi il giro →'}</button></div>` : ''}</div>
    <div class="seats ${g.players.length > 6 ? 'many' : ''}">${g.players.map(p => seatCard(p, g)).join('')}</div>
-   <div class="sp-foot"><button class="ghost small" data-action="pause">${H.paused ? '▶ Riprendi il timer' : '⏸ Pausa timer'}</button>${!H.closeAt ? `<button class="ghost small" data-action="force-close">Chiudi comunque il giro</button>` : ''}</div>`;
+   <div class="sp-foot"><button class="ghost small" data-action="pause">${H.paused ? '▶ Riprendi il timer' : '⏸ Pausa timer'}</button>${!allDone(g) ? `<button class="ghost small" data-action="force-close">Chiudi comunque il giro</button>` : ''}</div>`;
 }
 function feedHTML() {
   const items = H.feed.filter(f => f.kind === 'effect').slice(0, 6);
@@ -5422,15 +5581,29 @@ function showRoundBanner() {
   el.innerHTML = `<div class="rb-inner"><small>${g.round === g.config.rounds ? 'Ultimo giro' : g.policyDone && g.round === POLICY_ROUND + 1 ? 'Nuove regole in vigore' : 'Tutti insieme'}</small><b>GIRO ${pad(g.round)}</b><span>${esc(pickOne(ROUND_LINES))} Tirate dal telefono!</span></div>`;
   fxRoot.append(el); setTimeout(() => el.remove(), 2300);
 }
-function showEventReveal() {
-  const g = G(); overlay = 'event'; const e = EVENTS.find(x => x.id === g.event.id); const idx = EVENT_ROUNDS.indexOf(g.round);
-  const rows = g.players.map(p => {const imp = eventImpact(g, p.id, e.id); return `<div class="same-row ${imp.heavy ? 'heavy' : ''}">${avatar(p.id, 'sm')}<b>${charOf(p.id).name}</b><span class="same-toks">${imp.verify ? '<span class="tok zero">🎲 d6: con 1–3</span>' : ''}${tokens(imp.plan.ops, imp.plan.pols)}</span></div>`;}).join('');
-  fxRoot.innerHTML = `<div class="event-veil"><div class="ev-stage"><div class="ev-head"><span class="ev-kicker">⚡ EVENTO MONDO ${idx + 1} di 3 · fine del giro ${g.round}</span><h2>Succede a tutti.</h2></div>
-    <div class="ev-deck">${g.eventOrder.map((id, i) => `<div class="ev-slot ${i < idx ? 'gone' : i === idx ? 'reveal' : 'wait'}"><div class="ev-flip"><div class="ev-back"><img src="${__ASSET.logo}" alt=""><span>EVENTO MONDO</span></div>${i === idx ? `<div class="ev-front event-card" style="--ec:${e.color}"><div class="ev-top"><span class="ev-ic">${e.icon}</span><span>EVENTO MONDO</span></div><h3>${esc(e.title)}</h3><p class="voice-s">“${esc(e.voice)}”</p><p class="ev-text">${esc(e.text)}</p></div>` : ''}</div></div>`).join('')}</div>
-    <section class="same ev-same"><h4>Stessa crisi, vite diverse</h4><p class="same-sub">Ognuno lo applica dal proprio telefono.</p>${rows}</section>
-    ${ctx.facilitator ? `<p class="fac-note"><b>Chiave:</b> ${esc(NOTES.events[e.id]?.chiave || '')}</p>` : ''}
-    <div class="ev-actions"><button class="primary big" data-action="event-go">Ok: rispondete dal telefono →</button></div></div></div>`;
-  if (reduced()) $('.ev-slot.reveal', fxRoot)?.classList.add('instant');
+let evStep = 'card';
+function showEventReveal(step = 'card') {
+  const g = G(); overlay = 'event'; evStep = step; const e = EVENTS.find(x => x.id === g.event.id); const idx = EVENT_ROUNDS.indexOf(g.round); const X = EVENT_EXPLAIN[e.id] || {what: '', who: ''};
+  if (step === 'card') {
+    fxRoot.innerHTML = `<div class="event-veil"><div class="ev-stage"><div class="ev-head"><span class="ev-kicker">⚡ EVENTO MONDO ${idx + 1} di ${EVENT_ROUNDS.length} · fine del giro ${g.round}</span><h2>Succede a tutti.</h2></div>
+      <div class="ev-two"><div class="ev-deck">${g.eventOrder.slice(0, EVENT_ROUNDS.length).map((id, i) => `<div class="ev-slot ${i < idx ? 'gone' : i === idx ? 'reveal' : 'wait'}"><div class="ev-flip"><div class="ev-back"><img src="${__ASSET.logo}" alt=""><span>EVENTO MONDO</span></div>${i === idx ? `<div class="ev-front event-card" style="--ec:${e.color}"><div class="ev-top"><span class="ev-ic">${e.icon}</span><span>EVENTO MONDO</span></div><h3>${esc(e.title)}</h3><p class="voice-s">“${esc(e.voice)}”</p></div>` : ''}</div></div>`).join('')}</div>
+      <div class="ev-explain"><div><b>Che cosa succede</b><p>${esc(X.what)}</p></div><div><b>Perché non è uguale per tutti</b><p>${esc(X.who)}</p></div><div class="ev-rule"><b>La regola</b><p>${esc(e.text)}</p></div></div></div>
+      ${ctx.facilitator ? `<p class="fac-note"><b>Chiave:</b> ${esc(NOTES.events[e.id]?.chiave || '')}</p>` : ''}
+      <div class="ev-actions"><button class="primary big" data-action="ev-step">Vediamo come colpisce ciascuno →</button></div></div></div>`;
+    if (reduced()) $('.ev-slot.reveal', fxRoot)?.classList.add('instant');
+    return;
+  }
+  const rows = g.players.map(p => {
+    const c = charOf(p.id), imp = eventImpact(g, p.id, e.id), hits = e.hits.filter(h => c.attrs.includes(h));
+    let opts = []; try {const v = playerView(g, p.id); opts = choices(v);} catch {}
+    const extra = opts.filter(o => o.id !== 'apply');
+    return `<div class="ei-row ${imp.heavy ? 'heavy' : ''}" style="--pc:${c.color}">${avatar(p.id, 'md')}<div class="ei-who"><b>${c.name}</b><span>${RES.map(k => `<i class="${p.res[k] === 0 ? 'zero' : ''}">${ICON[k]}${p.res[k]}</i>`).join('')}</span></div>
+      <div class="ei-why">${hits.length ? hits.map(h => attrChip(h, {mine: true})).join('') : '<span class="muted">nessun attrito colpito</span>'}</div>
+      <div class="ei-fx">${imp.verify ? '<span class="tok zero">🎲 tira il dado di verifica: con 1–3 perde 1 Tempo</span>' : ''}${effectLines(imp.plan.ops, imp.plan.pols)}${extra.length ? `<div class="ei-opts">${extra.map(o => `<span class="${o.disabled ? 'off' : ''}">${o.disabled ? '🚫' : '↔'} ${esc(o.label)}${o.disabled ? ' (non può: ' + esc(o.hint || 'risorse insufficienti') + ')' : ': ' + esc(o.detail)}</span>`).join('')}</div>` : ''}</div></div>`;
+  }).join('');
+  fxRoot.innerHTML = `<div class="event-veil"><div class="ev-stage wide"><div class="ev-head"><span class="ev-kicker">${e.icon} ${esc(e.title).toUpperCase()} · STESSA CRISI, VITE DIVERSE</span><h2>Come colpisce ciascuno</h2></div>
+    <div class="ei-table"><div class="ei-row head"><span></span><span>Personaggio e risorse</span><span>Attriti colpiti</span><span>Che cosa gli succede (prima delle scelte)</span></div>${rows}</div>
+    <div class="ev-actions"><button class="ghost" data-action="ev-back">← La carta</button><button class="primary big" data-action="event-go">Ok: rispondete dal telefono →</button></div></div></div>`;
 }
 function showStage() {const item = stageQueue[0]; if (!item) return; if (item.type === 'scene') return showScene(); return showAuraReveal();}
 function showAuraReveal() {
@@ -5439,12 +5612,14 @@ function showAuraReveal() {
   let value = card.aura; if (card.id === 2 && p.res.rete >= 3) value += 1000; const neg = value < 0;
   const COLORS = ['#FFB700', '#FF3E56', '#0878CF', '#59CFA5', '#7433B9', '#8DD3F5'];
   const parts = Array.from({length: 26}, (_, i) => {const a = i / 26 * Math.PI * 2, d = 150 + Math.random() * 170; return `<i style="--dx:${Math.round(Math.cos(a) * d)}px;--dy:${Math.round(Math.sin(a) * d)}px;--r:${Math.round(Math.random() * 540)}deg;--c:${pickOne(COLORS)}"></i>`;}).join('');
-  fxRoot.innerHTML = `<div class="aura-veil ${neg ? 'neg' : ''}" data-action="aura-ok" style="--h1:${card.hue[0]};--h2:${card.hue[1]}"><div class="ar-stage"><div class="ar-kicker">${avatar(item.pid, 'sm')}<span>AURA CHECK · <b>${c.name}</b> pesca una carta</span></div>
+  const left = stageQueue.length;
+  fxRoot.innerHTML = `<div class="aura-veil ${neg ? 'neg' : ''}" style="--h1:${card.hue[0]};--h2:${card.hue[1]}"><div class="ar-wrap"><div class="ar-stage"><div class="ar-kicker">${avatar(item.pid, 'sm')}<span>AURA CHECK · <b>${c.name}</b> pesca una carta</span></div>
     <div class="ar-table"><div class="ar-deck" aria-hidden="true">${[0, 1, 2, 3, 4, 5].map(i => `<span class="ar-db" style="--i:${i}">${auraBack()}</span>`).join('')}</div>
      <div class="ar-card"><div class="ar-flip"><div class="ar-face ar-back">${auraBack()}</div><div class="ar-face ar-front">${auraFace(card)}</div></div><div class="ar-burst" aria-hidden="true">${parts}</div></div></div>
-    <div class="ar-score ${neg ? 'neg' : ''}">${card.choice ? '<b>+4.000</b><small>oppure</small><b>0</b>' : `<b id="ar-num">0</b>`}<span>✨ AURA</span></div><p class="ar-line"><em>${esc(AURA_FORMULA)}</em></p></div></div>`;
+    <div class="ar-score ${neg ? 'neg' : ''}">${card.choice ? '<b>+4.000</b><small>oppure</small><b>0</b>' : `<b id="ar-num">0</b>`}<span>✨ AURA</span></div></div>
+    <aside class="ar-gloss"><h3>📖 Le parole della carta</h3>${slangList(card.slang, 'ex')}<div class="ar-why"><b>Che cosa significa nel gioco</b><p>${esc(card.effect)} ${esc(AURA_FORMULA)}</p></div>
+      <div class="ar-nav">${left ? `<span>ancora ${left} da mostrare</span>` : ''}<button class="primary big" data-action="aura-ok">Avanti →</button></div></aside></div></div>`;
   if (!card.choice) countUp($('#ar-num', fxRoot), value, 2500);
-  auraNow = item; setTimeout(() => {if (overlay === 'aura' && auraNow === item) closeOverlay();}, stageQueue.length ? 4800 : 6000);
 }
 function closeOverlay() {overlay = null; fxRoot.innerHTML = ''; maybeOverlays();}
 
@@ -5452,42 +5627,51 @@ function closeOverlay() {overlay = null; fxRoot.innerHTML = ''; maybeOverlays();
 function queueScene(entry) {if (H.settings.story !== 'full') return; stageQueue.push({type: 'scene', entry}); if (!overlay) maybeOverlays();}
 const kindOf = n => KIND[CELLS[n - 1].kind] || {label: '', color: '#0878CF'};
 function hitsFor(pid, n) {const c = charOf(pid); return n ? CELLS[n - 1].hits.filter(h => c.attrs.includes(h)) : [];}
+function optionsHTML(e, c) {
+  if (!e.opts?.length) return '';
+  const rows = e.opts.filter(o => !o.special || o.chosen).map(o => {
+    const st = o.chosen ? 'chosen' : o.disabled ? 'blocked' : 'other';
+    const mark = e.opts.length === 1 ? 'nessuna scelta' : o.chosen ? '✓ ha scelto' : o.disabled ? '🚫 non poteva' : 'non scelta';
+    return `<li class="${st}"><span class="op-mark">${mark}</span><b>${esc(o.label)}</b><span class="op-detail">${esc(o.detail)}${o.disabled ? ' — ' + esc(o.hint || 'risorse insufficienti') : ''}</span></li>`;
+  }).join('');
+  return `<div class="sc-box"><h4>${e.opts.length > 1 ? `Le opzioni di ${c.name}` : 'Che cosa prevede la casella'}</h4><ul class="sc-opts">${rows}</ul></div>`;
+}
 function sceneHTML(e) {
   const c = charOf(e.pid), g = G(), p = g.players.find(x => x.id === e.pid) || {id: e.pid, res: c.initial};
   const ppl = seatPeople(e.pid).map(x => esc(x.name)).join(' + ');
   const ev = e.ev ? EVENTS.find(x => x.id === e.ev) : null, cell = e.n && !ev ? CELLS[e.n - 1] : null;
-  let head = '';
-  if (ev) head = `<div class="sc-cell ev" style="--k:${ev.color}"><span class="sc-ring">${ev.icon}</span><div><small>EVENTO MONDO</small><h2>${esc(ev.title)}</h2></div></div><blockquote class="sc-voice">“${esc(ev.voice)}”</blockquote>`;
-  else if (e.phase === 'wellbeing') head = `<div class="sc-cell" style="--k:#FF3E56"><span class="sc-ring">💚</span><div><small>BENESSERE A ZERO</small><h2>Batteria scarica.</h2></div></div><blockquote class="sc-voice">“Non ce la faccio, raga. Oggi no.”</blockquote>`;
-  else if (cell) {const k = kindOf(e.n); head = `<div class="sc-cell" style="--k:${k.color}"><span class="sc-ring">${pad(e.n)}</span><div><small>${esc(k.label)} · ${esc(cell.tag)}</small><h2>${esc(cell.title)}</h2></div></div><blockquote class="sc-voice ${cell.voice.length > 130 ? 'long' : ''}">“${esc(cell.voice)}”</blockquote>`;}
-  const hits = cell ? hitsFor(e.pid, e.n) : [];
+  let head = '', what = '', rules = '', words = '';
+  if (ev) {head = `<div class="sc-cell ev" style="--k:${ev.color}"><span class="sc-ring">${ev.icon}</span><div><small>EVENTO MONDO</small><h2>${esc(ev.title)}</h2></div></div><blockquote class="sc-voice">“${esc(ev.voice)}”</blockquote>`;
+    what = EVENT_EXPLAIN[ev.id] ? `${esc(EVENT_EXPLAIN[ev.id].what)} ${esc(EVENT_EXPLAIN[ev.id].who)}` : ''; rules = `<div class="sc-rules"><div><small>REGOLA</small><span>${esc(ev.text)}</span></div></div>`;}
+  else if (e.phase === 'wellbeing') {head = `<div class="sc-cell" style="--k:#FF3E56"><span class="sc-ring">💚</span><div><small>BENESSERE A ZERO</small><h2>Batteria scarica.</h2></div></div>`;
+    what = `${c.name} ha finito le energie: ansia, stanchezza, troppe cose insieme. Prima di tirare il dado deve decidere come andare avanti: fermarsi, chiedere aiuto a qualcuno (se ha relazioni su cui contare) o stringere i denti.`;}
+  else if (cell) {const k = kindOf(e.n); head = `<div class="sc-cell" style="--k:${k.color}"><span class="sc-ring">${pad(e.n)}</span><div><small>${esc(k.label)} · ${esc(cell.tag)}</small><h2>${esc(cell.title)}</h2></div></div><blockquote class="sc-voice ${cell.voice.length > 130 ? 'long' : ''}">“${esc(cell.voice)}”</blockquote>`;
+    what = EXPLAIN[e.n] || ''; rules = `<div class="sc-rules">${cell.groups.map(([l, t]) => `<div><small>${esc(l)}</small><span>${esc(t)}</span></div>`).join('')}</div>`; words = slangList(cell.slang, 'sc-words');}
+  const hits = cell ? hitsFor(e.pid, e.n) : ev ? ev.hits.filter(h => c.attrs.includes(h)) : [];
   const card = e.aura ? AURA_CARDS.find(x => x.id === e.aura) : null;
-  const lines = [];
-  if (hits.length) lines.push(`<div class="sc-hits">Per ${c.name} pesa di più: ${hits.map(h => attrChip(h, {mine: true})).join('')}</div>`);
-  if (e.verify !== null && e.verify !== undefined) lines.push(`<div class="sc-line">🎲 Dado di verifica: <b>${e.verify}</b> ${e.verify <= 3 ? '· l’informazione si perde nel feed' : '· trovata'}</div>`);
-  if (e.choice) lines.push(`<div class="sc-choice"><span>Ha scelto</span><b>«${esc(e.choice)}»</b>${e.alts?.length ? `<em>invece di ${e.alts.map(x => '«' + esc(x) + '»').join(' o ')}</em>` : ''}</div>`);
-  const after = [];
-  if (e.blocked?.length) after.push(`<div class="sc-blocked">🚫 Non poteva permettersi ${e.blocked.map(x => '«' + esc(x) + '»').join(' né ')}</div>`);
-  if (e.special) after.push(`<div class="sc-special">✦ Usa la capacità speciale <b>${esc(e.special.name)}</b>: ${esc(e.special.label)}</div>`);
-  const toks = (e.ops?.length || e.pols?.length) ? tokens(e.ops, e.pols || [], true) : `<span class="tok zero">${esc(e.text || 'Nessuna variazione')}</span>`;
+  const notes = [];
+  if (hits.length) notes.push(`<div class="sc-hits">Per ${c.name} pesa di più: ${hits.map(h => attrChip(h, {mine: true})).join('')}</div>`);
+  if (e.verify !== null && e.verify !== undefined) notes.push(`<div class="sc-line">🎲 Dado di verifica: <b>${e.verify}</b> ${e.verify <= 3 ? '· l’informazione si perde' : '· trovata'}</div>`);
+  if (e.special) notes.push(`<div class="sc-special">✦ Usa la sua capacità speciale <b>${esc(e.special.name)}</b>: ${esc(e.special.label)}</div>`);
   const extra = [];
   if (e.spec) extra.push(`<div class="sc-lock"><span class="tok lock">🔒</span> Qui è successo qualcosa che vede solo chi gioca ${c.name}. Se vuole, lo racconterà nel debrief.</div>`);
-  if (e.micro) extra.push(`<div class="sc-micro">💧 ${e.micro.drop ? `Goccia dopo goccia: ${MICRO_LIMIT}ª microaggressione, −1 BENESSERE.` : `Microaggressione ${e.micro.count} di ${MICRO_LIMIT}.`}</div>`);
-  if (e.auto) extra.push(`<div class="sc-auto">⏱ Scelta automatica: era finito il tempo.</div>`);
-  if (ctx.facilitator && cell && NOTES.cells[e.n]) extra.push(`<div class="sc-fac"><b>Per chi facilita:</b> ${esc(NOTES.cells[e.n].chiave || '')}</div>`);
-  const move = e.from !== e.to ? `<span class="sc-move ${e.to < e.from ? 'back' : ''}">📍 ${e.from} → ${e.to}</span>` : `<span class="sc-move">📍 ${e.to}</span>`;
+  if (e.micro) extra.push(`<div class="sc-micro">💧 ${e.micro.drop ? `Goccia dopo goccia: è la ${MICRO_LIMIT}ª microaggressione, −1 BENESSERE.` : `Microaggressione ${e.micro.count} di ${MICRO_LIMIT}: alla ${MICRO_LIMIT}ª perde 1 BENESSERE.`}</div>`);
+  if (e.auto) extra.push(`<div class="sc-auto">⏱ Scelta fatta da chi facilita al posto del personaggio.</div>`);
+  if (ctx.facilitator && cell && NOTES.cells[e.n]?.chiave) extra.push(`<div class="sc-fac"><b>Per chi facilita:</b> ${esc(NOTES.cells[e.n].chiave)}</div>`);
+  const move = e.from !== e.to ? `<span class="sc-move ${e.to < e.from ? 'back' : ''}">📍 casella ${e.from} → ${e.to}</span>` : `<span class="sc-move still">📍 resta alla ${e.to}</span>`;
   return `<article class="scene" style="--pc:${c.color}">
-    <header class="sc-who">${avatar(e.pid, 'md')}<div><b>${c.name}</b><small>${c.age} anni${ppl ? ' · ' + ppl : ''}</small></div>${move}</header>
-    <div class="sc-main"><div class="sc-story">${head}${lines.join('')}<div class="sc-effects">${toks}</div>${after.join('')}${extra.join('')}</div>
-      <aside class="sc-side">${statBars(p, e.before)}${card ? `<div class="sc-card">${auraFace(card)}</div>` : ''}</aside></div>
+    <header class="sc-who">${avatar(e.pid, 'md')}<div><b>${c.name}</b><small>${c.age} anni${c.attrs.length ? ' · ' + c.attrs.map(a => ATTR[a].icon).join(' ') : ''}${ppl ? ' · gioca: ' + ppl : ''}</small></div>${move}</header>
+    <div class="sc-main"><div class="sc-story">${head}${what ? `<div class="sc-what"><b>Che cosa succede</b><p>${what}</p></div>` : ''}${rules}${words}</div>
+      <div class="sc-act">${notes.join('')}${optionsHTML(e, c)}<div class="sc-box"><h4>Che cosa cambia per ${c.name}</h4>${effectLines(e.ops, e.pols, (e.opts || []).length > 1 ? 'per la scelta fatta' : 'per tutti')}</div>${extra.join('')}
+        <div class="sc-res">${statBars(p, e.before)}${card ? `<div class="sc-card">${auraFace(card)}</div>` : ''}</div></div></div>
   </article>`;
 }
 function showScene() {
   const item = stageQueue.shift(); if (!item) return; overlay = 'scene';
-  const left = stageQueue.filter(x => x.type === 'scene').length; const ms = left >= 5 ? 3600 : left >= 2 ? 5200 : 7000;
-  fxRoot.innerHTML = `<div class="scene-veil" data-action="stage-next">${sceneHTML(item.entry)}<div class="sc-foot"><i class="sc-bar" style="--t:${ms}ms"></i><span>${left ? `ancora ${left} ${left === 1 ? 'scena' : 'scene'} · ` : ''}tocca per andare avanti</span></div></div>`;
-  const mine = item; auraNow = item; setTimeout(() => {if (overlay === 'scene' && auraNow === mine) closeOverlay();}, ms);
+  const left = stageQueue.filter(x => x.type === 'scene').length;
+  fxRoot.innerHTML = `<div class="scene-veil">${sceneHTML(item.entry)}<div class="sc-foot"><span>${left ? `dopo questa: ancora ${left} ${left === 1 ? 'mossa' : 'mosse'} da raccontare` : 'ultima mossa arrivata'}</span><button class="primary big" data-action="stage-next">Avanti →</button></div></div>`;
 }
+function idleText(p) {const tc = p.tc || {}; return tc.idle === 'skip' ? '⏸ Fermo questo giro: alla casella 15 aveva scelto di riposare.' : tc.idle === 'arrived' ? '🏁 È alla 40: non tira più il dado.' : '';}
 function recapHTML() {
   const g = G(), snap = H.startSnap && H.startSnap.round === g.round && H.startSnap.phase === g.phase ? H.startSnap : null;
   const ev = g.event ? EVENTS.find(x => x.id === g.event.id) : null;
@@ -5497,19 +5681,21 @@ function recapHTML() {
     const from = s0?.position ?? mine[0]?.from ?? p.position, d = p.position - from;
     const delta = s0 ? RES.map(k => [k, p.res[k] - s0.res[k]]).filter(([, v]) => v) : [];
     const rows = mine.map(f => {const cell = f.n && !f.ev ? CELLS[f.n - 1] : null; const where = f.ev ? '⚡ ' + esc(ev?.title || '') : f.phase === 'wellbeing' ? '💚 Benessere a zero' : cell ? `<b>${pad(f.n)}</b> ${esc(cell.tile || cell.title)}` : '';
-      return `<li><span class="rc-where">${where}</span>${f.choice ? `<span class="rc-choice">«${esc(f.choice)}»</span>` : ''}${f.blocked?.length ? '<span class="rc-blocked" title="Non poteva permettersi un’opzione">🚫</span>' : ''}<span class="rc-toks">${tokens(f.ops, f.pols || [])}${f.spec ? '<span class="tok lock">🔒</span>' : ''}${f.micro ? '<span class="tok micro">💧</span>' : ''}</span></li>`;}).join('');
+      const blocked = (f.opts || []).filter(o => o.disabled).map(o => o.label);
+      return `<li><span class="rc-where">${where}</span>${f.choice ? `<span class="rc-choice">→ «${esc(f.choice)}»</span>` : ''}${blocked.length ? `<span class="rc-blocked">🚫 non poteva: ${blocked.map(esc).join(', ')}</span>` : ''}<span class="rc-toks">${tokens(f.ops, f.pols || [])}${f.spec ? '<span class="tok lock">🔒</span>' : ''}${f.micro ? '<span class="tok micro">💧</span>' : ''}</span></li>`;}).join('');
+    const idle = !ev ? idleText(p) : '';
     return `<div class="rc-card" style="--pc:${c.color};--d:${i * 70}ms"><header>${avatar(p.id, 'sm')}<b>${c.name}</b><span class="rc-move ${d < 0 ? 'back' : d === 0 ? 'still' : ''}">📍 ${from} → ${p.arrived ? '🏁 ' : ''}${p.position}${d ? ` (${d > 0 ? '+' : ''}${d})` : ''}</span></header>
-      <ul>${rows || '<li class="muted">nessuna mossa registrata</li>'}</ul>
+      <ul>${rows || `<li class="muted">${idle || 'nessuna mossa registrata'}</li>`}</ul>
       <footer>${delta.length ? delta.map(([k, v]) => `<span class="${v < 0 ? 'neg' : 'pos'}">${ICON[k]} ${v > 0 ? '+' : ''}${v}</span>`).join('') : '<span class="still">risorse invariate</span>'}<span class="rc-res">${RES.map(k => `${ICON[k]}${p.res[k]}`).join(' ')}</span></footer></div>`;
   }).join('');
+  const qs = ev ? ['Chi ha avuto più margine per assorbire il colpo? Perché?', 'Che cosa ha fatto la differenza: soldi, salute, mezzi di trasporto, lingua?'] : ['Chi ha avanzato di più, e grazie a che cosa?', 'Chi non ha potuto scegliere? Che cosa gli mancava?', 'Dove le stesse regole hanno pesato in modo diverso?', 'Che cosa avrebbe cambiato le cose per chi è rimasto indietro?'];
   return `<div class="recap-veil"><section class="recap"><header class="rc-head"><div><small>${ev ? 'Evento Mondo · ' + esc(ev.title) : 'Giro ' + g.round + ' di ' + g.config.rounds} · in breve</small><h2>${ev ? 'Stessa crisi, vite diverse.' : 'Stesso giro, vite diverse.'}</h2></div>
-    <div class="rc-ctrl"><span class="rc-count">si va avanti tra <b id="recap-count">${H.closeAt ? Math.max(0, Math.ceil((H.closeAt - Date.now()) / 1000)) + ' s' : 'in pausa'}</b></span><button class="ghost small" data-action="hold-round">⏸ Aspetta, ne parliamo</button><button class="primary" data-action="close-round">Avanti →</button></div></header>
+    <div class="rc-ctrl"><button class="primary big" data-action="close-round">${ev ? 'Avanti: si riprende →' : g.round >= g.config.rounds ? 'Avanti: fine partita →' : g.round === POLICY_ROUND && g.config.rounds > POLICY_ROUND ? 'Avanti: tocca al Comune →' : 'Avanti: giro ' + (g.round + 1) + ' →'}</button></div></header>
     <div class="rc-grid ${g.players.length > 6 ? 'many' : ''}">${cards}</div>
-    <p class="rc-q">${ev ? 'Chi ha avuto più margine per assorbire il colpo? Perché?' : pickOne(['Chi ha avanzato di più, e grazie a che cosa?', 'Chi non ha potuto scegliere? Che cosa gli mancava?', 'Dove le stesse regole hanno pesato in modo diverso?', 'Che cosa avrebbe cambiato le cose per chi è rimasto indietro?'])}</p></section></div>`;
+    <p class="rc-q">${qs.map(esc).join('<br>')}</p></section></div>`;
 }
 function showRecap() {
   overlay = 'recap'; H.recapPending = false; H.recapShown = true;
-  if (!H.paused) H.closeAt = Date.now() + RECAP_SECONDS * 1000;
   fxRoot.innerHTML = recapHTML(); persist(); renderSoft();
 }
 function floatTokens(pid, ops, pols, micro) {
@@ -5650,7 +5836,9 @@ function bind() {
       case 'close-round': closeRound(); break;
       case 'force-close': if (confirm('Chiudere il giro? Chi non ha ancora giocato resta fermo.')) closeRound(); break;
       case 'hold-round': H.closeAt = 0; H.paused = true; persist(); renderSoft(); {const rc = $('#recap-count'); if (rc) rc.textContent = 'in pausa';} break;
-      case 'pause': H.paused = !H.paused; if (!H.paused && overlay === 'recap') H.closeAt = Date.now() + 10000; if (!H.paused && H.deadline) H.deadline = Math.max(H.deadline, Date.now() + 20000); if (!H.paused) checkRoundEnd(); persist(); renderSoft(); break;
+      case 'pause': H.paused = !H.paused; if (!H.paused && H.deadline) H.deadline = Math.max(H.deadline, Date.now() + 20000); if (!H.paused) checkRoundEnd(); persist(); renderSoft(); break;
+      case 'ev-step': showEventReveal('impact'); break;
+      case 'ev-back': showEventReveal('card'); break;
       case 'event-go': H.seenEvent[G().round] = true; if (H.settings.timer) H.deadline = Date.now() + H.settings.timer * 1000; persist(); closeOverlay(); renderSoft(); break;
       case 'aura-ok': if (overlay === 'aura') closeOverlay(); break;
       case 'stage-next': if (overlay === 'scene') closeOverlay(); break;
@@ -5692,7 +5880,12 @@ function bind() {
       if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) {e.preventDefault(); rulesGo(rulesI - 1); return;}
       if (e.key === 'Escape') {closeRules(false); return;}
     }
-    if (e.key === 'Escape') {if (modal) closeModal(); else if (zoom) {zoom = null; zoomRoot.innerHTML = '';} else if (overlay === 'aura' || overlay === 'splash') closeOverlay();}});
+    if (!modal && !/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName) && ['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) {
+      if (overlay === 'scene' || overlay === 'aura') {e.preventDefault(); closeOverlay(); return;}
+      if (overlay === 'recap') {e.preventDefault(); closeRound(); return;}
+      if (overlay === 'event') {e.preventDefault(); if (evStep === 'card') showEventReveal('impact'); else {H.seenEvent[G().round] = true; persist(); closeOverlay(); renderSoft();} return;}
+    }
+    if (e.key === 'Escape') {if (modal) closeModal(); else if (zoom) {zoom = null; zoomRoot.innerHTML = '';} else if (overlay === 'splash') closeOverlay();}});
   let rt; addEventListener('resize', () => {clearTimeout(rt); rt = setTimeout(() => {drawRoad(); placePawns();}, 80);});
 }
 
@@ -5714,6 +5907,7 @@ const {playerView, doneFor} = __parallel;
 const {choices, needsVerification, needsAuraDraw, specialOptions, effectPlan, specificRows, isAuraCell, cellImpact} = __engine;
 const {joinRoom, cleanCode} = __net;
 const {RULES, PHONE_INTRO} = __rules;
+const {EXPLAIN, EVENT_EXPLAIN} = __explain;
 const {ctx, $, $$, esc, fmt, sgn, pad, wait, reduced, pickOne, charOf, avatar, attrChip, tokens, dieHTML, diceFaces, FACE_ROT, spinDie, statBars, morph, microDots, auraFace, auraBack, countUp, KIND, ROW_COLORS, coords} = __ui;
 const SKEY = 'aura-online-phone-v1';
 const S = {intro: null, pendingReveal: null, net: {}, code: '', name: '', token: null, status: 'idle', msg: null, tab: 'turn', sel: null, special: '', decKey: '', busy: false, pending: null, dirty: false, lastHTML: '', lastScreen: '', face: 0, revealed: '', votes: null, gloss: '', joinError: ''};
@@ -5941,13 +6135,14 @@ function turnTab() {
   }
   if (ph === 'event') {
     const e = EVENTS.find(x => x.id === v.event.id);
-    return `<section class="event-card ph-event" style="--ec:${e.color}"><div class="ev-top"><span class="ev-ic">${e.icon}</span><span>EVENTO MONDO</span></div><h3>${esc(e.title)}</h3><p class="voice-s">“${esc(e.voice)}”</p><p class="ev-text">${esc(e.text)}</p></section>
+    return `<section class="event-card ph-event" style="--ec:${e.color}"><div class="ev-top"><span class="ev-ic">${e.icon}</span><span>EVENTO MONDO</span></div><h3>${esc(e.title)}</h3><p class="voice-s">“${esc(e.voice)}”</p><p class="ev-text">${esc(e.text)}</p>${EVENT_EXPLAIN[e.id] ? `<div class="explain ev"><b>Che cosa succede</b><p>${esc(EVENT_EXPLAIN[e.id].what)} ${esc(EVENT_EXPLAIN[e.id].who)}</p></div>` : ''}</section>
       <section class="ph-card ph-decide">${decision(v, p)}</section>${pair}`;
   }
   if (['cell', 'arrival'].includes(ph)) {
     const n = tc.landed || 40;
     return `${cellCard(n, v, p)}<section class="ph-card ph-decide" style="--pc:${charOf(p.id).color}"><div class="eyebrow">${ph === 'arrival' ? 'Primo arrivo alla 40' : 'Tocca a te decidere'}</div>${decision(v, p)}</section>${pair}`;
   }
+  if (ph === doneFor(g) && tc.idle && !g.event) return idleHTML(p, tc) + othersHTML();
   if (ph === doneFor(g)) return doneHTML(v, p, tc);
   return `<section class="ph-card"><p>Aspetta un attimo…</p></section>`;
 }
@@ -5957,6 +6152,7 @@ function cellCard(n, v, p) {
   const spec = specificRows(v, p, n);
   return `<article class="ph-cell" style="--row:${ROW_COLORS[r]};--k:${k.color}"><header class="z-head"><span class="z-ring">${pad(n)}</span><div class="z-title"><span class="z-kind">${k.label} · ${esc(c.tag)}</span><h2>${esc(c.title)}</h2></div></header>
    <div class="ph-cell-body"><blockquote class="voice"><span class="q">“</span>${esc(c.voice)}</blockquote>
+   ${EXPLAIN[n] ? `<div class="explain"><b>Che cosa succede</b><p>${esc(EXPLAIN[n])}</p></div>` : ''}
    ${spec.map(s => `<div class="spec-box" style="--pc:${me.color}"><div class="spec-head">${avatar(p.id, 'sm')}<span>SOLO PER TE · ${esc(me.name.toUpperCase())}</span><b>${esc(s.title)}</b></div><p class="spec-voice">${esc(s.voice)}</p><p class="spec-text">${esc(s.text)}</p><p class="spec-priv">🔒 Lo vedi solo tu. Sul proiettore compare un lucchetto: se vuoi, raccontalo nel debrief.</p></div>`).join('')}
    <div class="rules">${c.groups.map(([l, t]) => `<div class="rule"><small>${esc(l)}</small><strong>${esc(t)}</strong></div>`).join('')}${c.note ? `<p class="rule-note">${esc(c.note)}</p>` : ''}</div>
    ${c.hits.length ? `<div class="hits"><span class="h-label">Pesa di più con:</span>${c.hits.map(h => attrChip(h, {mine: me.attrs.includes(h)})).join('')}</div>` : ''}
@@ -5985,6 +6181,14 @@ function decision(v, p) {
   if (S.sel && v.phase !== 'arrival') {try {const plan = effectPlan(v, S.sel, S.special || null); html += `<div class="preview"><span class="pv-label">Per ${c.name}:</span>${tokens(plan.ops, plan.pols, true)}</div>`;} catch {}}
   html += `<button class="primary full big confirm" data-action="resolve" ${S.sel ? '' : 'disabled'}>Conferma ✓</button>`;
   return html;
+}
+function idleHTML(p, tc) {
+  const c = charOf(p.id), g = game();
+  const skip = tc.idle === 'skip';
+  return `<section class="ph-card ph-idle ${skip ? 'skip' : 'arrived'}"><span class="ph-idle-ic">${skip ? '⏸' : '🏁'}</span><div class="eyebrow">Giro ${g.round}</div>
+    <h2>${skip ? 'Questo giro stai ferma/o.' : 'Sei arrivata/o alla 40.'}</h2>
+    <p>${skip ? `Alla casella 15 ${c.name} ha scelto di fermarsi a riposare: per questo <b>salta questo tiro</b>. Non devi fare niente, il gioco funziona. Dal prossimo giro si riparte.` : `${c.name} non tira più il dado: da qui partecipa agli Eventi Mondo e alle decisioni del Comune.`}</p>
+    <p class="ph-idle-sub">Intanto guarda il proiettore: si racconta che cosa succede agli altri.</p></section>`;
 }
 function doneHTML(v, p, tc) {
   const g = game(); const total = g.players.length; const left = g.players.filter(x => (x.tc?.phase || 'ready') !== doneFor(g)).length;
@@ -6117,6 +6321,7 @@ function bind() {
 function startPhone() {
   root = $('#app'); fxRoot = $('#fx-root'); document.body.classList.add('mode-phone');
   if (/[?&]debug=1/.test(location.search)) window.__S = S;
+  addEventListener('pagehide', () => {try {link?.send({t: 'bye'});} catch {}});
   setInterval(() => {if (S.busy && !S.pending && Date.now() - (S.busySince || 0) > 10000) {S.busy = false; S.lastHTML = ''; render();} if (S.status !== 'online' || !link) return; send({t: 'ping'}); if (Date.now() - (S.lastSeen || 0) > 25000) {S.status = 'reconnecting'; renderShell(); connect();}}, 8000);
   ctx.facilitator = false;
   bind();

@@ -10,8 +10,8 @@
 2. Le persone inquadrano il QR con il telefono, scrivono un nickname ed entrano. Niente app, niente email, niente dati personali.
 3. **«Distribuisci i personaggi»**: il gioco sceglie i personaggi con il divario più ampio e sorteggia chi li gioca (oltre 6 persone si gioca in coppia).
 4. **«Regole e via!»**: 9 diapositive con le regole sul proiettore (frecce ← → o telecomando); sui telefoni compare il riassunto. Si possono rivedere con «📽 Regole».
-5. Tutti giocano insieme, ognuno dal proprio telefono. Il proiettore **racconta** ogni mossa: situazione, scelta (e alternative non possibili), effetti, carte AURA, risorse del personaggio. A fine giro, il riepilogo «Stesso giro, vite diverse» con una domanda per la discussione.
-6. Eventi Mondo dopo i giri 4, 7 e 9. Dopo il giro 8 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
+5. Tutti giocano insieme, ognuno dal proprio telefono. Il proiettore **racconta** ogni mossa: che cosa succede (in parole semplici), regole, opzioni scelte e non possibili, effetti con il loro perché, carte AURA con il dizionario. A fine giro il riepilogo «Stesso giro, vite diverse». **Si va avanti solo quando chi facilita dà l'ok** (bottone «Avanti», freccia → o telecomando).
+6. Eventi Mondo dopo i giri 2, 7 e 9, in due passaggi: la carta e «come colpisce ciascuno». Dopo il giro 6 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
 
 ## Prima di ogni formazione
 
