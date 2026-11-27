@@ -11,7 +11,8 @@
 3. **«Distribuisci i personaggi»**: il gioco sceglie i personaggi con il divario più ampio e sorteggia chi li gioca (oltre 6 persone si gioca in coppia).
 4. **«Regole e via!»**: 9 diapositive con le regole sul proiettore (frecce ← → o telecomando); sui telefoni compare il riassunto. Si possono rivedere con «📽 Regole».
 5. Tutti giocano insieme, ognuno dal proprio telefono. Il proiettore **racconta** ogni mossa: che cosa succede (in parole semplici), regole, opzioni scelte e non possibili, effetti con il loro perché, carte AURA con il dizionario. A fine giro il riepilogo «Stesso giro, vite diverse». **Si va avanti solo quando chi facilita dà l'ok** (bottone «Avanti», freccia → o telecomando).
-6. Eventi Mondo dopo i giri 2, 7 e 9, in due passaggi: la carta e «come colpisce ciascuno». Dopo il giro 6 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
+6. **11 carte AURA** in linguaggio Gen Z (nuove nella v0.9: Rizz, Brainrot, Delulu), pescate alle caselle 2, 7, 11, 14, 21, 23, 30, 35 e 39 (🃏 sul tabellone). Ogni carta mostra sul proiettore lo slang spiegato e la situazione reale che racconta.
+7. Eventi Mondo dopo i giri 2, 7 e 9, in due passaggi: la carta e «come colpisce ciascuno». Dopo il giro 6 si scrivono i bisogni e si votano le politiche dai telefoni; alla fine traiettorie, costi delle barriere e debrief.
 
 ## Prima di ogni formazione
 
@@ -20,7 +21,7 @@
 - Se il collegamento diretto è bloccato dalla rete, il telefono passa da solo alla **via di riserva** (broker MQTT pubblici, messaggi cifrati): pallino giallo invece che verde, si gioca uguale.
 - Se un telefono non si collega comunque, sullo schermo trova il motivo e che cosa fare (cambiare rete, riprovare).
 - Per reti difficili si può aggiungere un relay TURN gratuito di Metered: aprite il gioco con `?turn=NOMEAPP:APIKEY` (il QR lo passa ai telefoni).
-- Tenete a portata di mano la versione offline v0.4 come piano B.
+- Tenete a portata di mano la versione offline (AURA_v0_9_offline.html) come piano B.
 
 ## Tecnica
 
